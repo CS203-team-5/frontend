@@ -14,7 +14,6 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 
-import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 
@@ -41,10 +40,16 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
+            <CNavLink href="#">Dashboard</CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
+            <CNavLink href="/records">Records</CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">Bookings</CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">Admin</CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
@@ -69,9 +74,6 @@ const AppHeader = () => {
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
-      </CContainer>
     </CHeader>
   )
 }
