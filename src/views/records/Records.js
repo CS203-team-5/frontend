@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, useState, useEffect } from 'react'
 import {
   CCard,
   CCardBody,
@@ -13,15 +13,32 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import { DocsCallout, DocsExample } from 'src/components'
 
 const Records = (props) => {
+  const [bookingRecords, showRecods] = useState([])
+  useEffect(() => {
+    const getRecords = async () => {
+      const tasksFromServer = await fetchRecords()
+      showRecods(tasksFromServer)
+    }
+
+    getRecords()
+  }, [])
+
+  // Fetch Tasks
+  const fetchRecords = async () => {
+    const res = await fetch('http://localhost:8080/booking')
+    const data = await res.json()
+
+    return data
+  }
+
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Table</strong> <small>Get this from backend</small>
+            <strong>Booking Records</strong> <small>Get this from backend</small>
           </CCardHeader>
           <CCardBody>
             <CTable>
@@ -34,23 +51,14 @@ const Records = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                <CTableRow>
-                  <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                  <CTableDataCell>Mark</CTableDataCell>
-                  <CTableDataCell>Otto</CTableDataCell>
-                  <CTableDataCell>@mdo</CTableDataCell>
-                </CTableRow>
-                <CTableRow>
-                  <CTableHeaderCell scope="row">2</CTableHeaderCell>
-                  <CTableDataCell>Jacob</CTableDataCell>
-                  <CTableDataCell>Thornton</CTableDataCell>
-                  <CTableDataCell>@fat</CTableDataCell>
-                </CTableRow>
-                <CTableRow>
-                  <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                  <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
-                  <CTableDataCell>@twitter</CTableDataCell>
-                </CTableRow>
+                {bookingRecords.map((bookingRecord) => (
+                  <CTableRow key={bookingRecord.bid}>
+                    <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
+                    <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
+                    <CTableDataCell>{bookingRecord.user.dept}</CTableDataCell>
+                    <CTableDataCell>{bookingRecord.status}</CTableDataCell>
+                  </CTableRow>
+                ))}
               </CTableBody>
             </CTable>
           </CCardBody>
