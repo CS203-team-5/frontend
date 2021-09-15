@@ -1,6 +1,7 @@
-import React from 'react'
+import { React, Dropdown } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { NavDropdown } from 'react-bootstrap'
 import {
   CContainer,
   CHeader,
@@ -46,10 +47,13 @@ const AppHeader = () => {
             <CNavLink href="/records">Records</CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Bookings</CNavLink>
+            <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Admin</CNavLink>
+            <NavDropdown title="Admin" id="nav-dropdown">
+              <NavDropdown.Item href="/records">User Management</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
+            </NavDropdown>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>

@@ -7,8 +7,7 @@ const loading = (
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
-
-// Containers
+// Containers 
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 // Pages

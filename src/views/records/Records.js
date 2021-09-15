@@ -29,7 +29,6 @@ const Records = (props) => {
   const fetchRecords = async () => {
     const res = await fetch('http://localhost:8080/bookings/booking')
     const data = await res.json()
-
     return data
   }
 
