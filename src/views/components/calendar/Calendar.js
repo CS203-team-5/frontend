@@ -38,9 +38,9 @@ export default function Calendar1() {
                         minDate={new Date()}
                         value={value}
                     />
-                    <p className='text-left'>
+                    {/* <p className='text-left'>
                         <span className='bold'>Selected Date:</span>{' '}
-                    </p>
+                    </p> */}
                 </main>
             </div>
         </div>
