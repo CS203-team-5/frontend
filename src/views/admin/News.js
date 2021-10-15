@@ -27,7 +27,7 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
-        const res = await fetch('http://localhost:8080/news/')
+        const res = await fetch('http://localhost:8080/api/news/hr/getAll')
         console.log(res)
         const data = await res.json()
         console.log(data)

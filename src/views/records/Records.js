@@ -27,7 +27,7 @@ const Records = (props) => {
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    const res = await fetch('http://localhost:8080/bookings/booking')
+    const res = await fetch('http://localhost:8080/api/bookings/hr/getAll/')
     const data = await res.json()
     return data
   }
