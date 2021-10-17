@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
+import './Calendar.css';
 import Bookings from 'src/views/bookings/Bookings';
 
 export default function Calendar1() {
@@ -8,17 +9,13 @@ export default function Calendar1() {
     <Bookings name={value} />
 
     return (
-        <div className="Sample">
-            <div className="Sample__container">
-                <main className="Sample__container__content">
+        <div className = "react-calendar">
                     <Calendar
                         onChange={onChange}
                         showNeighboringMonth={false}
                         minDate={new Date()}
                         value={value}
                     />
-                </main>
-            </div>
         </div>
     );
 }

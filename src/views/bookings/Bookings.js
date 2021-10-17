@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Calendar1 from '../components/calendar/Calendar'
 import pict from './../../assets/images/calender/calendar_icon.png'
-import 'react-calendar/dist/Calendar.css'
+import '../components/calendar/Calendar.css'
 import {NavDropdown} from 'react-bootstrap'
 
 class Bookings extends React.Component {
@@ -30,7 +30,8 @@ class Bookings extends React.Component {
             </h1>
           </div>
           <Calendar1 style={{width: "750px"}}/>
-        </div>
+        </div
+          style={{width: '751px', border: '1px solid red', float: 'left', marginRight: '64px'}}>
         {/* right div */}
         <div
           style={{border: '1px solid blue', textAlign: 'center', float: 'right', padding: '12px'}} className = 'card'>
