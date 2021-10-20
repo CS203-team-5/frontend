@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import Calendar1 from '../components/calendar/Calendar'
+import React, {Component, useState} from 'react'
+import Calendar from 'react-calendar'
+import './../../assets/css/Calendar.css'
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../components/calendar/Calendar.css'
 import {NavDropdown} from 'react-bootstrap'
@@ -32,49 +33,57 @@ import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 
-class Bookings extends React.Component {
+const Bookings = (props) => {
+    const [date, setDate] = useState(new Date());
+    const locale = 'en-SG';
+    const options = {
+         weekday: "long",
+         year: "numeric",
+         month:"long",
+         day:"numeric"
+    };
+  return (
+    <CRow>
+      <CCol xs>
+        <CCard className="mb-4">
+          <CCardHeader>Submit New Booking</CCardHeader>
+          <CCardBody>
+            <CRow>
+              <CCol xs={12} md={6} xl={6}>
+                <div className = "react-calendar">
+                  <Calendar
+                    onChange={setDate}
+                    showNeighboringMonth={false}
+                    minDate={new Date()}
+                    value={date}
+                  />
+                </div>
+              </CCol>
 
-  render() {
-    console.log('Message is ', this.props)
-    return (
-      <>
-        <CRow>
-          <CCol xs>
-            <CCard className="mb-4">
-              <CCardHeader>Submit New Booking</CCardHeader>
-              <CCardBody>
-                <CRow>
-                  <CCol xs={12} md={6} xl={6}>
-                    <Calendar1/>
-                  </CCol>
+              <CCol xs={12} md={6} xl={6}>
+                <CForm>
+                  <CRow className="mb-3">
+                    <CFormLabel  className="col-sm-4 col-form-label">Quota Left</CFormLabel>
+                    <CFormLabel  className="col-sm-4 col-form-label">3/10</CFormLabel>
+                  </CRow>
+                  <CRow className="mb-3">
+                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label">Date Selected</CFormLabel>
+                    <CCol sm={8} >
+                      <CFormInput type="text" id="dateSelected" value={date.toLocaleDateString(locale,options)}/>
+                    </CCol>
+                  </CRow>
+                  <CButton type="submit">Submit</CButton>
+                </CForm>
+              </CCol>
+            </CRow>
 
-                  <CCol xs={12} md={6} xl={6}>
-                    <CForm>
-                      <CRow className="mb-3">
-                        <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label">Date Left</CFormLabel>
-                        <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label">3/10</CFormLabel>
-                      </CRow>
-                      <CRow className="mb-3">
-                        <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label">Date Selected</CFormLabel>
-                        <CCol sm={8} >
-                          <CFormInput type="text" id="dateSelected" value="17/12/2021"/>
-                        </CCol>
-                      </CRow>
-                      <CButton type="submit">Submit</CButton>
-                    </CForm>
-                  </CCol>
-                </CRow>
+            <br />
 
-                <br />
-
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </>
-
-    )
-  }
+          </CCardBody>
+        </CCard>
+      </CCol>
+    </CRow>
+  )
 }
 
 export default Bookings
