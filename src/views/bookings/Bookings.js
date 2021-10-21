@@ -1,56 +1,66 @@
-import React, {Component, useState} from 'react'
-import Calendar from 'react-calendar'
-import './../../assets/css/Calendar.css'
+import React, {useState} from 'react';
+import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
-import '../components/calendar/Calendar.css'
-import {NavDropdown} from 'react-bootstrap'
+import '../components/calendar/Calendar.css';
+import Axios from 'axios';
 import {
-  CAvatar,
   CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCol,
   CForm,
-  CFormCheck,
   CFormInput,
   CFormLabel,
-  CFormSelect,
-  CInputGroup,
-  CInputGroupText,
-  CProgress,
   CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
 } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle, hexToRgba } from '@coreui/utils'
-import CIcon from '@coreui/icons-react'
 
-const Bookings = (props) => {
-    const [date, setDate] = useState(new Date());
-    const locale = 'en-SG';
-    const options = {
-         weekday: "long",
-         year: "numeric",
-         month:"long",
-         day:"numeric"
-    };
+function Bookings(props) {
+  const [date, setDate] = useState(new Date());
+  const locale = 'en-SG';
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+
+  const url = "http://localhost:8080/api/bookings/emp/"
+
+  function submit(e) {
+    e.preventDefault();
+    Axios.post(url, {
+      bdate: date,
+      status: "Completed",
+      user: {
+        "email": "jyphee.2020@scis.smu.edu.sg",
+        "fname": "Jing",
+        "lname": "Yuan",
+        "password": "Password@123",
+        "userRole": "HR"
+      }
+    })
+      .then(res=>{
+        console.log(res.date)
+      })
+  }
+
+  function handle(e) {
+    const newdata = {...date}
+    newdata[e.target.id] = e.target.value
+    setDate(newdata)
+    console.log(newdata)
+  }
+
   return (
     <CRow>
       <CCol xs>
         <CCard className="mb-4">
-          <CCardHeader>Submit New Booking</CCardHeader>
+          <CCardHeader component="h5"><img src={pict}/> Booking Form </CCardHeader>
           <CCardBody>
             <CRow>
               <CCol xs={12} md={6} xl={6}>
-                <div className = "react-calendar">
+                <div className="react-calendar">
                   <Calendar
                     onChange={setDate}
                     showNeighboringMonth={false}
@@ -61,23 +71,23 @@ const Bookings = (props) => {
               </CCol>
 
               <CCol xs={12} md={6} xl={6}>
-                <CForm>
+                <CForm onSubmit={(e)=> submit(e)}>
                   <CRow className="mb-3">
-                    <CFormLabel  className="col-sm-4 col-form-label">Quota Left</CFormLabel>
-                    <CFormLabel  className="col-sm-4 col-form-label">3/10</CFormLabel>
+                    <CFormLabel className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
+                    <CFormLabel className="col-sm-4 col-form-label"> 3/10 </CFormLabel>
                   </CRow>
                   <CRow className="mb-3">
-                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label">Date Selected</CFormLabel>
-                    <CCol sm={8} >
-                      <CFormInput type="text" id="dateSelected" value={date.toLocaleDateString(locale,options)}/>
+                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
+                    <CCol sm={8}>
+                      <CFormInput type="string" id="b_date" value={date.toLocaleDateString(locale, options)} onChange={setDate} placeholder="b_date"/>
                     </CCol>
                   </CRow>
-                  <CButton type="submit">Submit</CButton>
+                  <CButton type="submit"> Submit </CButton>
                 </CForm>
               </CCol>
             </CRow>
 
-            <br />
+            <br/>
 
           </CCardBody>
         </CCard>
