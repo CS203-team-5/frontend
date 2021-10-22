@@ -16,6 +16,7 @@ import {
 } from '@coreui/react'
 
 function Bookings(props) {
+  const [email, setEmail] = useState();
   const [date, setDate] = useState(new Date());
   const locale = 'en-SG';
   const options = {
@@ -33,14 +34,10 @@ function Bookings(props) {
       bdate: date,
       status: "Completed",
       user: {
-        "email": "jyphee.2020@scis.smu.edu.sg",
-        "fname": "Jing",
-        "lname": "Yuan",
-        "password": "Password@123",
-        "userRole": "HR"
+        "email": email
       }
     })
-      .then(res=>{
+      .then(res => {
         console.log(res.date)
       })
   }
@@ -71,15 +68,24 @@ function Bookings(props) {
               </CCol>
 
               <CCol xs={12} md={6} xl={6}>
-                <CForm onSubmit={(e)=> submit(e)}>
+                <CForm onSubmit={(e) => submit(e)}>
                   <CRow className="mb-3">
                     <CFormLabel className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
                     <CFormLabel className="col-sm-4 col-form-label"> 3/10 </CFormLabel>
                   </CRow>
                   <CRow className="mb-3">
+                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
+                    <CCol sm={8}>
+                      <CFormInput type="email" id="b_email" onChange={event => setEmail(event.target.value)}
+                                  placeholder="Enter your email"/>
+
+                    </CCol>
+                  </CRow>
+                  <CRow className="mb-3">
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
                     <CCol sm={8}>
-                      <CFormInput type="string" id="b_date" value={date.toLocaleDateString(locale, options)} onChange={setDate} placeholder="b_date"/>
+                      <CFormInput type="string" id="b_date" value={date.toLocaleDateString(locale, options)}
+                                  onChange={setDate} placeholder="b_date" disabled="disabled"/>
                     </CCol>
                   </CRow>
                   <CButton type="submit"> Submit </CButton>
