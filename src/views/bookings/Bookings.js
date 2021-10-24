@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import Moment from 'react-moment';
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../components/calendar/Calendar.css';
 import Axios from 'axios';
+import dayjs from 'dayjs';
+
 import {
   CButton,
   CCard,
@@ -21,17 +23,21 @@ function Bookings(props) {
   const [date, setDate] = useState(new Date());
   const locale = 'en-SG';
   const options = {
-    // weekday: "long",
-    // year: "numeric",
-    // month: "long",
-    // day: "numeric",
-    timeZone: "UTC"
+
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "Asia/Singapore"
+
   };
 
   const url = "http://localhost:8080/api/bookings/emp/"
 
   function submit(e) {
     e.preventDefault();
+    console.log("Before ", date);
+    date.setHours(8);
     Axios.post(url, {
       bdate: date,
       status: "Completed",
@@ -40,12 +46,11 @@ function Bookings(props) {
       }
     })
       .then(res => {
-        console.log(res.date)
       })
   }
 
   function handle(e) {
-    const newdata = {...date}
+    const newdata = { ...date }
     newdata[e.target.id] = e.target.value
     setDate(newdata)
     console.log(newdata)
@@ -55,7 +60,7 @@ function Bookings(props) {
     <CRow>
       <CCol xs>
         <CCard className="mb-4">
-          <CCardHeader component="h5"><img src={pict}/> Booking Form </CCardHeader>
+          <CCardHeader component="h5"><img src={pict} /> Booking Form </CCardHeader>
           <CCardBody>
             <CRow>
               <CCol xs={12} md={6} xl={6}>
@@ -79,18 +84,20 @@ function Bookings(props) {
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
                     <CCol sm={8}>
                       <CFormInput type="email" id="b_email" onChange={event => setEmail(event.target.value)}
-                                  placeholder="Enter your email"/>
+                        placeholder="Enter your email" />
 
                     </CCol>
                   </CRow>
                   <CRow className="mb-3">
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
                     <CCol sm={8}>
-                    <CFormInput type="string" id="b_date" value={date.toLocaleString(locale, options)}
-                                  onChange={setDate.addHours()} placeholder="b_date" disabled="disabled"/>
-                    {/* <CFormInput type="string" id="b_date" value={date.toLocaleDateString(locale, options)}
-                                  onChange={setDate} placeholder="b_date" disabled="disabled"/> */}
-                     
+
+                      <CFormInput type="string" id="b_date" 
+                      // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
+                      value={date.toLocaleString(locale, options)}
+                      // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
+                      
+                        onChange={setDate} placeholder="b_date" disabled="disabled" />
                     </CCol>
                   </CRow>
                   <CButton type="submit"> Submit </CButton>
@@ -98,7 +105,7 @@ function Bookings(props) {
               </CCol>
             </CRow>
 
-            <br/>
+            <br />
 
           </CCardBody>
         </CCard>
