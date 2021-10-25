@@ -25,6 +25,12 @@ function Bookings(props) {
     day: "numeric"
   };
 
+const [username, setName] = useState(() => {
+  // getting stored value
+  const saved = localStorage.getItem("username");
+  const initialValue = JSON.parse(saved);
+  return initialValue || "";
+});
   const url = "http://localhost:8080/api/bookings/emp/"
 
   function submit(e) {
@@ -52,10 +58,13 @@ function Bookings(props) {
     console.log(newdata)
   }
 
+
+
   return (
     <CRow>
       <CCol xs>
         <CCard className="mb-4">
+
           <CCardHeader component="h5"><img src={pict}/> Booking Form </CCardHeader>
           <CCardBody>
             <CRow>
@@ -73,7 +82,7 @@ function Bookings(props) {
               <CCol xs={12} md={6} xl={6}>
                 <CForm onSubmit={(e)=> submit(e)}>
                   <CRow className="mb-3">
-                    <CFormLabel className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
+                    <CFormLabel className="col-sm-4 col-form-label"> Quota Left</CFormLabel>
                     <CFormLabel className="col-sm-4 col-form-label"> 3/10 </CFormLabel>
                   </CRow>
                   <CRow className="mb-3">
