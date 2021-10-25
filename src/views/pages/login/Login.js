@@ -8,11 +8,12 @@ import {useHistory} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 //import createHistory from 'history/createBrowserHistory';
 
-const history=createBrowserHistory({forceRefresh:true});
+//const history=createBrowserHistory({forceRefresh:true});
 
 
 
 function Login(props) {
+const history=useHistory();
    const [username, setUsername] = useState();
    const [password, setPassword] = useState();
 //     const getCurrentUser = async function () {
