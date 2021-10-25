@@ -3,9 +3,23 @@ import axios from "axios";
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import {useHistory} from 'react-router-dom';
-
-
 import { createBrowserHistory } from 'history'
+import { Link } from 'react-router-dom'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardGroup,
+  CCol,
+  CContainer,
+  CForm,
+  CFormInput,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react'
+import CIcon from '@coreui/icons-react'
+import { cilLockLocked, cilUser } from '@coreui/icons'
 //import createHistory from 'history/createBrowserHistory';
 
 //const history=createBrowserHistory({forceRefresh:true});
@@ -58,35 +72,119 @@ const history=useHistory();
 //        });
    };
 
-
      return (
-         <div>
-             <div className="wrapper">
-                 <form className="form-signin" onSubmit={handleFormSubmit}>
-                     <h2 className="form-signin-heading">Please login</h2>
-                     <div className="form-group">
-                         <input type="text"
-                             className="form-control"
-                             placeholder="User name"
-                             onChange={event => setUsername(event.target.value)}
-                         />
-                     </div>
-                     <div className="form-group">
-                         <input type="password"
-                             className="form-control"
-                             placeholder="password"
-                             onChange={event => setPassword(event.target.value)}
-                         />
-                     </div>
-                     <button className="btn btn-lg btn-primary btn-block" type="submit">
-                         Login
-                     </button>
-                 </form>
-             </div>
-         </div>
-     );
+       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+         <CContainer>
+           <CRow className="justify-content-center">
+               <form className="form-signin" onSubmit={handleFormSubmit}>
 
-}
+             <CCol md={8}>
+               <CCardGroup>
+                 <CCard className="p-4">
+                   <CCardBody>
+
+                       <h1>Login</h1>
+
+
+                               <p className="text-medium-emphasis">Sign In to your account</p>
+                               <CInputGroup className="mb-3">
+                               <div className="form-group">
+                                    <input type="text"
+                                        className="form-control"
+                                        placeholder="User name"
+                                        onChange={event => setUsername(event.target.value)}
+                                    />
+                                </div>
+
+                               </CInputGroup>
+                               <CInputGroup className="mb-4">
+
+                             <div className="form-group">
+                                 <input type="password"
+                                     className="form-control"
+                                     placeholder="password"
+                                     onChange={event => setPassword(event.target.value)}
+                                 />
+                                </div>
+                               </CInputGroup>
+                               <CRow>
+                               <CCol xs={6}>
+
+                                  <button className="btn btn-lg btn-primary btn-block" type="submit">
+                                      Login
+                                  </button>
+                               </CCol>
+                           </CRow>
+
+
+                   </CCardBody>
+                 </CCard>
+               </CCardGroup>
+              </CCol>
+             </form>
+           </CRow>
+
+         </CContainer>
+       </div>
+     )
+   }
+
+//   export default Login
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     return (
+//         <div>
+//         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+//            <CContainer>
+//             <div className="wrapper">
+//              <h1> Login </h1>
+//                 <form className="form-signin" onSubmit={handleFormSubmit}>
+//                     <h2 className="form-signin-heading">Please login</h2>
+//                     <div className="form-group">
+//                         <input type="text"
+//                             className="form-control"
+//                             placeholder="User name"
+//                             onChange={event => setUsername(event.target.value)}
+//                         />
+//                     </div>
+//
+//                     <div className="form-group">
+//                         <input type="password"
+//                             className="form-control"
+//                             placeholder="password"
+//                             onChange={event => setPassword(event.target.value)}
+//                         />
+//                     <div></div>
+//                     </div>
+//                     <button className="btn btn-lg btn-primary btn-block" type="submit">
+//                         Login
+//                     </button>
+//                 </form>
+//             </div>
+//             </CContainer>
+//            </div>
+//         </div>
+//     );
+//
+//}
 
 
 export default withRouter(Login);
