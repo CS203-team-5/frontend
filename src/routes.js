@@ -60,6 +60,8 @@ const News = React.lazy(() => import('./views/admin/News'))
 const CheckIn =React.lazy(() => import('./views/checkIn'))
 const CreateUser =React.lazy(() => import('./views/createUser'))
 
+const UserManagement =React.lazy(() => import('./views/userManagement'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -109,6 +111,7 @@ const routes = [
   { path: '/admin/news', name: 'News', component: News, exact: true },
   { path: '/CheckIn', name: 'CheckIn', component: CheckIn, exact: true },
   { path: '/CreateUser', name: 'CreateUser', component: CreateUser, exact: true },
+   { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
 ]
 
 export default routes

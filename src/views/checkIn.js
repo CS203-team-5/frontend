@@ -28,6 +28,8 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 
 function CheckIn(props){
+const history= useHistory();
+
 //
 //   const [Temperature, setTemperature] = useState();
 //   const [Health, setHealth] = useState();
@@ -40,8 +42,8 @@ function CheckIn(props){
 
    const handleFormSubmit = event => {
        event.preventDefault();
-
-       const endpoint = "http://localhost:8080/authenticate";
+  history.push("/dashboard")
+//       const endpoint = "http://localhost:8080/authenticate";
 
        // const username = state.username;
        // const password = state.password;
@@ -74,15 +76,15 @@ function CheckIn(props){
    };
 
      return (
-       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-         <CContainer>
-           <CRow className="justify-content-center">
-               <form className="form-signin" onSubmit={handleFormSubmit}>
+            <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+              <CContainer>
+                <CRow className="justify-content-center">
+                    <form className="form-signin" onSubmit={handleFormSubmit}>
 
-             <CCol md={8}>
-               <CCardGroup>
-                 <CCard className="p-4">
-                   <CCardBody>
+                  <CCol md={8}>
+                    <CCardGroup>
+                      <CCard className="p-4">
+                        <CCardBody>
 
                        <h1>Daily Check-in Form</h1>
                                <p className="text-medium-emphasis">Temperature at time of entry</p>
@@ -123,7 +125,7 @@ function CheckIn(props){
                                <CCol xs={6}>
 
                                   <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                      Login
+                                    Submit
                                   </button>
                                </CCol>
                            </CRow>

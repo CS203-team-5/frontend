@@ -43,7 +43,7 @@ const history=useHistory();
 
    const handleFormSubmit = event => {
        event.preventDefault();
-
+        history.push("/UserManagement");
        const endpoint = "http://localhost:8080/authenticate";
 
        // const username = state.username;
@@ -61,42 +61,23 @@ const history=useHistory();
        axios.post(endpoint, user_object).then(res => {
           if(res.response==200){
 
-          }else{
-
           }
 
        });
    };
 
-   const handleDashboard = () => {
-//      const name= localStorage.getItem("username");
-//      const intialValue
-//        axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
-//            if (res.response === 200) {
-      history.push("/dashboard");
-      alert("success");
 
-//            } else {
-//                console.log("Fail")
-//                alert("Authentication failure");
-//            }
-//        });
-   };
 
      return (
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
-               <form className="form-signin" onSubmit={handleFormSubmit}>
-
+            <form className="form-signin" onSubmit={handleFormSubmit}>
              <CCol md={8}>
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
-
                        <h1>Create new User</h1>
-
-
                                <p className="text-medium-emphasis"> Create account for new user by entering relevant details  </p>
                                <CInputGroup className="mb-4">
                                <div className="form-group">
@@ -182,7 +163,7 @@ const history=useHistory();
 
                                       </CInputGroup>
                                   <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                      Login
+                                      Create
                                   </button>
                                </CCol>
                            </CRow>
