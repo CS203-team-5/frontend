@@ -70,15 +70,11 @@ const UserManagement = (props) => {
   return (
     <CRow>
       <CCol xs={12}>
+
+
         <CCard className="mb-4">
-          <CCol xs={4}>
-         <button className="btn btn-lg btn-primary btn-block"
-          onClick={(event) => {
-             history.push("/CreateUser")
-           }}  variant="outline">
-                  Add New User
-          </button>
-          </CCol>
+
+
           <CCardHeader>
 
             <strong sm={6} md={8}>Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -111,6 +107,17 @@ const UserManagement = (props) => {
                 autoComplete="off"
                 label="Upcoming"
               />
+
+              <CCol xs={10}></CCol>
+                 <CCol xs={6}>
+                   <button className="btn btn-lg btn-primary btn-block"
+                    onClick={(event) => {
+                       history.push("/CreateUser")
+                     }}  variant="outline">
+                            Add New User
+                    </button>
+
+                              </CCol>
             </CButtonGroup>
           </CCardHeader>
           <CCardBody>

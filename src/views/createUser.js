@@ -17,6 +17,8 @@ import {
   CInputGroup,
   CInputGroupText,
   CFormCheck,
+  CFormLabel,
+  CFormFeedback,
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -40,9 +42,17 @@ const history=useHistory();
 //        setCurrentUser(currentUser);
 //        return currentUser;
 //      };
+const [validated, setValidated] = useState(false)
+
 
    const handleFormSubmit = event => {
        event.preventDefault();
+       const form = event.currentTarget
+         if (form.checkValidity() === false) {
+           event.preventDefault()
+           event.stopPropagation()
+         }
+         setValidated(true)
         history.push("/UserManagement");
        const endpoint = "http://localhost:8080/authenticate";
 
@@ -80,54 +90,57 @@ const history=useHistory();
                        <h1>Create new User</h1>
                                <p className="text-medium-emphasis"> Create account for new user by entering relevant details  </p>
                                <CInputGroup className="mb-4">
-                               <div className="form-group">
+
+                                <CCol md={10}>
                                     <input type="text"
                                         className="form-control"
                                         placeholder="User Email"
                                         onChange={event => setEmail(event.target.value)}
-                                    />
-                                </div>
+                                    required/>
+                                     </CCol>
 
-                               </CInputGroup>
+
+
+
+                               </CInputGroup >
+                              <CInputGroup className="mb-4">
+                                <CCol md={10}>
+
+                                   <CFormInput type="text" placeholder="Re-enter User Email" id="validationServer05" required />
+                                   <CFormFeedback invalid>Please check email entered </CFormFeedback>
+                                 </CCol>
+                                </CInputGroup>
+
 
 
                                <CInputGroup className="mb-4">
 
-
+                                <CCol md={10 }>
                                     <div className="form-group">
                                          <input type="text"
                                              className="form-control"
                                              placeholder="First Name"
                                              onChange={event => setFirstName(event.target.value)}
-                                         />
+                                        required />
                                      </div>
+                                 </CCol>
                                 </CInputGroup>
 
                                  <CInputGroup className="mb-4">
 
-                             <div className="form-group">
+
+                               <CCol md={10 }>
                                  <input type="Last Name"
                                      className="form-control"
                                      placeholder="Last Name"
                                      onChange={event => setLastName(event.target.value)}
-                                 />
-                                </div>
+                                 required />
+                                  </CCol>
+
                                </CInputGroup>
 
 
 
-
-
-                                 <CInputGroup className="mb-4">
-
-                             <div className="form-group">
-                                 <input type="password"
-                                     className="form-control"
-                                     placeholder="set default password"
-                                     onChange={event => setPassword(event.target.value)}
-                                 />
-                                </div>
-                               </CInputGroup>
                                <CRow>
                                <CCol xs={6}>
 <p className="text-medium-emphasis">Choose new User Role
@@ -144,6 +157,7 @@ const history=useHistory();
                                        label="Admin"
                                        defaultChecked
                                      />
+                                     <CCol xs={2}></CCol>
 
 
                                      <CFormCheck
