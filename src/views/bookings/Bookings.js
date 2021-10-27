@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import Moment from 'react-moment';
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../components/calendar/Calendar.css';
 import Axios from 'axios';
-//import dayjs from 'dayjs';
 
 import {
   CButton,
@@ -91,12 +89,8 @@ function Bookings(props) {
                   <CRow className="mb-3">
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
                     <CCol sm={8}>
-<<<<<<< HEAD
-
-                      <CFormInput type="string" id="b_date" 
-=======
                       <CFormInput type="string" id="b_date"
->>>>>>> 225f3155f30a048942db8e754fceb2347c2d1e6d
+
                       // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
                       value={date.toLocaleString(locale, options)}
                       // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
