@@ -1,4 +1,5 @@
 import React, { lazy } from 'react'
+import {useHistory} from 'react-router-dom';
 
 import {
   CAvatar,
@@ -61,8 +62,14 @@ const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
+const history=useHistory();
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  const CheckIn= ()=>{
+      history.push("/CheckIn");
+
   }
 
   return (
