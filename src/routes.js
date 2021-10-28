@@ -56,6 +56,7 @@ const Widgets = React.lazy(() => import('./views/components/widgets/Widgets'))
 const Records = React.lazy(() => import('./views/records/Records'))
 const Bookings = React.lazy(() => import('./views/bookings/Bookings'))
 const News = React.lazy(() => import('./views/admin/News'))
+const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -104,6 +105,7 @@ const routes = [
   { path: '/records', name: 'Records', component: Records, exact: true },
   { path: '/bookings', name: 'Bookings', component: Bookings, exact: true },
   { path: '/admin/news', name: 'News', component: News, exact: true },
+  { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
 ]
 
 export default routes
