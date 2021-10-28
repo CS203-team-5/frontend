@@ -3,7 +3,6 @@ import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../components/calendar/Calendar.css';
 import Axios from 'axios';
-//import dayjs from 'dayjs';
 
 import {
   CButton,
@@ -22,11 +21,13 @@ function Bookings(props) {
   const [date, setDate] = useState(new Date());
   const locale = 'en-SG';
   const options = {
+
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
     timeZone: "Asia/Singapore"
+
   };
 
   const url = "http://localhost:8080/api/bookings/emp/"
@@ -89,6 +90,7 @@ function Bookings(props) {
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
                     <CCol sm={8}>
                       <CFormInput type="string" id="b_date"
+
                       // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
                       value={date.toLocaleString(locale, options)}
                       // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}

@@ -10,6 +10,7 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
+  CLink,
   CProgress,
   CRow,
   CTable,
@@ -18,11 +19,13 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CWidgetStatsF
 } from '@coreui/react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 import {
+  cilCalendar,
   cibCcAmex,
   cibCcApplePay,
   cibCcMastercard,
@@ -43,6 +46,9 @@ import {
   cilPeople,
   cilUser,
   cilUserFemale,
+  cilChartPie,
+  cilArrowRight,
+  cilCalendarCheck,
 } from '@coreui/icons'
 
 import avatar1 from './../../assets/images/avatars/1.jpg'
@@ -68,17 +74,46 @@ const history=useHistory();
 
   return (
     <>
-      <WidgetsDropdown />
-
-       <button className="btn btn-lg btn-primary btn-block"
-
-         onClick={(event) => {
-
-                history.push("/checkIn")
-              }} variant="outline">
-                        Daily Check In
-                </button>
-
+        <CRow>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="primary"
+              icon={<CIcon icon={cilCalendar} height={24} />}
+              padding={false}
+              title="Quota Left This Month"
+              value="3/10"/>
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="warning"
+              icon={<CIcon icon={cilChartPie} height={24} />}
+              padding={false}
+              title="vaccination status"
+              value="Vaccinated"/>
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="warning"
+              icon={<CIcon icon={cilCalendarCheck} height={24} />}
+              padding={false}
+              footer={
+                <CLink
+                  className="font-weight-bold font-xs text-medium-emphasis"
+                  href="https://coreui.io/"
+                  rel="noopener norefferer"
+                  target="_blank"
+                >
+                  View more
+                  <CIcon icon={cilArrowRight} className="float-end" width={16} />
+                </CLink>
+              }
+              title="Work From Office "
+              value="Checked In"/>
+          </CCol>
+        </CRow>
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
@@ -221,8 +256,6 @@ const history=useHistory();
           </CRow>
         </CCardFooter>
       </CCard>
-
-      <WidgetsBrand withCharts />
 
       <CRow>
         <CCol xs>

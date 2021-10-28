@@ -57,10 +57,12 @@ const Widgets = React.lazy(() => import('./views/components/widgets/Widgets'))
 const Records = React.lazy(() => import('./views/records/Records'))
 const Bookings = React.lazy(() => import('./views/bookings/Bookings'))
 const News = React.lazy(() => import('./views/admin/News'))
+
 const CheckIn =React.lazy(() => import('./views/checkIn'))
 const CreateUser =React.lazy(() => import('./views/createUser'))
 
 const UserManagement =React.lazy(() => import('./views/userManagement'))
+const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -111,7 +113,8 @@ const routes = [
   { path: '/admin/news', name: 'News', component: News, exact: true },
   { path: '/CheckIn', name: 'CheckIn', component: CheckIn, exact: true },
   { path: '/CreateUser', name: 'CreateUser', component: CreateUser, exact: true },
-   { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
+  { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
+  { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
 ]
 
 export default routes
