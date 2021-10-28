@@ -46,7 +46,6 @@ const Records = (props) => {
       const tasksFromServer = await fetchRecords()
       setRecords(tasksFromServer)
     }
-    console.log("HI")
     getRecords()
   }, [resultType])
 
@@ -116,7 +115,7 @@ const Records = (props) => {
                     <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
                     <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
                     <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                    <CTableDataCell>Appeal</CTableDataCell>
+                    <CTableDataCell>Cancel</CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
