@@ -77,15 +77,11 @@ const history=useHistory();
          <CContainer>
            <CRow className="justify-content-center">
                <form className="form-signin" onSubmit={handleFormSubmit}>
-
              <CCol md={8}>
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
-
                        <h1>Login</h1>
-
-
                                <p className="text-medium-emphasis">Sign In to your account</p>
                                <CInputGroup className="mb-3">
                                <div className="form-group">
@@ -115,8 +111,6 @@ const history=useHistory();
                                   </button>
                                </CCol>
                            </CRow>
-
-
                    </CCardBody>
                  </CCard>
                </CCardGroup>

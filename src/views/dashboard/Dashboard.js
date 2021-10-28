@@ -49,6 +49,7 @@ import {
   cilChartPie,
   cilArrowRight,
   cilCalendarCheck,
+  cilShieldAlt,
 } from '@coreui/icons'
 
 import avatar1 from './../../assets/images/avatars/1.jpg'
@@ -88,7 +89,7 @@ const history=useHistory();
             <CWidgetStatsF
               className="mb-3"
               color="warning"
-              icon={<CIcon icon={cilChartPie} height={24} />}
+              icon={<CIcon icon={cilShieldAlt} height={24} />}
               padding={false}
               title="vaccination status"
               value="Vaccinated"/>
@@ -102,11 +103,10 @@ const history=useHistory();
               footer={
                 <CLink
                   className="font-weight-bold font-xs text-medium-emphasis"
-                  href="https://coreui.io/"
-                  rel="noopener norefferer"
+                  href="/checkin"
                   target="_blank"
                 >
-                  View more
+                  Check In Here
                   <CIcon icon={cilArrowRight} className="float-end" width={16} />
                 </CLink>
               }
