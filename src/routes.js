@@ -64,6 +64,11 @@ const CreateUser =React.lazy(() => import('./views/createUser'))
 const UserManagement =React.lazy(() => import('./views/userManagement'))
 const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
+const Profile =React.lazy(() => import('./views/profile'))
+
+const Regulation = React.lazy(() => import('./views/admin/Regulation'))
+
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -113,8 +118,17 @@ const routes = [
   { path: '/admin/news', name: 'News', component: News, exact: true },
   { path: '/CheckIn', name: 'CheckIn', component: CheckIn, exact: true },
   { path: '/CreateUser', name: 'CreateUser', component: CreateUser, exact: true },
-  { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
+//
+//  { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
+//  { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
+
+
+   { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
+    { path: '/Profile', name: 'Profile', component: Profile, exact: true },
+
   { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
+
+
 ]
 
 export default routes

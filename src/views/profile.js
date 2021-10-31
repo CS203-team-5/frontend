@@ -29,7 +29,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 
 
-function CreateUser(props) {
+function Profile(props) {
 const history=useHistory();
    const [firstName, setFirstName] = useState();
    const [lastName, setLastName] = useState();
@@ -44,7 +44,6 @@ const history=useHistory();
 //        return currentUser;
 //      };
 const [validated, setValidated] = useState(false)
-
 
    const handleFormSubmit = event => {
        event.preventDefault();
@@ -91,8 +90,8 @@ const [validated, setValidated] = useState(false)
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
-                       <h1>Create new User</h1>
-                               <p className="text-medium-emphasis"> Create account for new user by entering relevant details  </p>
+                       <h1> Profile </h1>
+                               <p className="text-medium-emphasis"> Update details </p>
                                <CInputGroup className="mb-4">
 
                                 <CCol md={10}>
@@ -147,47 +146,52 @@ const [validated, setValidated] = useState(false)
                                </CInputGroup>
 
 
-
-                               <CRow>
-                               <CCol xs={6}>
-<p className="text-medium-emphasis">Choose new User Role
-
-                                  </p>
                                  <CInputGroup className="mb-4">
 
 
-                                    <CFormCheck
-                                       type="radio"
-                                       name="flexRadioDefault"
-                                       value="Admin"
-                                       id="flexRadioDefault1"
-                                       label="Admin"
-                                       defaultChecked
-                                     />
-                                     <CCol xs={2}></CCol>
+                               <CCol md={10 }>
+                                 <input type="Last Name"
+                                     className="form-control"
+                                     placeholder="Old Password"
+                                     onChange={event => setLastName(event.target.value)}
+                                 required />
+                                  </CCol>
+
+                               </CInputGroup>
 
 
-                                     <CFormCheck
-                                       type="radio"
-                                       name="flexRadioDefault"
-                                       id="flexRadioDefault1"
-                                       value="User"
-                                       label="User"
-                                     />
+
+                                 <CInputGroup className="mb-4">
 
 
-                                    </CInputGroup>
+                               <CCol md={10 }>
+                                 <input type="Last Name"
+                                     className="form-control"
+                                     placeholder="New Passsword"
+                                     onChange={event => setLastName(event.target.value)}
+                                 required />
+                                  </CCol>
 
+                               </CInputGroup>
+
+
+
+                               <CRow>
+                               <CCol xs={6}>
 
                                       <CInputGroup className="mb-4">
 
 
                                       </CInputGroup>
                                   <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                      Create
+                                     Update
                                   </button>
+
                                </CCol>
-                           </CRow>
+
+                               </CRow>
+
+
 
 
                    </CCardBody>
@@ -202,4 +206,4 @@ const [validated, setValidated] = useState(false)
      )
    }
 
-export default CreateUser;
+export default Profile;
