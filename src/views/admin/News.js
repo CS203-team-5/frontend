@@ -39,10 +39,11 @@ const News = (props) => {
         }
         getNews()
     }, [])
+    var res;
 
     // Fetch Tasks
     const fetchNews = async () => {
-        const res = await fetch('http://localhost:8080/api/news/hr/getAll')
+        res = await fetch('http://localhost:8080/api/news/hr/getAll')
         console.log(res)
         const data = await res.json()
         console.log(data)
@@ -50,7 +51,7 @@ const News = (props) => {
     }
 
     const url = "http://localhost:8080/api/news/hr/create/newNews"
-
+    
     function submit(e) {
         e.preventDefault();
         Axios.post(url, {
@@ -58,8 +59,9 @@ const News = (props) => {
             title: title,
             content: content
         })
-            .then(res => {
-            })
+        .then(res => {
+            window.location.reload(false);
+          })
     }
 
 
@@ -93,6 +95,9 @@ const News = (props) => {
                                     </div>
                                     <CButton onClick={() => setVisible(false)} type="submit" color="primary">
                                         Submit
+                                    </CButton>
+                                    <CButton color="secondary" onClick={() => setVisible(false)}>
+                                        Close
                                     </CButton>
                                 </CForm>
                             </CModalBody>
