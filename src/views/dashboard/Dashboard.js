@@ -1,4 +1,5 @@
 import React, { lazy } from 'react'
+import {useHistory} from 'react-router-dom';
 
 import {
   CAvatar,
@@ -9,6 +10,7 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
+  CLink,
   CProgress,
   CRow,
   CTable,
@@ -17,11 +19,13 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CWidgetStatsF
 } from '@coreui/react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 import {
+  cilCalendar,
   cibCcAmex,
   cibCcApplePay,
   cibCcMastercard,
@@ -42,6 +46,10 @@ import {
   cilPeople,
   cilUser,
   cilUserFemale,
+  cilChartPie,
+  cilArrowRight,
+  cilCalendarCheck,
+  cilShieldAlt,
 } from '@coreui/icons'
 
 import avatar1 from './../../assets/images/avatars/1.jpg'
@@ -55,13 +63,57 @@ const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
+const history=useHistory();
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
+  const CheckIn= ()=>{
+      history.push("/CheckIn");
+
+  }
+
   return (
     <>
-      <WidgetsDropdown />
+        <CRow>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="primary"
+              icon={<CIcon icon={cilCalendar} height={24} />}
+              padding={false}
+              title="Quota Left This Month"
+              value="3/10"/>
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="warning"
+              icon={<CIcon icon={cilShieldAlt} height={24} />}
+              padding={false}
+              title="vaccination status"
+              value="Vaccinated"/>
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="warning"
+              icon={<CIcon icon={cilCalendarCheck} height={24} />}
+              padding={false}
+              footer={
+                <CLink
+                  className="font-weight-bold font-xs text-medium-emphasis"
+                  href="/checkin"
+                  target="_blank"
+                >
+                  Check In Here
+                  <CIcon icon={cilArrowRight} className="float-end" width={16} />
+                </CLink>
+              }
+              title="Work From Office "
+              value="Checked In"/>
+          </CCol>
+        </CRow>
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
@@ -204,8 +256,6 @@ const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-
-      <WidgetsBrand withCharts />
 
       <CRow>
         <CCol xs>
