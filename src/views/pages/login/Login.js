@@ -59,17 +59,17 @@ const history=useHistory();
    };
 
    const handleDashboard = () => {
-//      const name= localStorage.getItem("username");
-//      const intialValue
-//        axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
-//            if (res.response === 200) {
+    //  const name= localStorage.getItem("username");
+    //  const intialValue
+    //    axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
+    //        if (res.response === 200) {
       history.push("/dashboard");
 
-//            } else {
-//                console.log("Fail")
-//                alert("Authentication failure");
-//            }
-//        });
+      //      } else {
+      //          console.log("Fail")
+      //          alert("Authentication failure");
+      //      }
+      //  });
    };
 
      return (
