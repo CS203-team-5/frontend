@@ -31,8 +31,16 @@ function CheckIn(props){
 const history= useHistory();
 
 //
-//   const [Temperature, setTemperature] = useState();
-//   const [Health, setHealth] = useState();
+   const [temperature, setTemperature] = useState();
+   const [symptoms, setHealth] = useState();
+   const[user,setUser]= useState();
+
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
+
+
+
 //     const getCurrentUser = async function () {
 //        const currentUser = await Parse.User.current();
 //        // Update state variable holding current user
@@ -42,40 +50,40 @@ const history= useHistory();
 
    const handleFormSubmit = event => {
        event.preventDefault();
-  history.push("/dashboard")
-//       const endpoint = "http://localhost:8080/authenticate";
 
-       // const username = state.username;
-       // const password = state.password;
+       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+       const dailyForm = "http://localhost:8080/api/DailyForm/create/";
+       const dateTime= new Date().toISOString().substring(0,10);
+        const yourConfig = {
+           headers: {
+              Authorization: "Bearer " + localStorage.getItem("authorization")
+           }
+        }
 
-//       const user_object = {
-//           username: username,
-//           password: password
-//       };
+       const DailyForm_Object = {
+          temperature:temperature,
+          symptoms:symptoms,
+          user: {
+            "email": localStorage.getItem("username")
+          },
+          dateTime:dateTime
 
-//       axios.post(endpoint, user_object).then(res => {
-//           localStorage.setItem("authorization", res.data.token);
-//           localStorage.setItem("username", username);
-//            localStorage.setItem("password", password);
-//           return handleDashboard();
-//       });
+      };
+
+      axios.post(dailyForm,DailyForm_Object,yourConfig).then(res =>{
+
+          if(res.response==200){
+              handleDashboard();
+          }
+
+      });
+
    };
 
    const handleDashboard = () => {
-//      const name= localStorage.getItem("username");
-//      const intialValue
-//        axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
-//            if (res.response === 200) {
-//      history.push("/dashboard");
-
-//            } else {
-//                console.log("Fail")
-//                alert("Authentication failure");
-//            }
-//        });
+      history.push("/dashboard");
    };
-   const current = new Date();
-   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
    return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
      <CContainer>
@@ -92,6 +100,7 @@ const history= useHistory();
                        type="text"
                        className="form-control"
                        placeholder="Temperature"
+                        OnChange={event => setTemperature(event.target.value)}
                      />
                    </CInputGroup>
                    <CInputGroup className="mb-4">
@@ -104,9 +113,10 @@ const history= useHistory();
                        inline
                        type="radio"
                        name="flexRadioDefault"
-                       value="Yes"
+                       value="true"
                        id="flexRadioDefault1"
-                       label="Yes"
+                       label="true"
+                       OnChange={event => setHealth(event.target.value)}
                        defaultChecked
                      />
                      <CFormCheck
@@ -114,8 +124,9 @@ const history= useHistory();
                        type="radio"
                        name="flexRadioDefault"
                        id="flexRadioDefault1"
-                       value="No"
-                       label="No"
+                       value="false"
+                       label="false"
+                       OnChange={event => setHealth(event.target.value)}
                      />
                    </CInputGroup>
                    <CRow>

@@ -50,6 +50,10 @@ const [validated, setValidated] = useState(false)
        event.preventDefault();
        const form = event.currentTarget
 
+        if(email!=secondEmail){
+          alert("Emails are inconsistent")
+          history.push("/CreateUser")
+        }
        if (form.checkValidity() === false) {
          event.preventDefault()
          event.stopPropagation()
@@ -74,7 +78,7 @@ const [validated, setValidated] = useState(false)
 
        axios.post(endpoint, user_object).then(res => {
           if(res.response==200){
-
+              history.push("/UserManagement");
           }
 
        });
