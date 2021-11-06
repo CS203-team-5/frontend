@@ -42,9 +42,15 @@ const Regulation = (props) => {
     getRegulation()
   }, [])
 
+  const yourConfig = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("authorization")
+    }
+  }
+
   // Fetch Tasks
   const fetchRegulation = async () => {
-    const res = await fetch('http://localhost:8080/api/regulation/emp/limit/' + localStorage.getItem("username") + "/")
+    const res = await fetch('http://localhost:8080/api/regulation/emp/limit/' + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
   }
@@ -58,58 +64,29 @@ const Regulation = (props) => {
       startDate: startDate,
       endDate: endDate,
       percentage: percentage
-    })
+    }, yourConfig)
       .then(res => {
         window.location.reload(false);
       })
   }
 
-<<<<<<< HEAD
   //sort function
-  const sorting =(col)=>{
-    if(order==="ASC"){
-      const sorted = [...regulationRecords].sort((a,b)=>
-        a[col].toString().toLowerCase()> b[col].toString().toLowerCase() ? 1:-1
+  const sorting =(col)=> {
+    if (order === "ASC") {
+      const sorted = [...regulationRecords].sort((a, b) =>
+        a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
       );
       showRegulation(sorted);
       setOrder("DSC");
     }
-    if(order==="DSC"){
-      const sorted = [...regulationRecords].sort((a,b)=>
-        a[col].toString().toLowerCase()<b[col].toString().toLowerCase() ? 1:-1
+    if (order === "DSC") {
+      const sorted = [...regulationRecords].sort((a, b) =>
+        a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
       );
       showRegulation(sorted);
       setOrder("ASC");
     }
-=======
-  // Fetch Tasks
-  const fetchRegulationLimit = async () => {
-    const res = await fetch('http://localhost:8080/api/regulationLimit/emp')
-    console.log("print fetchRegulationLimit")
-
-    console.log(res)
-    const data = await res.json()
-    console.log(data)
-    return data
   }
-
-  const url2 = "http://localhost:8080/api/regulationLimit/hr"
-
-  function submit2(e) {
-    e.preventDefault();
-    Axios.post(url2, {
-      regulationLimitKey: {
-        "startDate": regulationStartDate,
-        "cid": companyCID
-      },
-      dailyLimit: dailyLimit
-    })
-      .then(res => {
-        window.location.reload(false);
-      })
->>>>>>> bb7c4b070a432522f0f1a2726cf07bd61021e22e
-  }
-
   return (
     <CRow>
       <CCol xs={12}>
@@ -167,7 +144,6 @@ const Regulation = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {/* regulationRecords = [{a},{b},{c}] */}
                 {regulationRecords.map((regulationRecord) => (
                   <CTableRow color="primary" key={regulationRecord.startDate}>
                     <CTableHeaderCell scope="row">{regulationRecord.startDate}</CTableHeaderCell>

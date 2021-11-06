@@ -52,7 +52,7 @@ const News = (props) => {
         return data
     }
     const url2 = "http://localhost:8080/api/news/hr"
-    
+
     function submit(e) {
         e.preventDefault();
         Axios.post(url2, {
@@ -61,15 +61,9 @@ const News = (props) => {
             content: content,
             url : url
         })
-<<<<<<< HEAD
-            .then(res => {
-              window.location.reload(false);
-            })
-=======
         .then(res => {
             window.location.reload(false);
           })
->>>>>>> bb7c4b070a432522f0f1a2726cf07bd61021e22e
     }
 
 
