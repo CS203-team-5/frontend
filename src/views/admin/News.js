@@ -50,18 +50,13 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
-//
-//      Axios.get('http://localhost:8080/api/news/hr/',yourConfig)
-//      .then( res => {
-//                  return res.data
-//        })
         res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
-    const url2 = "http://localhost:8080/api/news/hr"
+    const url2 = ('http://localhost:8080/api/news/hr/',yourConfig)
 
     function submit(e) {
         e.preventDefault();
@@ -70,6 +65,7 @@ const News = (props) => {
             title: title,
             content: content,
             url : url
+
         },yourConfig)
 
 
@@ -78,7 +74,6 @@ const News = (props) => {
           })
 
     }
-
 
     return (
         <CRow>

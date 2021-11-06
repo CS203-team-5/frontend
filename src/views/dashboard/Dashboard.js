@@ -1,7 +1,6 @@
 import React, { useState, useEffect, lazy } from 'react';
 import {useHistory} from 'react-router-dom';
 import Axios from 'axios';
-
 import {
   CAvatar,
   CButton,
@@ -83,13 +82,20 @@ const Dashboard = () => {
       getQuota()
     }, [])
 
+
+    const yourConfig = {
+      headers: {
+         Authorization: "Bearer " + localStorage.getItem("authorization")
+      }
+   }
+
     const fetchQuota = async () => {
       var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
         {
           params: {
             email: localStorage.getItem("username")
           }
-        })
+        }, yourConfig)
       const data = await res
       return (10 - data.data) < 0 ? 0 : 10 - data.data
     }
@@ -137,6 +143,8 @@ const Dashboard = () => {
         </CRow>
       <CCard className="mb-4">
         <CCardBody>
+          <CRow>
+          </CRow>
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
