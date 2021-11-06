@@ -21,7 +21,7 @@ import {
   CForm,
   CFormText,
   CFormLabel,
-  CFormInput,
+  CFormInput, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdown,
 } from '@coreui/react'
 
 const Regulation = (props) => {
@@ -32,11 +32,7 @@ const Regulation = (props) => {
   const [percentage, setPercentage] = useState()
   const [visible, setVisible, validated, setValidated] = useState(false)
 
-  const [regulationLimitRecords, showRegulationLimit] = useState([])
-  const [companyCID, setCompanyCID] = useState()
-  const [regulationStartDate, setRegulationStartDate] = useState()
-  const [dailyLimit, setDailyLimit] = useState()
-  const [visible2, setVisible2, validated2, setValidated2] = useState(false)
+  const [order, setOrder] = useState("ASC");
 
   useEffect(() => {
     const getRegulation = async () => {
@@ -44,27 +40,19 @@ const Regulation = (props) => {
       showRegulation(tasksFromServer)
     }
     getRegulation()
-
-    const getRegulationLimit = async () => {
-      console.log("print useEffect")
-      const tasksFromServer = await fetchRegulationLimit()
-      showRegulationLimit(tasksFromServer)
-    }
-    getRegulationLimit()
   }, [])
 
   // Fetch Tasks
   const fetchRegulation = async () => {
-    const res = await fetch('http://localhost:8080/api/regulation/emp')
-    console.log(res)
+    const res = await fetch('http://localhost:8080/api/regulation/emp/limit/' + localStorage.getItem("username") + "/")
     const data = await res.json()
-    console.log(data)
     return data
   }
 
-  const url = "http://localhost:8080/api/regulation/hr/addRegulation"
+  const url = "http://localhost:8080/api/regulation/hr"
 
-  function submit(e) {
+  //submit function for Regulations  table
+  function submitRegulation(e) {
     e.preventDefault();
     Axios.post(url, {
       startDate: startDate,
@@ -76,40 +64,37 @@ const Regulation = (props) => {
       })
   }
 
-  // Fetch Tasks
-  const fetchRegulationLimit = async () => {
-    const res = await fetch('http://localhost:8080/api/regulationLimit/emp')
-    console.log("print fetchRegulationLimit")
-
-    console.log(res)
-    const data = await res.json()
-    console.log(data)
-    return data
+  //sort function
+  const sorting =(col)=>{
+    if(order==="ASC"){
+      const sorted = [...regulationRecords].sort((a,b)=>
+        a[col].toString().toLowerCase()> b[col].toString().toLowerCase() ? 1:-1
+      );
+      showRegulation(sorted);
+      setOrder("DSC");
+    }
+    if(order==="DSC"){
+      const sorted = [...regulationRecords].sort((a,b)=>
+        a[col].toString().toLowerCase()<b[col].toString().toLowerCase() ? 1:-1
+      );
+      showRegulation(sorted);
+      setOrder("ASC");
+    }
   }
-
-  const url2 = "http://localhost:8080/api/regulationLimit/hr/addRegulationLimit"
-
-  function submit2(e) {
-    e.preventDefault();
-    Axios.post(url2, {
-      regulationLimitKey: {
-        "startDate": regulationStartDate,
-        "cid": companyCID
-      },
-      dailyLimit: dailyLimit
-    })
-      .then(res => {
-        window.location.reload(false);
-      })
-  }
-
 
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Regulations</strong>
+            <strong>Regulations  </strong>
+            <CDropdown>
+              <CDropdownToggle color="light">Filters</CDropdownToggle>
+              <CDropdownMenu>
+                <CDropdownItem onClick={()=>sorting("startDate")}>Start Date</CDropdownItem>
+                <CDropdownItem onClick={()=>sorting("endDate")}>End Date</CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
             <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
               Add Regulation
             </CButton>
@@ -118,7 +103,7 @@ const Regulation = (props) => {
                 <CModalTitle>Regulation Details</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                <CForm noValidate validated={validated} onSubmit={(e) => submit(e)}>
+                <CForm noValidate validated={validated} onSubmit={(e) => submitRegulation(e)}>
                   <div className="mb-3">
                     <CFormLabel htmlFor="StartDate">Start Date</CFormLabel>
                     <CFormInput type="date" id="StartDate" onChange={event => setStartDate(event.target.value)} />
@@ -144,79 +129,22 @@ const Regulation = (props) => {
             </CModal>
           </CCardHeader>
           <CCardBody>
-            <CTable>
+            <CTable align="middle" responsive>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col">Start Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">End Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Percentage (%)</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col">Start Date</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col">End Date</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col">Percentage (%)</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col">Daily Limit No.</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
                 {regulationRecords.map((regulationRecord) => (
-                  <CTableRow key={regulationRecord.startDate}>
+                  <CTableRow color="primary" key={regulationRecord.startDate}>
                     <CTableHeaderCell scope="row">{regulationRecord.startDate}</CTableHeaderCell>
-                    <CTableDataCell>{regulationRecord.endDate}</CTableDataCell>
-                    <CTableDataCell>{regulationRecord.percentage}</CTableDataCell>
-                  </CTableRow>
-                ))}
-              </CTableBody>
-            </CTable>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Regulation Limit</strong>
-            <CButton onClick={() => setVisible2(!visible2)} style={{ float: "right" }} color="light">
-              Add Regulation Limit
-            </CButton>
-            <CModal visible={visible2}>
-              <CModalHeader>
-                <CModalTitle>Regulation Limit Details</CModalTitle>
-              </CModalHeader>
-              <CModalBody>
-                <CForm noValidate validated={validated2} onSubmit={(e) => submit2(e)}>
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="CompanyCid">Company Cid</CFormLabel>
-                    <CFormInput type="number" id="CompanyCid" onChange={event => setCompanyCID(event.target.value)} />
-                  </div>
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="RegulationStartDate">Start Date</CFormLabel>
-                    <CFormInput type="date" id="RegulationStartDate" onChange={event => setRegulationStartDate(event.target.value)} />
-                  </div>
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="DailyLimit">Daily Limit</CFormLabel>
-                    <CFormInput type="number" id="DailyLimit" onChange={event => setDailyLimit(event.target.value)} />
-                  </div>
-                  <CButton onClick={() => setVisible2(false)} type="submit" color="primary">
-                    Submit
-                  </CButton>
-                  <CButton color="secondary" onClick={() => setVisible2(false)}>
-                    Close
-                  </CButton>
-                </CForm>
-              </CModalBody>
-              <CModalFooter>
-              </CModalFooter>
-            </CModal>
-          </CCardHeader>
-          <CCardBody>
-            <CTable>
-              <CTableHead color="dark">
-                <CTableRow>
-                  <CTableHeaderCell scope="col">Company Cid</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Start Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Daily Limit</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <CTableBody>
-                {regulationLimitRecords.map((regulationLimitRecord) => (
-                  <CTableRow key={regulationLimitRecord.regulationLimitKey}>
-                    <CTableHeaderCell scope="row">{regulationLimitRecord.regulationLimitKey.cid}</CTableHeaderCell>
-                    <CTableDataCell>{regulationLimitRecord.regulationLimitKey.startDate}</CTableDataCell>
-                    <CTableDataCell>{regulationLimitRecord.dailyLimit}</CTableDataCell>
+                    <CTableDataCell align="middle">{regulationRecord.endDate}</CTableDataCell>
+                    <CTableDataCell align="middle">{regulationRecord.percentage}</CTableDataCell>
+                    <CTableDataCell align="middle">{regulationRecord.dailyLimit}</CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>

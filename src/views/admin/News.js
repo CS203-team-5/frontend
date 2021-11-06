@@ -59,6 +59,7 @@ const News = (props) => {
             content: content
         })
             .then(res => {
+              window.location.reload(false);
             })
     }
 
