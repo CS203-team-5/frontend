@@ -17,11 +17,19 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
 
 const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
+
+  const yourConfig = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
 
   const del = async (bid) => {
     console.log("Delete function: ", bid);
@@ -30,7 +38,7 @@ const Records = (props) => {
         params: {
           id: bid
         }
-      }).then(() => {
+      },yourConfig).then(() => {
         window.location.reload(false);
       })
     console.log((await res).status)
@@ -66,11 +74,11 @@ const Records = (props) => {
   const fetchRecords = async () => {
     var res = ""
     if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/",yourConfig)
     } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/",yourConfig)
     } else {
-      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/",yourConfig)
     }
     const data = await res.json()
     console.log(data)
@@ -118,9 +126,9 @@ const Records = (props) => {
             <CTable>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status</CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>

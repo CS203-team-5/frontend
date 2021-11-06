@@ -30,6 +30,12 @@ function Bookings(props) {
 
   };
 
+  const yourConfig = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
+
   useEffect(() => {
     const getQuota = async () => {
       const tasksFromServer = await fetchQuota()
@@ -38,13 +44,15 @@ function Bookings(props) {
     getQuota()
   }, [])
 
+
+
   const fetchQuota = async () => {
-    var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
+    var res = Axios.get("http://localhost:8080/api/bookings/UserBookings/{email}",
       {
         params: {
           email: localStorage.getItem("username")
         }
-      })
+      },yourConfig)
     console.log("Username is ", localStorage.getItem("username"))
     const data = await res
     console.log("Data ", data)
@@ -65,7 +73,7 @@ function Bookings(props) {
       user: {
         "email": localStorage.getItem("username")
       }
-    }).then(() => {
+    },yourConfig).then(() => {
       window.location.reload(false);
     })
   }

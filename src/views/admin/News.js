@@ -34,6 +34,11 @@ const News = (props) => {
     const [url, setURL] = useState()
     const [visible, setVisible, validated, setValidated] = useState(false)
 
+    const yourConfig = {
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("authorization")
+         }
+      }
     useEffect(() => {
         const getNews = async () => {
             const tasksFromServer = await fetchNews()
@@ -45,7 +50,7 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
-        res = await fetch('http://localhost:8080/api/news/hr/')
+        res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
@@ -60,12 +65,15 @@ const News = (props) => {
             title: title,
             content: content,
             url : url
-        })
+
+        },yourConfig)
+
+
         .then(res => {
             window.location.reload(false);
           })
-    }
 
+    }
 
     return (
         <CRow>

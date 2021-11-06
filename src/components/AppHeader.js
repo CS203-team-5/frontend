@@ -23,7 +23,7 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
      const [role, setRole] = useState();
-     const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+     const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
 
 
         const yourConfig = {
@@ -36,7 +36,7 @@ const AppHeader = () => {
         axios.get(getUser,yourConfig).then(res => {
               var json= res.data;
               setRole(json["userRole"])
-//              localStorage.setItem("UserRole", json["userRole"].toString());
+              localStorage.setItem("UserRole", json["userRole"].toString());
 
          });
 //         const userRole=localStorage.getItem("UserRole")
@@ -69,15 +69,13 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-            {role==="HR" ?
+           
                   <NavDropdown title="Admin" id="nav-dropdown">
                     <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
                     <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
                     <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
                   </NavDropdown>
-              :
-               <p></p>
-             }
+           
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
