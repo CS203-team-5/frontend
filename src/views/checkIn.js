@@ -31,8 +31,8 @@ function CheckIn(props){
 const history= useHistory();
 
 //
-   const [temperature, setTemperature] = useState();
-   const [symptoms, setHealth] = useState();
+   const [Temperature, setTemperature] = useState();
+   const [Symptoms, setHealth] = useState();
    const[user,setUser]= useState();
 
   const current = new Date();
@@ -51,7 +51,7 @@ const history= useHistory();
    const handleFormSubmit = event => {
        event.preventDefault();
 
-       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+//       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
        const dailyForm = "http://localhost:8080/api/DailyForm/create/";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
@@ -61,8 +61,8 @@ const history= useHistory();
         }
 
        const DailyForm_Object = {
-          temperature:temperature,
-          symptoms:symptoms,
+          temperature:Temperature,
+          symptoms:Symptoms,
           user: {
             "email": localStorage.getItem("username")
           },
@@ -72,9 +72,7 @@ const history= useHistory();
 
       axios.post(dailyForm,DailyForm_Object,yourConfig).then(res =>{
 
-          if(res.response==200){
-              handleDashboard();
-          }
+         handleDashboard();
 
       });
 
@@ -96,12 +94,11 @@ const history= useHistory();
                    <h1>Daily Check-in Form </h1>
                    <p className="text-medium-emphasis">Submit to check-in for { date }</p>
                    <CInputGroup className="mb-3">
-                     <CFormInput
-                       type="text"
-                       className="form-control"
-                       placeholder="Temperature"
-                        OnChange={event => setTemperature(event.target.value)}
-                     />
+                     <input type="text"
+                      className="form-control"
+                      placeholder="Temperature"
+                      onChange={event => setTemperature(event.target.value)}
+                  required/>
                    </CInputGroup>
                    <CInputGroup className="mb-4">
                        <p className="text-medium-emphasis">Do you have any of the following
@@ -109,25 +106,14 @@ const history= useHistory();
                         breathing difficulties, body aches, headaches, fatigue, sore throat, diarrhoea, and/or runny nose
                         (even if your symptoms are mild)
                        </p>
-                     <CFormCheck
-                       inline
-                       type="radio"
-                       name="flexRadioDefault"
-                       value="true"
-                       id="flexRadioDefault1"
-                       label="true"
-                       OnChange={event => setHealth(event.target.value)}
-                       defaultChecked
-                     />
-                     <CFormCheck
-                       inline
-                       type="radio"
-                       name="flexRadioDefault"
-                       id="flexRadioDefault1"
-                       value="false"
-                       label="false"
-                       OnChange={event => setHealth(event.target.value)}
-                     />
+                        <div   onChange={event => setHealth(event.target.value)}>
+                              <input type="radio" value="true" name="gender" /> True
+                              <input type="radio" value="false" name="gender" /> False
+
+                       </div>
+
+
+
                    </CInputGroup>
                    <CRow>
                      <CCol xs={6}>

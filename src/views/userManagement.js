@@ -129,16 +129,16 @@ const Records = (props) => {
           <CCardBody>
             <CTable>
               <CTableHead color="dark">
-                <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
 
-                  User Email </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
-                   <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
-                    <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
-              <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                    User Email </CTableHeaderCell>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
+                     <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
+                      <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
+                <CTableHeaderCell scope="col" ></CTableHeaderCell>
 
-                </CTableRow>
+                  </CTableRow>
               </CTableHead>
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
@@ -147,7 +147,7 @@ const Records = (props) => {
                     <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
                       <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
                         <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
-                     <CTableDataCell>
+                        <CTableDataCell>
                                  <CCol xs={6}>
                                     <button className="btn btn-sm btn-primary btn-block"
                                    onClick={(event) => {
@@ -165,7 +165,7 @@ const Records = (props) => {
                                       }
                                     }
                                     >
-                                            UserDetails
+                                    UserDetails
                                     </button>
 
 

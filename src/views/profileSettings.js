@@ -73,13 +73,12 @@ const [validated, setValidated] = useState(false)
            setOldLastName(json["lname"])
            setOldEmail(json["email"])
        });
-       const user_object = {
-           email: localStorage.getItem("useremail"),
-           fname: oldFirstName,
-           lname:oldLastName,
+      const user_object = {
+              email: localStorage.getItem("username"),
 
-       };
+              password: localStorage.getItem("authorization"),
 
+          };
 
 
        if(oldFirstName!=firstName){
@@ -101,6 +100,7 @@ const [validated, setValidated] = useState(false)
              user_object,
               yourConfig).then(res => { });
        }
+       history.push("/dashboard");
 
    };
 

@@ -98,7 +98,7 @@ const [validated, setValidated] = useState(false)
 
 
         const user_object = {
-           email: localStorage.getItem("useremail"),
+           email: localStorage.getItem("username"),
            fname: fname,
            lname:lname,
            password: localStorage.getItem("authorization"),
@@ -110,11 +110,9 @@ const [validated, setValidated] = useState(false)
        axios.put(endpoint,
        user_object,
         yourConfig).then(res => {
-          if(res.response==200){
+
+//              localStorage.setItem("password")=
               history.push("/Dashboard")
-          }else{
-              alert("cannot update password")
-          }
 
 
        });

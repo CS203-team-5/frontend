@@ -56,7 +56,7 @@ const history=useHistory();
        axios.post(endpoint, user_object).then(res => {
 
 
-              localStorage.setItem("authorization", res.data.token);
+             localStorage.setItem("authorization", res.data.token);
              localStorage.setItem("username", username);
              localStorage.setItem("password", password);
 
@@ -66,7 +66,42 @@ const history=useHistory();
 
    const handleDashboard = () => {
 
-      history.push("/dashboard");
+
+      const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+
+
+      const yourConfig = {
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("authorization")
+         }
+      }
+
+
+      axios.get(getUser,yourConfig).then(res => {
+            var json= res.data;
+
+//            localStorage.setItem("UserRole", json["userRole"].toString());
+
+                  history.push("/dashboard");
+
+
+       });
+
+
+//     if(localStorage.getItem("UserRole")!=null){
+//
+//          if(localStorage.getItem("UserRole")=="HR"){
+//               history.push("/dashboard");
+//           }else{
+//              history.push("/UserManagement");
+//           }
+//     }
+
+
+
+
+
+
 
    };
 
