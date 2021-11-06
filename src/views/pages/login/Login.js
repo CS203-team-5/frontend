@@ -30,6 +30,9 @@ function Login(props) {
 const history=useHistory();
    const [username, setUsername] = useState();
    const [password, setPassword] = useState();
+//   const[user, setUser]= useState();
+
+
 //     const getCurrentUser = async function () {
 //        const currentUser = await Parse.User.current();
 //        // Update state variable holding current user
@@ -51,25 +54,55 @@ const history=useHistory();
        };
 
        axios.post(endpoint, user_object).then(res => {
-           localStorage.setItem("authorization", res.data.token);
-           localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
-           return handleDashboard();
-       });
+
+
+             localStorage.setItem("authorization", res.data.token);
+             localStorage.setItem("username", username);
+             localStorage.setItem("password", password);
+
+             return handleDashboard()
+      });
    };
 
    const handleDashboard = () => {
-    //  const name= localStorage.getItem("username");
-    //  const intialValue
-    //    axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
-    //        if (res.response === 200) {
-      history.push("/dashboard");
 
-      //      } else {
-      //          console.log("Fail")
-      //          alert("Authentication failure");
-      //      }
-      //  });
+
+      const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+
+
+      const yourConfig = {
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("authorization")
+         }
+      }
+
+
+      axios.get(getUser,yourConfig).then(res => {
+            var json= res.data;
+
+//            localStorage.setItem("UserRole", json["userRole"].toString());
+
+                  history.push("/dashboard");
+
+
+       });
+
+
+//     if(localStorage.getItem("UserRole")!=null){
+//
+//          if(localStorage.getItem("UserRole")=="HR"){
+//               history.push("/dashboard");
+//           }else{
+//              history.push("/UserManagement");
+//           }
+//     }
+
+
+
+
+
+
+
    };
 
      return (

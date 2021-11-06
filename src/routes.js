@@ -65,6 +65,9 @@ const UserManagement =React.lazy(() => import('./views/userManagement'))
 const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
 const Profile =React.lazy(() => import('./views/profile'))
+const ProfileSettings =React.lazy(() => import('./views/profileSettings'))
+const UserDetails =React.lazy(() => import('./views/userDetails'))
+const UpdatePassword=React.lazy(() => import('./views/updatePassword'))
 
 
 
@@ -124,7 +127,9 @@ const routes = [
 
    { path: '/UserManagement', name: 'UserManagement', component: UserManagement, exact: true },
     { path: '/Profile', name: 'Profile', component: Profile, exact: true },
-
+  { path: '/ProfileSettings', name: 'ProfileSettings', component: ProfileSettings, exact: true },
+   { path: '/UserDetails', name: 'UserDetails', component: UserDetails, exact: true },
+   { path: '/UpdatePassword', name: 'UpdatePassword', component: UpdatePassword, exact: true },
   { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
 
 

@@ -1,5 +1,9 @@
 import React, { lazy, useState, useEffect } from 'react'
+import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
+import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+
+
 import {
   CButton,
   CButtonGroup,
@@ -18,24 +22,36 @@ import {
   CTableRow,
 } from '@coreui/react'
 
-const UserManagement = (props) => {
-  const history=useHistory();
+const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
   const [order, setOrder] = useState("ASC");
-  const [resultType, setResultType] = useState('all')
+  const [resultType, setResultType] = useState()
+  const history=useHistory();
 
+  const del = async (bid) => {
+    console.log("Delete function: ", bid);
+    var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
+      {
+        params: {
+          id: bid
+        }
+      }).then(() => {
+        window.location.reload(false);
+      })
+    console.log((await res).status)
+  }
   //sort function
-  const sorting =(col)=>{
-    if(order==="ASC"){
-      const sorted = [...bookingRecords].sort((a,b)=>
-        a[col].toString().toLowerCase()> b[col].toString().toLowerCase() ? 1:-1
+  const sorting = (col) => {
+    if (order === "ASC") {
+      const sorted = [...bookingRecords].sort((a, b) =>
+        a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
       );
       setRecords(sorted);
       setOrder("DSC");
     }
-    if(order==="DSC"){
-      const sorted = [...bookingRecords].sort((a,b)=>
-        a[col].toString().toLowerCase()<b[col].toString().toLowerCase() ? 1:-1
+    if (order === "DSC") {
+      const sorted = [...bookingRecords].sort((a, b) =>
+        a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
       );
       setRecords(sorted);
       setOrder("ASC");
@@ -48,39 +64,36 @@ const UserManagement = (props) => {
       const tasksFromServer = await fetchRecords()
       setRecords(tasksFromServer)
     }
-    console.log("HI")
     getRecords()
   }, [resultType])
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    var res = await fetch('http://localhost:8080/api/bookings/hr')
-    if(resultType==="past"){
-      res = await fetch('http://localhost:8080/api/bookings/emp/past')
-    }
-    if(resultType==="upcoming"){
-      res = await fetch('http://localhost:8080/api/bookings/emp/upcoming')
-    }
+//<<<<<<< HEAD
+//    var res = await fetch('http://localhost:8080/api/bookings/hr')
+//    if(resultType==="past"){
+//      res = await fetch('http://localhost:8080/api/bookings/emp/past')
+//    }
+//    if(resultType==="upcoming"){
+//      res = await fetch('http://localhost:8080/api/bookings/emp/upcoming')
+//    }
+//=======
+    var res = ""
+    res = await fetch('http://localhost:8080/api/user/hr/getAll/')
     const data = await res.json()
+    console.log(data)
     return data
   }
-
-
 
   return (
     <CRow>
       <CCol xs={12}>
-
-
         <CCard className="mb-4">
-
-
           <CCardHeader>
-
-            <strong sm={6} md={8}>Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong sm={6} md={8}>User Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <CButtonGroup role="group" aria-label="Basic checkbox toggle button group">
               <CFormCheck
-                onClick={()=> setResultType('all')}
+                onClick={() => setResultType('all')}
                 type="radio"
                 button={{ color: 'secondary', variant: 'outline' }}
                 name="btnradio"
@@ -90,7 +103,7 @@ const UserManagement = (props) => {
                 defaultChecked
               />
               <CFormCheck
-                onClick={()=> setResultType('past')}
+                onClick={() => setResultType('past')}
                 type="radio"
                 button={{ color: 'secondary', variant: 'outline' }}
                 name="btnradio"
@@ -99,7 +112,7 @@ const UserManagement = (props) => {
                 label="Past"
               />
               <CFormCheck
-                onClick={()=> setResultType('upcoming')}
+                onClick={() => setResultType('upcoming')}
                 type="radio"
                 button={{ color: 'secondary', variant: 'outline' }}
                 name="btnradio"
@@ -107,6 +120,18 @@ const UserManagement = (props) => {
                 autoComplete="off"
                 label="Upcoming"
               />
+            </CButtonGroup>
+             <CCol xs={2}>
+             <button className="btn btn-sm btn-primary btn-block"
+               onClick={(event) => {
+
+                   history.push("/CreateUser")
+                  }
+                }
+                >
+                    Create New User
+                </button>
+                </CCol>
 
               <CCol xs={9}></CCol>
                  <CCol xs={6}>
@@ -117,26 +142,53 @@ const UserManagement = (props) => {
                             Add New User
                     </button>
 
-                              </CCol>
-            </CButtonGroup>
+
           </CCardHeader>
           <CCardBody>
             <CTable>
               <CTableHead color="dark">
-                <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={()=>sorting("bid")}>Booking ID</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={()=>sorting("bdate")}>Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={()=>sorting("status")}>Status</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" >Actions</CTableHeaderCell>
-                </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
+
+                    User Email </CTableHeaderCell>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
+                     <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
+                      <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
+                <CTableHeaderCell scope="col" ></CTableHeaderCell>
+
+                  </CTableRow>
               </CTableHead>
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
                   <CTableRow key={bookingRecord.bid}>
-                    <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
-                    <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
-                    <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                    <CTableDataCell>Appeal</CTableDataCell>
+                    <CTableHeaderCell scope="row">{bookingRecord.email}</CTableHeaderCell>
+                    <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
+                      <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
+                        <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
+                        <CTableDataCell>
+                                 <CCol xs={6}>
+                                    <button className="btn btn-sm btn-primary btn-block"
+                                   onClick={(event) => {
+                                    const email= bookingRecord.email
+                                       history.push({
+
+                                       pathname:"/UserDetails",
+                                       search: '?query=abc',
+                                       state: {
+                                       username: email
+
+                                       }
+
+                                       })
+                                      }
+                                    }
+                                    >
+                                    UserDetails
+                                    </button>
+
+
+                                 </CCol>
+                            </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
@@ -144,9 +196,8 @@ const UserManagement = (props) => {
           </CCardBody>
         </CCard>
       </CCol>
-
     </CRow>
   )
 }
 
-export default UserManagement;
+export default Records

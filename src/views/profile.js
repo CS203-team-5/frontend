@@ -31,53 +31,57 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 function Profile(props) {
 const history=useHistory();
-   const [firstName, setFirstName] = useState();
-   const [lastName, setLastName] = useState();
-   const [password, setPassword] = useState();
-    const [email, setEmail] = useState();
-    const [secondEmail, setSecondEmail] = useState();
+   const [fname, setFirstName] = useState();
+   const [lname, setLastName] = useState();
     const[role,setRole]= useState();
+    const[fullName, setFullName]= useState();
+
+//    const[user,setUser]=useState();
 //     const getCurrentUser = async function () {
 //        const currentUser = await Parse.User.current();
 //        // Update state variable holding current user
 //        setCurrentUser(currentUser);
 //        return currentUser;
 //      };
-const [validated, setValidated] = useState(false)
-
-   const handleFormSubmit = event => {
-       event.preventDefault();
-       const form = event.currentTarget
-
-       if (form.checkValidity() === false) {
-         event.preventDefault()
-         event.stopPropagation()
-       }
-       setValidated(true)
+  const [validated, setValidated] = useState(false)
 
 
-       history.push("/UserManagement");
-       const endpoint = "http://localhost:8080/api/user/hr/create";
+  const userEmail=localStorage.getItem("username");
 
-       // const username = state.username;
-       // const password = state.password;
 
-       const user_object = {
-           firstName: firstName,
-           password: password,
-           email: email,
-           role:role,
-           lastName:lastName,
+  const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
 
-       };
 
-       axios.post(endpoint, user_object).then(res => {
-          if(res.response==200){
+  const yourConfig = {
+     headers: {
+        Authorization: "Bearer " + localStorage.getItem("authorization")
+     }
+  }
 
-          }
 
-       });
-   };
+   axios.get(getUser,yourConfig).then(res => {
+      var json= res.data;
+      setFirstName(json["fname"])
+      setLastName(json["lname"])
+      setFullName(fname+" "+ lname)
+      setRole(json["userRole"])
+
+   });
+
+
+
+
+
+//const user_object = {
+//   username: username,
+//
+//};
+//axios.post(endpoint, user_object).then(res => {
+//  if(res.response==200){
+//
+//  }
+//
+//});
 
 
 
@@ -85,107 +89,54 @@ const [validated, setValidated] = useState(false)
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
-            <form className="form-signin" onSubmit={handleFormSubmit}>
+
              <CCol md={8}>
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
                        <h1> Profile </h1>
-                               <p className="text-medium-emphasis"> Update details </p>
-                               <CInputGroup className="mb-4">
 
                                 <CCol md={10}>
-                                    <input type="text"
-                                        className="form-control"
-                                        placeholder="User Email"
-                                        onChange={event => setEmail(event.target.value)}
-                                    required/>
-                                     </CCol>
+                                    <h6> User Email:</h6>
+                                    <p> {localStorage.getItem("username") }</p>
+
+                               </CCol>
+
+                             <CCol md={10}>
+                                  <h6> Full Name:</h6>
+                                  <p> {fullName}</p>
+
+                             </CCol>
 
 
+                               <CCol md={10}>
+                                   <h6> First Name:</h6>
+                                   <p> {fname}</p>
 
+                              </CCol>
 
-                               </CInputGroup >
-                              <CInputGroup className="mb-4">
-                                <CCol md={10}>
+                               <CCol md={10}>
+                                  <h6> Last  Name: </h6>
+                                  <p> {lname}</p>
 
-                                   <CFormInput type="text" placeholder="Re-enter User Email" id="validationServer05" required onChange={
-                                    event=> setSecondEmail(event.target.value)
-                                   }/>
+                               </CCol>
 
-                                   <CFormFeedback invalid>Please check email entered </CFormFeedback>
-                                 </CCol>
-                                </CInputGroup>
+                               <CCol md={10}>
+                                   <h6> Role: </h6>
+                                   <p> {role}</p>
 
-
-
-                               <CInputGroup className="mb-4">
-
-                                <CCol md={10 }>
-                                    <div className="form-group">
-                                         <input type="text"
-                                             className="form-control"
-                                             placeholder="First Name"
-                                             onChange={event => setFirstName(event.target.value)}
-                                        required />
-                                     </div>
-                                 </CCol>
-                                </CInputGroup>
-
-                                 <CInputGroup className="mb-4">
-
-
-                               <CCol md={10 }>
-                                 <input type="Last Name"
-                                     className="form-control"
-                                     placeholder="Last Name"
-                                     onChange={event => setLastName(event.target.value)}
-                                 required />
-                                  </CCol>
-
-                               </CInputGroup>
-
-
-                                 <CInputGroup className="mb-4">
-
-
-                               <CCol md={10 }>
-                                 <input type="Last Name"
-                                     className="form-control"
-                                     placeholder="Old Password"
-                                     onChange={event => setLastName(event.target.value)}
-                                 required />
-                                  </CCol>
-
-                               </CInputGroup>
-
-
-
-                                 <CInputGroup className="mb-4">
-
-
-                               <CCol md={10 }>
-                                 <input type="Last Name"
-                                     className="form-control"
-                                     placeholder="New Passsword"
-                                     onChange={event => setLastName(event.target.value)}
-                                 required />
-                                  </CCol>
-
-                               </CInputGroup>
-
+                              </CCol>
 
 
                                <CRow>
                                <CCol xs={6}>
-
-                                      <CInputGroup className="mb-4">
-
-
-                                      </CInputGroup>
-                                  <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                     Update
+                                  <button className="btn btn-lg btn-primary btn-block"
+                                  onClick={(event) => {
+                                     history.push("/ProfileSettings")
+                                   }}  variant="outline">
+                                          Settings
                                   </button>
+
 
                                </CCol>
 
@@ -198,7 +149,7 @@ const [validated, setValidated] = useState(false)
                  </CCard>
                </CCardGroup>
               </CCol>
-             </form>
+
            </CRow>
 
          </CContainer>
