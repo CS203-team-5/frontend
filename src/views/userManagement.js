@@ -55,14 +55,11 @@ const UserManagement = (props) => {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = await fetch('http://localhost:8080/api/bookings/hr')
-    // var res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
     if(resultType==="past"){
       res = await fetch('http://localhost:8080/api/bookings/emp/past')
-      // res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyPast')
     }
     if(resultType==="upcoming"){
       res = await fetch('http://localhost:8080/api/bookings/emp/upcoming')
-      // res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyUpcoming')
     }
     const data = await res.json()
     return data
@@ -111,7 +108,7 @@ const UserManagement = (props) => {
                 label="Upcoming"
               />
 
-              <CCol xs={10}></CCol>
+              <CCol xs={9}></CCol>
                  <CCol xs={6}>
                    <button className="btn btn-lg btn-primary btn-block"
                     onClick={(event) => {

@@ -87,7 +87,7 @@ const Regulation = (props) => {
     return data
   }
 
-  const url2 = "http://localhost:8080/api/regulationLimit/hr/addRegulationLimit"
+  const url2 = "http://localhost:8080/api/regulationLimit/hr"
 
   function submit2(e) {
     e.preventDefault();
