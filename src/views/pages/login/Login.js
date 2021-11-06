@@ -60,32 +60,11 @@ const history=useHistory();
              localStorage.setItem("username", username);
              localStorage.setItem("password", password);
 
-             return handleDashboard()
+             history.push("/dashboard");
       });
    };
 
-   const handleDashboard = () => {
 
-
-      const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
-
-
-      const yourConfig = {
-         headers: {
-            Authorization: "Bearer " + localStorage.getItem("authorization")
-         }
-      }
-
-
-      axios.get(getUser,yourConfig).then(res => {
-            var json= res.data;
-
-//            localStorage.setItem("UserRole", json["userRole"].toString());
-
-                  history.push("/dashboard");
-
-
-       });
 
 
 //     if(localStorage.getItem("UserRole")!=null){
@@ -99,11 +78,6 @@ const history=useHistory();
 
 
 
-
-
-
-
-   };
 
      return (
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
