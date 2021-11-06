@@ -16,8 +16,9 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CIcon,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
 
 const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
@@ -125,9 +126,9 @@ const Records = (props) => {
             <CTable>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID  </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status</CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
