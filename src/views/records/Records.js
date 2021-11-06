@@ -16,6 +16,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CIcon,
 } from '@coreui/react'
 
 const Records = (props) => {
@@ -118,7 +119,7 @@ const Records = (props) => {
             <CTable>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID</CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID  </CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
