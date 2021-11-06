@@ -107,7 +107,7 @@ const history= useHistory();
                         (even if your symptoms are mild)
                        </p>
                         <div   onChange={event => setHealth(event.target.value)}>
-                              <input type="radio" value="true" name="gender" /> True
+                              <input type="radio" value="true" name="gender" /> True  &nbsp;
                               <input type="radio" value="false" name="gender" /> False
 
                        </div>

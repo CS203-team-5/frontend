@@ -56,7 +56,7 @@ const News = (props) => {
         console.log(data)
         return data
     }
-    const url2 = "http://localhost:8080/api/news/hr"
+    const url2 = ('http://localhost:8080/api/news/hr/',yourConfig)
 
     function submit(e) {
         e.preventDefault();

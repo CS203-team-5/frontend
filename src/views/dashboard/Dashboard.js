@@ -1,7 +1,6 @@
 import React, { useState, useEffect, lazy } from 'react';
 import {useHistory} from 'react-router-dom';
 import Axios from 'axios';
-
 import {
   CAvatar,
   CButton,
@@ -144,6 +143,8 @@ const Dashboard = () => {
         </CRow>
       <CCard className="mb-4">
         <CCardBody>
+          <CRow>
+          </CRow>
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
