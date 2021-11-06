@@ -66,11 +66,11 @@ const Records = (props) => {
   const fetchRecords = async () => {
     var res = ""
     if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/getAllMyPast/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/")
     } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/getAllMyUpcoming/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/")
     } else {
-      res = await fetch("http://localhost:8080/api/bookings/emp/getAllForEmp/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/")
     }
     const data = await res.json()
     console.log(data)
