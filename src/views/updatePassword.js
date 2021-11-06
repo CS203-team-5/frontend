@@ -74,7 +74,7 @@ const [validated, setValidated] = useState(false)
        // const password = state.password;
 
 
-         const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+         const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
 
 
           const yourConfig = {
@@ -93,7 +93,7 @@ const [validated, setValidated] = useState(false)
            });
 
 
-         const endpoint = "http://localhost:8080/api/user/update/Password/"+ firstPassword;
+         const endpoint = "http://localhost:8080/api/user/new/Password/"+ firstPassword;
 
 
 

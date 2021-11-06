@@ -60,12 +60,10 @@ const history=useHistory();
              localStorage.setItem("username", username);
              localStorage.setItem("password", password);
 
-             history.push("/dashboard")
+
+             history.push("/dashboard");
       });
    };
-
-    
-
 
 
 
@@ -77,14 +75,6 @@ const history=useHistory();
 //              history.push("/UserManagement");
 //           }
 //     }
-
-
-
-
-
-
-
-   
 
      return (
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">

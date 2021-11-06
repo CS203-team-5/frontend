@@ -24,6 +24,12 @@ const Records = (props) => {
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
 
+  const yourConfig = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
+
   const del = async (bid) => {
     console.log("Delete function: ", bid);
     var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
@@ -31,7 +37,7 @@ const Records = (props) => {
         params: {
           id: bid
         }
-      }).then(() => {
+      },yourConfig).then(() => {
         window.location.reload(false);
       })
     console.log((await res).status)
@@ -67,11 +73,11 @@ const Records = (props) => {
   const fetchRecords = async () => {
     var res = ""
     if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/",yourConfig)
     } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/",yourConfig)
     } else {
-      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/",yourConfig)
     }
     const data = await res.json()
     console.log(data)

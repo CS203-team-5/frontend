@@ -29,18 +29,7 @@ const Records = (props) => {
   const history=useHistory();
   const[name,setName]=useState()
 
-  const del = async (bid) => {
-    console.log("Delete function: ", bid);
-    var res = axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
-      {
-        params: {
-          id: bid
-        }
-      }).then(() => {
-        window.location.reload(false);
-      })
-    console.log((await res).status)
-  }
+
   //sort function
   const sorting = (col) => {
     if (order === "ASC") {
@@ -72,7 +61,7 @@ const Records = (props) => {
   const fetchRecords = async () => {
 
 
-     const getUser="http://localhost:8080/api/user/hr/getAll/";
+     const getUser="http://localhost:8080/api/user/hr";
 
     const yourConfig = {
         headers: {

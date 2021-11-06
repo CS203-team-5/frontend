@@ -34,6 +34,11 @@ const News = (props) => {
     const [url, setURL] = useState()
     const [visible, setVisible, validated, setValidated] = useState(false)
 
+    const yourConfig = {
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("authorization")
+         }
+      }
     useEffect(() => {
         const getNews = async () => {
             const tasksFromServer = await fetchNews()
@@ -45,14 +50,19 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
-        res = await fetch('http://localhost:8080/api/news/hr/')
+//
+//      Axios.get('http://localhost:8080/api/news/hr/',yourConfig)
+//      .then( res => {
+//                  return res.data
+//        })
+        res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
     const url2 = "http://localhost:8080/api/news/hr"
-    
+
     function submit(e) {
         e.preventDefault();
         Axios.post(url2, {
@@ -60,10 +70,13 @@ const News = (props) => {
             title: title,
             content: content,
             url : url
-        })
+        },yourConfig)
+
+
         .then(res => {
             window.location.reload(false);
           })
+
     }
 
 

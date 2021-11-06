@@ -49,7 +49,7 @@ const history=useHistory();
   const userEmail=localStorage.getItem("username");
 
 
-  const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+  const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
 
 
   const yourConfig = {

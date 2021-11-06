@@ -82,7 +82,7 @@ function UserDetails(props) {
    const [validated, setValidated] = useState(false)
 
    const location=useLocation();
-   const getUser="http://localhost:8080/api/user/get/"+ location.state.username;
+   const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
 
    const yourConfig = {
       headers: {
@@ -112,7 +112,7 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    const getUserBookings='http://localhost:8080/api/bookings/getUserBookings/'+location.state.username;
+    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+location.state.username;
 //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
 //    const data = await res.json()
 //    console.log(data)
