@@ -43,14 +43,13 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
-        res = await fetch('http://localhost:8080/api/news/hr/getAll')
+        res = await fetch('http://localhost:8080/api/news/hr/')
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
-
-    const url = "http://localhost:8080/api/news/hr/create/newNews"
+    const url = "http://localhost:8080/api/news/hr"
     
     function submit(e) {
         e.preventDefault();

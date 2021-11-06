@@ -62,7 +62,7 @@ const Regulation = (props) => {
     return data
   }
 
-  const url = "http://localhost:8080/api/regulation/hr/addRegulation"
+  const url = "http://localhost:8080/api/regulation/hr"
 
   function submit(e) {
     e.preventDefault();

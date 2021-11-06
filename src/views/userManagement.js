@@ -54,12 +54,15 @@ const UserManagement = (props) => {
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    var res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
+    var res = await fetch('http://localhost:8080/api/bookings/hr')
+    // var res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
     if(resultType==="past"){
-      res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyPast')
+      res = await fetch('http://localhost:8080/api/bookings/emp/past')
+      // res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyPast')
     }
     if(resultType==="upcoming"){
-      res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyUpcoming')
+      res = await fetch('http://localhost:8080/api/bookings/emp/upcoming')
+      // res = await fetch('http://localhost:8080/api/bookings/emp/getAllMyUpcoming')
     }
     const data = await res.json()
     return data
