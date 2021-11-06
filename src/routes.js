@@ -66,7 +66,6 @@ const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
 const Profile =React.lazy(() => import('./views/profile'))
 
-const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 
 
 const routes = [
