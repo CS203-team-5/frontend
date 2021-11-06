@@ -121,7 +121,7 @@ const history= useHistory();
                    <CRow>
                      <CCol xs={6}>
                        <CButton color="primary" className="px-4 btn btn-lg btn-primary btn-block" type="submit">
-                         Login
+                         Submit
                        </CButton>
                      </CCol>
                    </CRow>
