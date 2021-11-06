@@ -60,7 +60,11 @@ const [validated, setValidated] = useState(false)
        }
        setValidated(true)
 
-
+      const yourConfig = {
+           headers: {
+              Authorization: "Bearer " + localStorage.getItem("authorization")
+           }
+        }
        history.push("/UserManagement");
        const endpoint = "http://localhost:8080/api/user/hr/create";
 
@@ -76,7 +80,7 @@ const [validated, setValidated] = useState(false)
 
        };
 
-       axios.post(endpoint, user_object).then(res => {
+       axios.post(endpoint, user_object,yourConfig).then(res => {
           if(res.response==200){
               history.push("/UserManagement");
           }

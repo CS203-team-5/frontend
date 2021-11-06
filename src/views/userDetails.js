@@ -45,22 +45,13 @@ function UserDetails(props) {
    const[role,setRole]= useState();
    const[fullName, setFullName]= useState();
    const [bookingRecords, setRecords] = useState([])
+  const [formRecords, setFormRecords] = useState([])
    const [order, setOrder] = useState("ASC");
    const [resultType, setResultType] = useState()
+     const [formOrder, setFormOrder] = useState("ASC");
 
 
-       const del = async (bid) => {
-         console.log("Delete function: ", bid);
-         var res = axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
-           {
-             params: {
-               id: bid
-             }
-           }).then(() => {
-             window.location.reload(false);
-           })
-         console.log((await res).status)
-       }
+
        //sort function
        const sorting = (col) => {
          if (order === "ASC") {
@@ -78,6 +69,25 @@ function UserDetails(props) {
            setOrder("ASC");
          }
        }
+
+
+       //sort function
+              const formSorting = (col) => {
+                if (order === "ASC") {
+                  const sorted = [...bookingRecords].sort((a, b) =>
+                    a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
+                  );
+                  setFormRecords(sorted);
+                  setFormOrder("DSC");
+                }
+                if (order === "DSC") {
+                  const sorted = [...bookingRecords].sort((a, b) =>
+                    a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
+                  );
+                  setFormRecords(sorted);
+                  setFormOrder("ASC");
+                }
+              }
 
    const [validated, setValidated] = useState(false)
 
@@ -104,9 +114,12 @@ function UserDetails(props) {
  useEffect(() => {
     const getRecords = async () => {
       const tasksFromServer = await fetchRecords()
+      const tasksFromServer2 = await fetchFormRecords()
+
 //      setRecords(tasksFromServer)
     }
     getRecords()
+
   }, [resultType])
 
   // Fetch Tasks
@@ -117,11 +130,11 @@ function UserDetails(props) {
 //    const data = await res.json()
 //    console.log(data)
 //    return data
-   const yourConfig = {
-          headers: {
-             Authorization: "Bearer " + localStorage.getItem("authorization")
-          }
-       }
+     const yourConfig = {
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("authorization")
+            }
+         }
 
         axios.get(getUserBookings,yourConfig).then(res => {
 
@@ -130,6 +143,27 @@ function UserDetails(props) {
 
         });
   }
+
+  const fetchFormRecords = async () => {
+      var res = ""
+      const getUserForm='http://localhost:8080/api/dailyForm/user/'+location.state.username;
+  //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
+  //    const data = await res.json()
+  //    console.log(data)
+  //    return data
+       const yourConfig = {
+              headers: {
+                 Authorization: "Bearer " + localStorage.getItem("authorization")
+              }
+           }
+
+          axios.get(getUserForm,yourConfig).then(res => {
+
+             var json= res.data;
+             setFormRecords(json);
+
+          });
+    }
 
 
       return (
@@ -173,7 +207,6 @@ function UserDetails(props) {
 
                                </CCol>
 
-
                                     <CTable>
                                        <CTableHead color="dark">
                                          <CTableRow>
@@ -193,6 +226,29 @@ function UserDetails(props) {
                                          ))}
                                        </CTableBody>
                                      </CTable>
+
+
+
+                                       <CTable>
+                                        <CTableHead color="dark">
+                                          <CTableRow>
+                                            <CTableHeaderCell scope="col" onClick={() => formSorting("fid")}> Form ID </CTableHeaderCell>
+                                            <CTableHeaderCell scope="col" onClick={() => formSorting("dateTime")}>Date</CTableHeaderCell>
+                                             <CTableHeaderCell scope="col" onClick={() => formSorting("symptoms")}> Symptoms</CTableHeaderCell>
+
+                                          </CTableRow>
+                                        </CTableHead>
+                                        <CTableBody>
+                                          {formRecords.map((formRecord) => (
+                                            <CTableRow key={formRecord.bid}>
+                                              <CTableHeaderCell scope="row">{formRecord.fid}</CTableHeaderCell>
+                                              <CTableDataCell>{formRecord.dateTime}</CTableDataCell>
+                                              <CTableDataCell>{formRecord.symptoms}</CTableDataCell>
+                                            </CTableRow>
+                                          ))}
+                                        </CTableBody>
+                                      </CTable>
+
 
                     </CCardBody>
                   </CCard>
