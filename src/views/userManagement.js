@@ -141,7 +141,7 @@ const Records = (props) => {
                      }}  variant="outline">
                             Add New User
                     </button>
-
+            </CCol>
 
           </CCardHeader>
           <CCardBody>
