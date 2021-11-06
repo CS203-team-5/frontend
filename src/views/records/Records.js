@@ -66,11 +66,11 @@ const Records = (props) => {
   const fetchRecords = async () => {
     var res = ""
     if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/getAllMyPast/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/")
     } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/getAllMyUpcoming/" + localStorage.getItem("username") + "/")
+      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/")
     } else {
-      res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
+      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/")
     }
     const data = await res.json()
     console.log(data)
@@ -121,7 +121,7 @@ const Records = (props) => {
                   <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID</CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" >Actions</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
@@ -130,7 +130,13 @@ const Records = (props) => {
                     <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
                     <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
                     <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                    <CTableDataCell><CButton color="dark" variant="ghost" onClick={() => del(bookingRecord.bid)}>Cancel</CButton></CTableDataCell>
+                    <CTableDataCell>
+                      {resultType === "upcoming" ?
+                        <CButton color="dark" variant="ghost"
+                          onClick={() => del(bookingRecord.bid)}>Cancel</CButton> :
+                        <p></p>
+                      }
+                    </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>

@@ -61,10 +61,12 @@ function Bookings(props) {
     date.setHours(8);
     Axios.post(url, {
       bdate: date,
-      status: "Completed",
+      status: "",
       user: {
         "email": localStorage.getItem("username")
       }
+    }).then(() => {
+      window.location.reload(false);
     })
   }
   return (

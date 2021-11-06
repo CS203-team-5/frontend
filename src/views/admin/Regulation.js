@@ -153,6 +153,7 @@ const Regulation = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
+                {/* regulationRecords = [{a},{b},{c}] */}
                 {regulationRecords.map((regulationRecord) => (
                   <CTableRow key={regulationRecord.startDate}>
                     <CTableHeaderCell scope="row">{regulationRecord.startDate}</CTableHeaderCell>
