@@ -81,7 +81,7 @@ function UserDetails(props) {
 
    const [validated, setValidated] = useState(false)
 
-    const location=useLocation();
+   const location=useLocation();
    const getUser="http://localhost:8080/api/user/get/"+ location.state.username;
 
    const yourConfig = {
@@ -104,7 +104,7 @@ function UserDetails(props) {
  useEffect(() => {
     const getRecords = async () => {
       const tasksFromServer = await fetchRecords()
-      setRecords(tasksFromServer)
+//      setRecords(tasksFromServer)
     }
     getRecords()
   }, [resultType])
@@ -112,11 +112,23 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    res = await fetch('http://localhost:8080/api/bookings/getUserBookings/'+location.state.username)
+    const getUserBookings='http://localhost:8080/api/bookings/getUserBookings/'+location.state.username;
 //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
-    const data = await res.json()
-    console.log(data)
-    return data
+//    const data = await res.json()
+//    console.log(data)
+//    return data
+   const yourConfig = {
+          headers: {
+             Authorization: "Bearer " + localStorage.getItem("authorization")
+          }
+       }
+
+        axios.get(getUserBookings,yourConfig).then(res => {
+
+           var json= res.data;
+           setRecords(json);
+
+        });
   }
 
 
@@ -162,25 +174,25 @@ function UserDetails(props) {
                                </CCol>
 
 
-                                 <CTable>
-                                  <CTableHead color="dark">
-                                    <CTableRow>
-                                      <CTableHeaderCell scope="col" onClick={() => sorting("bid")}> Booking ID </CTableHeaderCell>
-                                      <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
-                                       <CTableHeaderCell scope="col" onClick={() => sorting("status")}> Status </CTableHeaderCell>
+                                    <CTable>
+                                       <CTableHead color="dark">
+                                         <CTableRow>
+                                           <CTableHeaderCell scope="col" onClick={() => sorting("bid")}> Booking ID </CTableHeaderCell>
+                                           <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
+                                            <CTableHeaderCell scope="col" onClick={() => sorting("status")}> Status </CTableHeaderCell>
 
-                                    </CTableRow>
-                                  </CTableHead>
-                                  <CTableBody>
-                                    {bookingRecords.map((bookingRecord) => (
-                                      <CTableRow key={bookingRecord.bid}>
-                                        <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
-                                        <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
-                                        <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                                      </CTableRow>
-                                    ))}
-                                  </CTableBody>
-                                </CTable>
+                                         </CTableRow>
+                                       </CTableHead>
+                                       <CTableBody>
+                                         {bookingRecords.map((bookingRecord) => (
+                                           <CTableRow key={bookingRecord.bid}>
+                                             <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
+                                             <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
+                                             <CTableDataCell>{bookingRecord.status}</CTableDataCell>
+                                           </CTableRow>
+                                         ))}
+                                       </CTableBody>
+                                     </CTable>
 
                     </CCardBody>
                   </CCard>

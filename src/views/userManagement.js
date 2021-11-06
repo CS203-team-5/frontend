@@ -1,8 +1,8 @@
 import React, { lazy, useState, useEffect } from 'react'
-import Axios from 'axios';
+import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
-
+import { useLocation } from "react-router-dom";
 
 import {
   CButton,
@@ -27,10 +27,11 @@ const Records = (props) => {
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
   const history=useHistory();
+  const[name,setName]=useState()
 
   const del = async (bid) => {
     console.log("Delete function: ", bid);
-    var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
+    var res = axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
       {
         params: {
           id: bid
@@ -62,27 +63,29 @@ const Records = (props) => {
   useEffect(() => {
     const getRecords = async () => {
       const tasksFromServer = await fetchRecords()
-      setRecords(tasksFromServer)
+//      setRecords(tasksFromServer)
     }
     getRecords()
   }, [resultType])
 
   // Fetch Tasks
   const fetchRecords = async () => {
-//<<<<<<< HEAD
-//    var res = await fetch('http://localhost:8080/api/bookings/hr')
-//    if(resultType==="past"){
-//      res = await fetch('http://localhost:8080/api/bookings/emp/past')
-//    }
-//    if(resultType==="upcoming"){
-//      res = await fetch('http://localhost:8080/api/bookings/emp/upcoming')
-//    }
-//=======
-    var res = ""
-    res = await fetch('http://localhost:8080/api/user/hr/getAll/')
-    const data = await res.json()
-    console.log(data)
-    return data
+
+
+     const getUser="http://localhost:8080/api/user/hr/getAll/";
+
+    const yourConfig = {
+        headers: {
+           Authorization: "Bearer " + localStorage.getItem("authorization")
+        }
+     }
+
+      axios.get(getUser,yourConfig).then(res => {
+
+         var json= res.data;
+         setRecords(json);
+
+      });
   }
 
   return (
@@ -133,15 +136,7 @@ const Records = (props) => {
                 </button>
                 </CCol>
 
-              <CCol xs={9}></CCol>
-                 <CCol xs={6}>
-                   <button className="btn btn-lg btn-primary btn-block"
-                    onClick={(event) => {
-                       history.push("/CreateUser")
-                     }}  variant="outline">
-                            Add New User
-                    </button>
-            </CCol>
+
 
           </CCardHeader>
           <CCardBody>
