@@ -1,7 +1,8 @@
-import { React, Dropdown } from 'react'
+import { React, Dropdown, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavDropdown } from 'react-bootstrap'
+import axios from "axios";
 import {
   CContainer,
   CHeader,
@@ -21,6 +22,25 @@ import { logo } from 'src/assets/brand/logo'
 const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+     const [role, setRole] = useState();
+     const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+
+
+        const yourConfig = {
+           headers: {
+              Authorization: "Bearer " + localStorage.getItem("authorization")
+           }
+        }
+
+
+        axios.get(getUser,yourConfig).then(res => {
+              var json= res.data;
+              setRole(json["userRole"])
+//              localStorage.setItem("UserRole", json["userRole"].toString());
+
+         });
+//         const userRole=localStorage.getItem("UserRole")
+
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -37,11 +57,10 @@ const AppHeader = () => {
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
+
               Dashboard
+
             </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Dashboard</CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink href="/records">Records</CNavLink>
@@ -50,11 +69,15 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-            <NavDropdown title="Admin" id="nav-dropdown">
-              <NavDropdown.Item href="/records">User Management</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
-            </NavDropdown>
+            {role==="HR" ?
+                  <NavDropdown title="Admin" id="nav-dropdown">
+                    <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
+                  </NavDropdown>
+              :
+               <p></p>
+             }
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>

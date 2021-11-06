@@ -1,5 +1,9 @@
 import React, { lazy, useState, useEffect } from 'react'
-import Axios from 'axios';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
+import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import { useLocation } from "react-router-dom";
+
 import {
   CButton,
   CButtonGroup,
@@ -22,10 +26,12 @@ const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
+  const history=useHistory();
+  const[name,setName]=useState()
 
   const del = async (bid) => {
     console.log("Delete function: ", bid);
-    var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
+    var res = axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
       {
         params: {
           id: bid
@@ -57,24 +63,29 @@ const Records = (props) => {
   useEffect(() => {
     const getRecords = async () => {
       const tasksFromServer = await fetchRecords()
-      setRecords(tasksFromServer)
+//      setRecords(tasksFromServer)
     }
     getRecords()
   }, [resultType])
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    var res = ""
-    if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/")
-    } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/")
-    } else {
-      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/")
-    }
-    const data = await res.json()
-    console.log(data)
-    return data
+
+
+     const getUser="http://localhost:8080/api/user/hr/getAll/";
+
+    const yourConfig = {
+        headers: {
+           Authorization: "Bearer " + localStorage.getItem("authorization")
+        }
+     }
+
+      axios.get(getUser,yourConfig).then(res => {
+
+         var json= res.data;
+         setRecords(json);
+
+      });
   }
 
   return (
@@ -82,7 +93,7 @@ const Records = (props) => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong sm={6} md={8}>My Booking Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong sm={6} md={8}>User Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <CButtonGroup role="group" aria-label="Basic checkbox toggle button group">
               <CFormCheck
                 onClick={() => setResultType('all')}
@@ -113,30 +124,66 @@ const Records = (props) => {
                 label="Upcoming"
               />
             </CButtonGroup>
+             <CCol xs={2}>
+             <button className="btn btn-sm btn-primary btn-block"
+               onClick={(event) => {
+
+                   history.push("/CreateUser")
+                  }
+                }
+                >
+                    Create New User
+                </button>
+                </CCol>
+
+
+
           </CCardHeader>
           <CCardBody>
             <CTable>
               <CTableHead color="dark">
-                <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
-                </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
+
+                    User Email </CTableHeaderCell>
+                    <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
+                     <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
+                      <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
+                <CTableHeaderCell scope="col" ></CTableHeaderCell>
+
+                  </CTableRow>
               </CTableHead>
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
                   <CTableRow key={bookingRecord.bid}>
-                    <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
-                    <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
-                    <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                    <CTableDataCell>
-                      {resultType === "upcoming" ?
-                        <CButton color="dark" variant="ghost"
-                          onClick={() => del(bookingRecord.bid)}>Cancel</CButton> :
-                        <p></p>
-                      }
-                    </CTableDataCell>
+                    <CTableHeaderCell scope="row">{bookingRecord.email}</CTableHeaderCell>
+                    <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
+                      <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
+                        <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
+                        <CTableDataCell>
+                                 <CCol xs={6}>
+                                    <button className="btn btn-sm btn-primary btn-block"
+                                   onClick={(event) => {
+                                    const email= bookingRecord.email
+                                       history.push({
+
+                                       pathname:"/UserDetails",
+                                       search: '?query=abc',
+                                       state: {
+                                       username: email
+
+                                       }
+
+                                       })
+                                      }
+                                    }
+                                    >
+                                    UserDetails
+                                    </button>
+
+
+                                 </CCol>
+                            </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>

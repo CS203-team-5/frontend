@@ -30,6 +30,9 @@ function Login(props) {
 const history=useHistory();
    const [username, setUsername] = useState();
    const [password, setPassword] = useState();
+//   const[user, setUser]= useState();
+
+
 //     const getCurrentUser = async function () {
 //        const currentUser = await Parse.User.current();
 //        // Update state variable holding current user
@@ -51,79 +54,103 @@ const history=useHistory();
        };
 
        axios.post(endpoint, user_object).then(res => {
-           localStorage.setItem("authorization", res.data.token);
-           localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
-           return handleDashboard();
-       });
+
+
+             localStorage.setItem("authorization", res.data.token);
+             localStorage.setItem("username", username);
+             localStorage.setItem("password", password);
+
+             return handleDashboard()
+      });
    };
 
    const handleDashboard = () => {
-//      const name= localStorage.getItem("username");
-//      const intialValue
-//        axios.get("http://localhost:8080/api/user/hr/getAll").then(res => {
-//            if (res.response === 200) {
-      history.push("/dashboard");
 
-//            } else {
-//                console.log("Fail")
-//                alert("Authentication failure");
-//            }
-//        });
+
+      const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
+
+
+      const yourConfig = {
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("authorization")
+         }
+      }
+
+
+      axios.get(getUser,yourConfig).then(res => {
+            var json= res.data;
+
+//            localStorage.setItem("UserRole", json["userRole"].toString());
+
+                  history.push("/dashboard");
+
+
+       });
+
+
+//     if(localStorage.getItem("UserRole")!=null){
+//
+//          if(localStorage.getItem("UserRole")=="HR"){
+//               history.push("/dashboard");
+//           }else{
+//              history.push("/UserManagement");
+//           }
+//     }
+
+
+
+
+
+
+
    };
 
      return (
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
-               <form className="form-signin" onSubmit={handleFormSubmit}>
-
-             <CCol md={8}>
+             <CCol md={6}>
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
-
+                     <CForm className="form-signin" onSubmit={handleFormSubmit}>
                        <h1>Login</h1>
-
-
-                               <p className="text-medium-emphasis">Sign In to your account</p>
-                               <CInputGroup className="mb-3">
-                               <div className="form-group">
-                                    <input type="text"
-                                        className="form-control"
-                                        placeholder="User name"
-                                        onChange={event => setUsername(event.target.value)}
-                                    />
-                                </div>
-
-                               </CInputGroup>
-                               <CInputGroup className="mb-4">
-
-                             <div className="form-group">
-                                 <input type="password"
-                                     className="form-control"
-                                     placeholder="password"
-                                     onChange={event => setPassword(event.target.value)}
-                                 />
-                                </div>
-                               </CInputGroup>
-                               <CRow>
-                               <CCol xs={6}>
-
-                                  <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                      Login
-                                  </button>
-                               </CCol>
-                           </CRow>
-
-
+                       <p className="text-medium-emphasis">Sign In to your account</p>
+                       <CInputGroup className="mb-3">
+                         <CInputGroupText>
+                           <CIcon icon={cilUser} />
+                         </CInputGroupText>
+                         <CFormInput placeholder="Username" autoComplete="username" className="form-control" onChange={event => setUsername(event.target.value)}/>
+                       </CInputGroup>
+                       <CInputGroup className="mb-4">
+                         <CInputGroupText>
+                           <CIcon icon={cilLockLocked} />
+                         </CInputGroupText>
+                         <CFormInput
+                           type="password"
+                           placeholder="Password"
+                           autoComplete="current-password"
+                           onChange={event => setPassword(event.target.value)}
+                         />
+                       </CInputGroup>
+                       <CRow>
+                         <CCol xs={6}>
+                           <CButton color="primary" className="px-4 btn btn-lg btn-primary btn-block" type="submit">
+                             Login
+                           </CButton>
+                         </CCol>
+                         <CCol xs={6} className="text-right">
+                           <CButton color="link" className="px-0">
+                             Forgot password?
+                           </CButton>
+                         </CCol>
+                       </CRow>
+                     </CForm>
                    </CCardBody>
                  </CCard>
                </CCardGroup>
-              </CCol>
-             </form>
+             </CCol>
            </CRow>
-
          </CContainer>
        </div>
      )

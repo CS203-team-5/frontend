@@ -22,6 +22,7 @@ import {
     CFormText,
     CFormLabel,
     CFormInput,
+    CImage
 } from '@coreui/react'
 
 const News = (props) => {
@@ -30,6 +31,7 @@ const News = (props) => {
     const [title, setTitle] = useState()
     const [date, setDate] = useState()
     const [content, setContent] = useState()
+    const [url, setURL] = useState()
     const [visible, setVisible, validated, setValidated] = useState(false)
 
     useEffect(() => {
@@ -39,28 +41,35 @@ const News = (props) => {
         }
         getNews()
     }, [])
+    var res;
 
     // Fetch Tasks
     const fetchNews = async () => {
-        const res = await fetch('http://localhost:8080/api/news/hr/getAll')
+        res = await fetch('http://localhost:8080/api/news/hr/')
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
-
-    const url = "http://localhost:8080/api/news/hr/create/newNews"
-
+    const url2 = "http://localhost:8080/api/news/hr"
+    
     function submit(e) {
         e.preventDefault();
-        Axios.post(url, {
+        Axios.post(url2, {
             date: date,
             title: title,
-            content: content
+            content: content,
+            url : url
         })
+<<<<<<< HEAD
             .then(res => {
               window.location.reload(false);
             })
+=======
+        .then(res => {
+            window.location.reload(false);
+          })
+>>>>>>> bb7c4b070a432522f0f1a2726cf07bd61021e22e
     }
 
 
@@ -92,8 +101,15 @@ const News = (props) => {
                                         <CFormLabel htmlFor="exampleContent">Content</CFormLabel>
                                         <CFormInput type="content" id="exampleContent" onChange={event => setContent(event.target.value)} />
                                     </div>
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="exampleContent">URL</CFormLabel>
+                                        <CFormInput type="content" id="exampleContent" onChange={event => setURL(event.target.value)} />
+                                    </div>
                                     <CButton onClick={() => setVisible(false)} type="submit" color="primary">
                                         Submit
+                                    </CButton>
+                                    <CButton color="secondary" onClick={() => setVisible(false)}>
+                                        Close
                                     </CButton>
                                 </CForm>
                             </CModalBody>
@@ -109,6 +125,7 @@ const News = (props) => {
                                     <CTableHeaderCell scope="col">Date</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Title</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Content</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col">Image URL</CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                             <CTableBody>
@@ -118,6 +135,7 @@ const News = (props) => {
                                         <CTableDataCell>{newsRecord.date}</CTableDataCell>
                                         <CTableDataCell>{newsRecord.title}</CTableDataCell>
                                         <CTableDataCell>{newsRecord.content}</CTableDataCell>
+                                        <CTableDataCell><img src={newsRecord.url} style = {{height: 50, resizeMode : 'fit', margin: 5 }}/></CTableDataCell>
                                     </CTableRow>
                                 ))}
                             </CTableBody>

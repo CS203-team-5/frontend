@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../components/calendar/Calendar.css';
@@ -17,8 +17,8 @@ import {
 } from '@coreui/react'
 
 function Bookings(props) {
-  const [email, setEmail] = useState();
   const [date, setDate] = useState(new Date());
+  const [quota, setQuota] = useState(1);
   const locale = 'en-SG';
   const options = {
 
@@ -30,30 +30,45 @@ function Bookings(props) {
 
   };
 
-  const url = "http://localhost:8080/api/bookings/emp/"
+  useEffect(() => {
+    const getQuota = async () => {
+      const tasksFromServer = await fetchQuota()
+      setQuota(tasksFromServer)
+    }
+    getQuota()
+  }, [])
 
+  const fetchQuota = async () => {
+    var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
+      {
+        params: {
+          email: localStorage.getItem("username")
+        }
+      })
+    console.log("Username is ", localStorage.getItem("username"))
+    const data = await res
+    console.log("Data ", data)
+    console.log("Data from database: ", data.data)
+    return (10 - data.data) < 0 ? 0 : 10 - data.data
+  }
+
+
+  const url = "http://localhost:8080/api/bookings/emp/"
   function submit(e) {
     e.preventDefault();
+    setQuota(quota - 1 < 0 ? 0 : quota)
     console.log("Before ", date);
     date.setHours(8);
     Axios.post(url, {
       bdate: date,
-      status: "Completed",
+      status: "",
       user: {
-        "email": email
+        "email": localStorage.getItem("username")
       }
+    }).then(() => {
+      window.location.reload(false);
     })
-      .then(res => {
-      })
   }
-
-  function handle(e) {
-    const newdata = { ...date }
-    newdata[e.target.id] = e.target.value
-    setDate(newdata)
-    console.log(newdata)
-  }
-
   return (
     <CRow>
       <CCol xs>
@@ -76,13 +91,13 @@ function Bookings(props) {
                 <CForm onSubmit={(e) => submit(e)}>
                   <CRow className="mb-3">
                     <CFormLabel className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
-                    <CFormLabel className="col-sm-4 col-form-label"> 3/10 </CFormLabel>
+                    <CFormInput value={quota} disabled="disabled" />
                   </CRow>
                   <CRow className="mb-3">
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
                     <CCol sm={8}>
-                      <CFormInput type="email" id="b_email" onChange={event => setEmail(event.target.value)}
-                        placeholder="Enter your email" />
+                      <CFormInput type="email" id="b_email" value={localStorage.getItem("username")}/*onChange={event => setEmail(event.target.value)}*/
+                        placeholder="Enter your email" disabled="disabled" />
 
                     </CCol>
                   </CRow>

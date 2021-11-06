@@ -64,6 +64,7 @@ const Regulation = (props) => {
       })
   }
 
+<<<<<<< HEAD
   //sort function
   const sorting =(col)=>{
     if(order==="ASC"){
@@ -80,6 +81,33 @@ const Regulation = (props) => {
       showRegulation(sorted);
       setOrder("ASC");
     }
+=======
+  // Fetch Tasks
+  const fetchRegulationLimit = async () => {
+    const res = await fetch('http://localhost:8080/api/regulationLimit/emp')
+    console.log("print fetchRegulationLimit")
+
+    console.log(res)
+    const data = await res.json()
+    console.log(data)
+    return data
+  }
+
+  const url2 = "http://localhost:8080/api/regulationLimit/hr"
+
+  function submit2(e) {
+    e.preventDefault();
+    Axios.post(url2, {
+      regulationLimitKey: {
+        "startDate": regulationStartDate,
+        "cid": companyCID
+      },
+      dailyLimit: dailyLimit
+    })
+      .then(res => {
+        window.location.reload(false);
+      })
+>>>>>>> bb7c4b070a432522f0f1a2726cf07bd61021e22e
   }
 
   return (
@@ -139,6 +167,7 @@ const Regulation = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
+                {/* regulationRecords = [{a},{b},{c}] */}
                 {regulationRecords.map((regulationRecord) => (
                   <CTableRow color="primary" key={regulationRecord.startDate}>
                     <CTableHeaderCell scope="row">{regulationRecord.startDate}</CTableHeaderCell>
