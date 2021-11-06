@@ -1,5 +1,6 @@
-import React, { lazy } from 'react'
+import React, { useState, useEffect, lazy } from 'react';
 import {useHistory} from 'react-router-dom';
+import Axios from 'axios';
 
 import {
   CAvatar,
@@ -63,7 +64,8 @@ const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
-const history=useHistory();
+  const [quota, setQuota] = useState(1);
+  const history=useHistory();
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -72,6 +74,25 @@ const history=useHistory();
       history.push("/CheckIn");
 
   }
+
+  useEffect(() => {
+      const getQuota = async () => {
+        const tasksFromServer = await fetchQuota()
+        setQuota(tasksFromServer)
+      }
+      getQuota()
+    }, [])
+
+    const fetchQuota = async () => {
+      var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
+        {
+          params: {
+            email: localStorage.getItem("username")
+          }
+        })
+      const data = await res
+      return (10 - data.data) < 0 ? 0 : 10 - data.data
+    }
 
   return (
     <>
@@ -83,7 +104,7 @@ const history=useHistory();
               icon={<CIcon icon={cilCalendar} height={24} />}
               padding={false}
               title="Quota Left This Month"
-              value="3/10"/>
+              value={quota}/>
           </CCol>
           <CCol xs={4}>
             <CWidgetStatsF
