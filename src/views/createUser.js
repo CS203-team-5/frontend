@@ -94,115 +94,92 @@ const [validated, setValidated] = useState(false)
        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
-            <form className="form-signin" onSubmit={handleFormSubmit}>
-             <CCol md={8}>
+             <CCol md={6}>
                <CCardGroup>
                  <CCard className="p-4">
                    <CCardBody>
-                       <h1>Create new User</h1>
-                               <p className="text-medium-emphasis"> Create account for new user by entering relevant details  </p>
-                               <CInputGroup className="mb-4">
+                     <form className="form-signin" onSubmit={handleFormSubmit}>
+                       <h1>Create New Users</h1>
+                       <p className="text-medium-emphasis">Submit the form with all details filled to add a new user. New users will receive their password via the registered email submitted in this form within 10minutes.</p>
+                       <CRow className="mb-3">
+                         <CCol className="col-sm-3">
+                           <CFormLabel className="col-form-label" >User&#39;s Email</CFormLabel>
+                         </CCol>
+                         <CCol className="col-sm-9">
+                           <input type="email"
+                                className="form-control"
+                                placeholder="Enter the email"
+                                onChange={event => setEmail(event.target.value)}
+                           required/>
+                         </CCol>
+                       </CRow>
+                       <CRow className="mb-3">
+                        <CCol className="col-sm-3">
+                          <CFormLabel className="col-form-label" >User&#39;s Email</CFormLabel>
+                        </CCol>
+                        <CCol className="col-sm-9">
+                            <CFormInput type="email" placeholder="Re-enter User Email" id="validationServer05" required onChange={
+                              event=> setSecondEmail(event.target.value)
+                            }/>
+                            <CFormFeedback invalid>Please check email entered </CFormFeedback>
+                        </CCol>
+                      </CRow>
+                      <CRow className="mb-3">
+                       <CCol className="col-sm-3">
+                         <CFormLabel className="col-form-label" >User&#39;s First Name</CFormLabel>
+                       </CCol>
+                       <CCol className="col-sm-9">
+                         <input type="text"
+                              className="form-control"
+                              placeholder="First Name"
+                              onChange={event => setFirstName(event.target.value)}
+                         required />
+                       </CCol>
+                     </CRow>
+                     <CRow className="mb-3">
+                       <CCol className="col-sm-3">
+                         <CFormLabel className="col-form-label" >User&#39;s Last Name</CFormLabel>
+                       </CCol>
+                       <CCol className="col-sm-9">
+                         <input type="Last Name"
+                            className="form-control"
+                            placeholder="Last Name"
+                            onChange={event => setLastName(event.target.value)}
+                        required />
+                       </CCol>
+                     </CRow>
 
-                                <CCol md={10}>
-                                    <input type="text"
-                                        className="form-control"
-                                        placeholder="User Email"
-                                        onChange={event => setEmail(event.target.value)}
-                                    required/>
-                                     </CCol>
-
-
-
-
-                               </CInputGroup >
-                              <CInputGroup className="mb-4">
-                                <CCol md={10}>
-
-                                   <CFormInput type="text" placeholder="Re-enter User Email" id="validationServer05" required onChange={
-                                    event=> setSecondEmail(event.target.value)
-                                   }/>
-
-                                   <CFormFeedback invalid>Please check email entered </CFormFeedback>
-                                 </CCol>
-                                </CInputGroup>
-
-
-
-                               <CInputGroup className="mb-4">
-
-                                <CCol md={10 }>
-                                    <div className="form-group">
-                                         <input type="text"
-                                             className="form-control"
-                                             placeholder="First Name"
-                                             onChange={event => setFirstName(event.target.value)}
-                                        required />
-                                     </div>
-                                 </CCol>
-                                </CInputGroup>
-
-                                 <CInputGroup className="mb-4">
-
-
-                               <CCol md={10 }>
-                                 <input type="Last Name"
-                                     className="form-control"
-                                     placeholder="Last Name"
-                                     onChange={event => setLastName(event.target.value)}
-                                 required />
-                                  </CCol>
-
-                               </CInputGroup>
-
-
-
-                               <CRow>
-                               <CCol xs={6}>
-<p className="text-medium-emphasis">Choose new User Role
-
-                                  </p>
-                                 <CInputGroup className="mb-4">
-
-
-                                    <CFormCheck
-                                       type="radio"
-                                       name="flexRadioDefault"
-                                       value="Admin"
-                                       id="flexRadioDefault1"
-                                       label="Admin"
-                                       defaultChecked
-                                     />
-                                     <CCol xs={2}></CCol>
-
-
-                                     <CFormCheck
-                                       type="radio"
-                                       name="flexRadioDefault"
-                                       id="flexRadioDefault1"
-                                       value="User"
-                                       label="User"
-                                     />
-
-
-                                    </CInputGroup>
-
-
-                                      <CInputGroup className="mb-4">
-
-
-                                      </CInputGroup>
-                                  <button className="btn btn-lg btn-primary btn-block" type="submit">
-                                      Create
-                                  </button>
-                               </CCol>
-                           </CRow>
-
-
+                       <CRow>
+                         <CCol xs={6}>
+                         <p className="text-medium-emphasis">Choose new User Role</p>
+                         <CInputGroup className="mb-4">
+                            <CFormCheck
+                               type="radio"
+                               name="flexRadioDefault"
+                               value="Admin"
+                               id="flexRadioDefault1"
+                               label="Admin"
+                               defaultChecked
+                             />
+                             <CCol xs={2}></CCol>
+                             <CFormCheck
+                               type="radio"
+                               name="flexRadioDefault"
+                               id="flexRadioDefault1"
+                               value="User"
+                               label="User"
+                             />
+                          </CInputGroup>
+                          <button className="btn btn-lg btn-primary btn-block" type="submit">
+                              Create
+                          </button>
+                       </CCol>
+                      </CRow>
+                    </form>
                    </CCardBody>
                  </CCard>
                </CCardGroup>
               </CCol>
-             </form>
            </CRow>
 
          </CContainer>

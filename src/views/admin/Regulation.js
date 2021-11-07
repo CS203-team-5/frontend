@@ -23,6 +23,8 @@ import {
   CFormLabel,
   CFormInput, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdown,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
 
 const Regulation = (props) => {
 
@@ -93,13 +95,6 @@ const Regulation = (props) => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Regulations  </strong>
-            <CDropdown>
-              <CDropdownToggle color="light">Filters</CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem onClick={()=>sorting("startDate")}>Start Date</CDropdownItem>
-                <CDropdownItem onClick={()=>sorting("endDate")}>End Date</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
             <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
               Add Regulation
             </CButton>
@@ -137,15 +132,15 @@ const Regulation = (props) => {
             <CTable align="middle" responsive>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell align="middle" scope="col">Start Date</CTableHeaderCell>
-                  <CTableHeaderCell align="middle" scope="col">End Date</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={()=>sorting("startDate")}>Start Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={()=>sorting("endDate")}>End Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Percentage (%)</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Daily Limit No.</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
                 {regulationRecords.map((regulationRecord) => (
-                  <CTableRow color="primary" key={regulationRecord.startDate}>
+                  <CTableRow key={regulationRecord.startDate}>
                     <CTableHeaderCell scope="row">{regulationRecord.startDate}</CTableHeaderCell>
                     <CTableDataCell align="middle">{regulationRecord.endDate}</CTableDataCell>
                     <CTableDataCell align="middle">{regulationRecord.percentage}</CTableDataCell>

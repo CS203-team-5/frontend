@@ -117,20 +117,11 @@ const Records = (props) => {
                 label="Upcoming"
               />
             </CButtonGroup>
-             <CCol xs={2}>
-             <button className="btn btn-sm btn-primary btn-block"
-               onClick={(event) => {
-
-                   history.push("/CreateUser")
-                  }
-                }
-                >
-                    Create New User
-                </button>
-                </CCol>
-
-
-
+            <CButton style={{ float: "right" }}
+                     color="light"
+                     onClick={(event) => {history.push("/CreateUser")}}>
+              Create New User
+            </CButton>
           </CCardHeader>
           <CCardBody>
             <CTable>

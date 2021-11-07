@@ -31,11 +31,8 @@ import {
   CTableRow,
   CFormSwitch
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-//import createHistory from 'history/createBrowserHistory';
-
-//const history=createBrowserHistory({forceRefresh:true});
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
 
 
 
@@ -205,7 +202,6 @@ function UserDetails(props) {
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
           <CContainer>
             <CRow className="justify-content-center">
-
               <CCol md={8}>
                 <CCardGroup>
                   <CCard className="p-4">
@@ -247,34 +243,7 @@ function UserDetails(props) {
 
                                </CCol>
 
-                                 <form className="form-signin" onSubmit={handleFormSubmit.bind(this)} >
 
-
-
-                                     <CCol md={10}>
-                                      <h4>Update Vaccination Status</h4>
-                                     <CInputGroup className="mb-4" >
-                                      <CRow>
-                                        <div   onChange={event => setVaccinationStatus(event.target.value)}>
-                                              <input type="radio" value="true" name="vax" /> Vaccinated  &nbsp;
-                                              <input type="radio" value="false" name="vax" /> Unvaccinated
-
-                                       </div>
-                                     </CRow>
-
-                                     </CInputGroup>
-                                      <CRow>
-                                     <CCol xs={4}>
-                                        <CButton color="primary" className="px-4 btn btn-sm btn-primary btn-block" type="submit" >
-                                          Submit
-                                        </CButton>
-                                      </CCol>
-                                      </CRow>
-                                      <CRow></CRow>
-
-                                    </CCol>
-
-                                    </form>
 
                                     <CTable>
                                        <CTableHead color="dark">

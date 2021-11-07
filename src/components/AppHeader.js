@@ -39,7 +39,6 @@ const AppHeader = () => {
               localStorage.setItem("UserRole", json["userRole"].toString());
 
          });
-//         const userRole=localStorage.getItem("UserRole")
 
 
   return (
@@ -57,9 +56,7 @@ const AppHeader = () => {
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
-
               Dashboard
-
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -69,6 +66,7 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
+
               {role==="HR"?
                   <NavDropdown title="Admin" id="nav-dropdown">
                     <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
@@ -101,7 +99,6 @@ const AppHeader = () => {
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
     </CHeader>
   )
 }
