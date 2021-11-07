@@ -132,17 +132,17 @@ function Profile(props) {
                    <CCardBody>
                        <h1> Profile </h1>
                        <CRow className="mb-3">
-                           <CFormLabel className="col-sm-2 col-form-label">Registered Email</CFormLabel>
+                           <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
                            <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username") }</CFormLabel>
                            <CFormLabel className="col-sm-2 col-form-label"></CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label">Role</CFormLabel>
+                           <CFormLabel className="col-sm-2 col-form-label">Role :</CFormLabel>
                            <CFormLabel className="col-sm-3 col-form-label">{role}</CFormLabel>
                        </CRow>
                        <CRow className="mb-3">
-                           <CFormLabel className="col-sm-2 col-form-label">First Name</CFormLabel>
+                           <CFormLabel className="col-sm-2 col-form-label">First Name :</CFormLabel>
                            <CFormLabel className="col-sm-3 col-form-label">{fname}</CFormLabel>
                            <CFormLabel className="col-sm-2 col-form-label"></CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label">Last  Name</CFormLabel>
+                           <CFormLabel className="col-sm-2 col-form-label">Last  Name :</CFormLabel>
                            <CFormLabel className="col-sm-3 col-form-label">{lname}</CFormLabel>
                        </CRow>
                        <hr className="mt-0" />

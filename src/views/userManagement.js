@@ -136,30 +136,35 @@ const Records = (props) => {
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
                   <CTableRow key={bookingRecord.bid}>
-                    <CTableHeaderCell scope="row">{bookingRecord.email}</CTableHeaderCell>
+                    <CTableHeaderCell scope="row"
+                    onClick={(event) => {
+                                          const email= bookingRecord.email
+                                             history.push({
+                                             pathname:"/UserDetails",
+                                             search: '?query=abc',
+                                             state: {username: email}
+                                             })
+                                            }
+                                      }>{bookingRecord.email}
+                                      </CTableHeaderCell>
                     <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
                       <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
                         <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
                         <CTableDataCell>
                                  <CCol xs={6}>
-                                    <button className="btn btn-sm btn-primary btn-block"
+                                 <button className="btn btn-sm btn-primary btn-block"
                                    onClick={(event) => {
                                     const email= bookingRecord.email
                                        history.push({
-
                                        pathname:"/UserDetails",
                                        search: '?query=abc',
-                                       state: {
-                                       username: email
-
-                                       }
-
+                                       state: {username: email}
                                        })
                                       }
                                     }
                                     >
-                                    UserDetails
-                                    </button>
+                                    Edit
+                                 </button>
 
 
                                  </CCol>
