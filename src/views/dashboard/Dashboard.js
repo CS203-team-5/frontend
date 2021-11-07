@@ -95,12 +95,7 @@ const Dashboard = () => {
    }
 
     const fetchQuota = async () => {
-      var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
-        {
-          params: {
-            email: localStorage.getItem("username")
-          }
-        }, yourConfig)
+      var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/" ,yourConfig)
       const data = await res
       return (10 - data.data) < 0 ? 0 : 10 - data.data
     }
