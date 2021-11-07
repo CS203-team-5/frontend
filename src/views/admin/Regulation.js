@@ -1,5 +1,6 @@
 import React, { lazy, useState, useEffect } from 'react'
 import Axios from 'axios';
+import '../../assets/css/Regulation.css'
 import {
   CCard,
   CCardBody,
@@ -25,7 +26,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
-import './Regulation.css';
 
 const Regulation = (props) => {
 
@@ -33,13 +33,14 @@ const Regulation = (props) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [percentage, setPercentage] = useState()
-  const [visible, setVisible, validated, setValidated] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   const [order, setOrder] = useState("ASC");
 
   useEffect(() => {
     const getRegulation = async () => {
       const tasksFromServer = await fetchRegulation()
+      console.log(tasksFromServer)
       showRegulation(tasksFromServer)
     }
     getRegulation()
@@ -53,8 +54,11 @@ const Regulation = (props) => {
 
   // Fetch Tasks
   const fetchRegulation = async () => {
-    const res = await fetch('http://localhost:8080/api/regulation/emp/limit/' + localStorage.getItem("username") + "/", yourConfig)
+    const url = "http://localhost:8080/api/regulation/emp/limit/" + localStorage.getItem("username") + "/"
+    const res = await fetch(url, yourConfig)
+    console.log(res)
     const data = await res.json()
+    console.log(data)
     return data
   }
 
@@ -99,12 +103,12 @@ const Regulation = (props) => {
             <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
               Add Regulation
             </CButton>
-            <CModal className="modal-regulations" visible={visible}>
+            <CModal className="modal-regulation" visible={visible}>
               <CModalHeader>
                 <CModalTitle>Regulation Details</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                <CForm noValidate validated={validated} onSubmit={(e) => submitRegulation(e)}>
+                <CForm onSubmit={(e) => submitRegulation(e)}>
                   <div className="mb-3">
                     <CFormLabel htmlFor="StartDate">Start Date</CFormLabel>
                     <CFormInput type="date" id="StartDate" onChange={event => setStartDate(event.target.value)} />

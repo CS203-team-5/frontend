@@ -1,5 +1,6 @@
 import React, { lazy, useState, useEffect } from 'react'
 import Axios from 'axios';
+import '../../assets/css/News.css';
 import {
     CCard,
     CCardBody,
@@ -24,7 +25,6 @@ import {
     CFormInput,
     CImage
 } from '@coreui/react'
-import './News.css';
 
 const News = (props) => {
 
@@ -85,7 +85,7 @@ const News = (props) => {
                         <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
                         Add News
                         </CButton>
-                        <CModal className="modal-news" visible={visible}>
+                        <CModal className = "modal-news" visible={visible}>
                             <CModalHeader>
                                 <CModalTitle>News Description</CModalTitle>
                             </CModalHeader>
