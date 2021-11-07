@@ -24,6 +24,7 @@ import {
     CFormInput,
     CImage
 } from '@coreui/react'
+import './News.css';
 
 const News = (props) => {
 
@@ -50,13 +51,14 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
+
         res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
-    const url2 = ('http://localhost:8080/api/news/hr/',yourConfig)
+    const url2 = "http://localhost:8080/api/news/hr"
 
     function submit(e) {
         e.preventDefault();
@@ -65,15 +67,14 @@ const News = (props) => {
             title: title,
             content: content,
             url : url
-
         },yourConfig)
-
 
         .then(res => {
             window.location.reload(false);
           })
 
     }
+
 
     return (
         <CRow>
@@ -84,7 +85,7 @@ const News = (props) => {
                         <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
                         Add News
                         </CButton>
-                        <CModal visible={visible}>
+                        <CModal className="modal-news" visible={visible}>
                             <CModalHeader>
                                 <CModalTitle>News Description</CModalTitle>
                             </CModalHeader>
@@ -140,6 +141,44 @@ const News = (props) => {
                                         <CTableDataCell><img src={newsRecord.url} style = {{height: 50, resizeMode : 'fit', margin: 5 }}/></CTableDataCell>
                                     </CTableRow>
                                 ))}
+                            </CTableBody>
+                        </CTable>
+                    </CCardBody>
+                </CCard>
+            </CCol>
+            <CCol xs={12}>
+                <CCard className="mb-4">
+                    <CCardHeader>
+                        <strong>React Table</strong> <small>Control Setup</small>
+                    </CCardHeader>
+                    <CCardBody>
+                        <CTable>
+                            <CTableHead color="dark">
+                                <CTableRow>
+                                    <CTableHeaderCell scope="col">#</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col">Date</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col">Location</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col">Status</CTableHeaderCell>
+                                </CTableRow>
+                            </CTableHead>
+                            <CTableBody>
+                                <CTableRow>
+                                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
+                                    <CTableDataCell>Mark</CTableDataCell>
+                                    <CTableDataCell>Otto</CTableDataCell>
+                                    <CTableDataCell>@mdo</CTableDataCell>
+                                </CTableRow>
+                                <CTableRow>
+                                    <CTableHeaderCell scope="row">2</CTableHeaderCell>
+                                    <CTableDataCell>Jacob</CTableDataCell>
+                                    <CTableDataCell>Thornton</CTableDataCell>
+                                    <CTableDataCell>@fat</CTableDataCell>
+                                </CTableRow>
+                                <CTableRow>
+                                    <CTableHeaderCell scope="row">3</CTableHeaderCell>
+                                    <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
+                                    <CTableDataCell>@twitter</CTableDataCell>
+                                </CTableRow>
                             </CTableBody>
                         </CTable>
                     </CCardBody>

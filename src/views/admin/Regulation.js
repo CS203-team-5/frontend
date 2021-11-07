@@ -25,6 +25,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
+import './Regulation.css';
 
 const Regulation = (props) => {
 
@@ -98,7 +99,7 @@ const Regulation = (props) => {
             <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
               Add Regulation
             </CButton>
-            <CModal visible={visible}>
+            <CModal className="modal-regulations" visible={visible}>
               <CModalHeader>
                 <CModalTitle>Regulation Details</CModalTitle>
               </CModalHeader>
