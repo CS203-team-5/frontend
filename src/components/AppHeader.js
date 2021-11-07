@@ -39,7 +39,6 @@ const AppHeader = () => {
               localStorage.setItem("UserRole", json["userRole"].toString());
 
          });
-//         const userRole=localStorage.getItem("UserRole")
 
 
   return (
@@ -57,9 +56,7 @@ const AppHeader = () => {
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
-
               Dashboard
-
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -69,37 +66,18 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-           
-                  <NavDropdown title="Admin" id="nav-dropdown">
-                    <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
-                  </NavDropdown>
-           
-          </CNavItem>
-        </CHeaderNav>
-        <CHeaderNav>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
+          <NavDropdown title="Admin" id="nav-dropdown">
+            <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
+            <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
+            <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
+          </NavDropdown>
+
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
     </CHeader>
   )
 }

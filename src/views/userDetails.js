@@ -30,11 +30,8 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-//import createHistory from 'history/createBrowserHistory';
-
-//const history=createBrowserHistory({forceRefresh:true});
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
 
 
 
@@ -136,63 +133,37 @@ function UserDetails(props) {
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
           <CContainer>
             <CRow className="justify-content-center">
-
               <CCol md={8}>
                 <CCardGroup>
                   <CCard className="p-4">
                     <CCardBody>
-                        <h1> {fname} {lname} </h1>
+                      <h1> {fname} {lname} </h1>
+                      <CRow className="mb-3">
+                         <CFormLabel className="col-sm-2 col-form-label">Registered Email</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">{location.state.username}</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label"></CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">Role</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">{role}</CFormLabel>
+                      </CRow>
+                      <CTable>
+                         <CTableHead color="dark">
+                           <CTableRow>
+                             <CTableHeaderCell scope="col" onClick={() => sorting("bid")}> Booking ID <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                             <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                              <CTableHeaderCell scope="col" onClick={() => sorting("status")}> Status <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
 
-                                 <CCol md={10}>
-                                     <h6> User Email:</h6>
-                                     <p> {location.state.username}</p>
-
-                                </CCol>
-
-                                <CCol md={10}>
-                                     <h6> Full Name:</h6>
-                                     <p> {fullName}</p>
-
-                                </CCol>
-
-                                <CCol md={10}>
-                                    <h6> First Name:</h6>
-                                    <p> {fname}</p>
-
-                               </CCol>
-
-                                <CCol md={10}>
-                                   <h6> Last  Name: </h6>
-                                   <p> {lname}</p>
-
-                                </CCol>
-
-                                <CCol md={10}>
-                                    <h6> Role: </h6>
-                                    <p> {role}</p>
-
-                               </CCol>
-
-
-                                    <CTable>
-                                       <CTableHead color="dark">
-                                         <CTableRow>
-                                           <CTableHeaderCell scope="col" onClick={() => sorting("bid")}> Booking ID </CTableHeaderCell>
-                                           <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date</CTableHeaderCell>
-                                            <CTableHeaderCell scope="col" onClick={() => sorting("status")}> Status </CTableHeaderCell>
-
-                                         </CTableRow>
-                                       </CTableHead>
-                                       <CTableBody>
-                                         {bookingRecords.map((bookingRecord) => (
-                                           <CTableRow key={bookingRecord.bid}>
-                                             <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
-                                             <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
-                                             <CTableDataCell>{bookingRecord.status}</CTableDataCell>
-                                           </CTableRow>
-                                         ))}
-                                       </CTableBody>
-                                     </CTable>
+                           </CTableRow>
+                         </CTableHead>
+                         <CTableBody>
+                           {bookingRecords.map((bookingRecord) => (
+                             <CTableRow key={bookingRecord.bid}>
+                               <CTableHeaderCell scope="row">{bookingRecord.bid}</CTableHeaderCell>
+                               <CTableDataCell>{bookingRecord.bdate}</CTableDataCell>
+                               <CTableDataCell>{bookingRecord.status}</CTableDataCell>
+                             </CTableRow>
+                           ))}
+                         </CTableBody>
+                       </CTable>
 
                     </CCardBody>
                   </CCard>
