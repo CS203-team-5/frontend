@@ -77,7 +77,6 @@ const Dashboard = () => {
 
   const CheckIn= ()=>{
       history.push("/CheckIn");
-
   }
 
   useEffect(() => {
@@ -104,6 +103,62 @@ const Dashboard = () => {
         }, yourConfig)
       const data = await res
       return (10 - data.data) < 0 ? 0 : 10 - data.data
+    }
+
+    //vax
+    const[vax, setVax] = useState("Not Vaccinated");
+    const[vaxColor, setVaxColor] = useState("danger");
+
+    useEffect(()=>{
+      const getVax = async () => {
+        const vaxStatus = await fetchVax()
+        if (vaxStatus){
+          setVax("Vaccinated");
+          setVaxColor("success");
+        }
+        else {
+          setVax("Not Vaccinated Yet");
+          setVaxColor("danger");
+        }
+      }
+      getVax()
+    },[vax])
+
+    // Fetch Tasks
+    const fetchVax = async () => {
+      var res = ""
+      res = await fetch("http://localhost:8080/api/user/emailVax/"+localStorage.getItem("username") + "/",yourConfig)
+      const data = await res.json()
+      return data
+    }
+
+
+    //checkedin
+    const[checked, setCheck] = useState("Not Checked In Yet");
+    const[checkedColor, setCheckColor] = useState("danger");
+
+    useEffect(()=>{
+      const getChecked = async () => {
+        const checkedStatus = await fetchChecked()
+        if (checkedStatus) {
+          setCheck("Checked In");
+          setCheckColor("success");
+        }
+        else {
+          setCheck("Not Checked In Yet");
+          setCheckColor("danger");
+        }
+
+      }
+      getChecked()
+    },[checked])
+
+    // Fetch Tasks
+    const fetchChecked = async () => {
+      var res = ""
+      res = await fetch("http://localhost:8080/api/dailyForm/userToday/"+localStorage.getItem("username") + "/",yourConfig)
+      const data = await res.json()
+      return data
     }
 
     //carousel
@@ -148,16 +203,16 @@ const Dashboard = () => {
           <CCol xs={4}>
             <CWidgetStatsF
               className="mb-3"
-              color="warning"
+              color={vaxColor}
               icon={<CIcon icon={cilShieldAlt} height={24} />}
               padding={false}
               title="vaccination status"
-              value="Vaccinated"/>
+              value={vax}/>
           </CCol>
           <CCol xs={4}>
             <CWidgetStatsF
               className="mb-3"
-              color="warning"
+              color={checkedColor}
               icon={<CIcon icon={cilCalendarCheck} height={24} />}
               padding={false}
               footer={
@@ -171,7 +226,7 @@ const Dashboard = () => {
                 </CLink>
               }
               title="Work From Office "
-              value="Checked In"/>
+              value={checked}/>
           </CCol>
         </CRow>
 
