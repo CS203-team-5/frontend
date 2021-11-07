@@ -69,13 +69,15 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-           
+              {role==="HR"?
                   <NavDropdown title="Admin" id="nav-dropdown">
                     <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
                     <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
                     <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
                   </NavDropdown>
-           
+               :
+
+                <p></p>}
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>

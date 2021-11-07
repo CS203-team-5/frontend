@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy } from 'react';
 import {useHistory} from 'react-router-dom';
-import Axios from 'axios';
+import axios from 'axios';
 import {
   CAvatar,
   CButton,
@@ -65,6 +65,9 @@ const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 const Dashboard = () => {
   const [quota, setQuota] = useState(1);
   const history=useHistory();
+  const [weeklyUser,setWeeklyUser]= useState([])
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -90,7 +93,7 @@ const Dashboard = () => {
    }
 
     const fetchQuota = async () => {
-      var res = Axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
+      var res = axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
         {
           params: {
             email: localStorage.getItem("username")
@@ -100,8 +103,23 @@ const Dashboard = () => {
       return (10 - data.data) < 0 ? 0 : 10 - data.data
     }
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+
+
+
+//        axios.get("http://localhost:8080/api/dailyForm/date/users/week/"+ yyyy + "-"+ mm+ "-"+ dd, yourConfig).then(res =>{
+//
+//            setWeeklyUser(res.data);
+//
+//        });
+
   return (
     <>
+    <p> {date} Weekly: {weeklyUser}</p>
         <CRow>
           <CCol xs={4}>
             <CWidgetStatsF
@@ -144,7 +162,9 @@ const Dashboard = () => {
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
+
           </CRow>
+
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
@@ -181,15 +201,7 @@ const Dashboard = () => {
                   borderColor: getStyle('--cui-info'),
                   pointHoverBackgroundColor: getStyle('--cui-info'),
                   borderWidth: 2,
-                  data: [
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                  ],
+                  data: {weeklyUser},
                   fill: true,
                 },
                 {

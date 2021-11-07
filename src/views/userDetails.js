@@ -29,6 +29,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CFormSwitch
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -40,76 +41,70 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 function UserDetails(props) {
  const history=useHistory();
+   const[person, setPerson]= useState();
    const [fname, setFirstName] = useState();
    const [lname, setLastName] = useState();
    const[role,setRole]= useState();
    const[fullName, setFullName]= useState();
+   const[vaccination, setVaccinationStatus]= useState();
    const [bookingRecords, setRecords] = useState([])
   const [formRecords, setFormRecords] = useState([])
    const [order, setOrder] = useState("ASC");
+   const[email,setEmail]=useState();
+
    const [resultType, setResultType] = useState()
-     const [formOrder, setFormOrder] = useState("ASC");
+   const [formOrder, setFormOrder] = useState("ASC");
+    const location=useLocation();
 
 
+    const [validated, setValidated] = useState(false)
 
-       //sort function
-       const sorting = (col) => {
-         if (order === "ASC") {
-           const sorted = [...bookingRecords].sort((a, b) =>
-             a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
-           );
-           setRecords(sorted);
-           setOrder("DSC");
-         }
-         if (order === "DSC") {
-           const sorted = [...bookingRecords].sort((a, b) =>
-             a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
-           );
-           setRecords(sorted);
-           setOrder("ASC");
-         }
-       }
-
-
-       //sort function
-              const formSorting = (col) => {
-                if (order === "ASC") {
-                  const sorted = [...bookingRecords].sort((a, b) =>
-                    a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
-                  );
-                  setFormRecords(sorted);
-                  setFormOrder("DSC");
-                }
-                if (order === "DSC") {
-                  const sorted = [...bookingRecords].sort((a, b) =>
-                    a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
-                  );
-                  setFormRecords(sorted);
-                  setFormOrder("ASC");
-                }
-              }
-
-   const [validated, setValidated] = useState(false)
-
-   const location=useLocation();
-   const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
-
-   const yourConfig = {
+  const yourConfig = {
       headers: {
          Authorization: "Bearer " + localStorage.getItem("authorization")
       }
    }
 
 
-    axios.get(getUser,yourConfig).then(res => {
-       var json= res.data;
 
-       setFirstName(json["fname"])
-       setLastName(json["lname"])
-       setFullName(fname+ " "+ lname);
-       setRole(json["userRole"])
 
-    });
+       //sort function
+ const sorting = (col) => {
+   if (order === "ASC") {
+     const sorted = [...bookingRecords].sort((a, b) =>
+       a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
+     );
+     setRecords(sorted);
+     setOrder("DSC");
+   }
+   if (order === "DSC") {
+     const sorted = [...bookingRecords].sort((a, b) =>
+       a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
+     );
+     setRecords(sorted);
+     setOrder("ASC");
+   }
+ }
+
+
+ //sort function
+        const formSorting = (col) => {
+          if (order === "ASC") {
+            const sorted = [...bookingRecords].sort((a, b) =>
+              a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
+            );
+            setFormRecords(sorted);
+            setFormOrder("DSC");
+          }
+          if (order === "DSC") {
+            const sorted = [...bookingRecords].sort((a, b) =>
+              a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
+            );
+            setFormRecords(sorted);
+            setFormOrder("ASC");
+          }
+        }
+
 
  useEffect(() => {
     const getRecords = async () => {
@@ -125,17 +120,35 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+location.state.username;
+    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+ location.state.username;
 //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
 //    const data = await res.json()
 //    console.log(data)
 //    return data
-     const yourConfig = {
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("authorization")
-            }
-         }
 
+
+   const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
+
+
+
+
+    axios.get(getUser,yourConfig).then(res => {
+       var json= res.data;
+
+       setFirstName(json["fname"])
+       setLastName(json["lname"])
+       setFullName(fname+ " "+ lname)
+       setRole(json["userRole"])
+       setEmail(json["email"])
+        if(json["vaccinated"]!=null){
+           localStorage.setItem("vaccination",setVaccinationStatus(json["vaccinated"].toString()))
+
+        }
+
+
+
+
+    });
         axios.get(getUserBookings,yourConfig).then(res => {
 
            var json= res.data;
@@ -146,16 +159,12 @@ function UserDetails(props) {
 
   const fetchFormRecords = async () => {
       var res = ""
-      const getUserForm='http://localhost:8080/api/dailyForm/user/'+location.state.username;
+      const getUserForm='http://localhost:8080/api/dailyForm/user/'+ location.state.username;
   //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
   //    const data = await res.json()
   //    console.log(data)
   //    return data
-       const yourConfig = {
-              headers: {
-                 Authorization: "Bearer " + localStorage.getItem("authorization")
-              }
-           }
+
 
           axios.get(getUserForm,yourConfig).then(res => {
 
@@ -165,6 +174,32 @@ function UserDetails(props) {
           });
     }
 
+
+ const handleFormSubmit = event => {
+
+         const endpoint = "http://localhost:8080/api/user/new/vaccination/"+ vaccination;
+
+
+
+        const user_object = {
+           email: location.state.username,
+           fname: fname,
+           lname:lname,
+           userRole:role,
+       };
+
+
+
+       axios.put(endpoint,
+       user_object,
+        yourConfig).then(res => {
+
+//              localStorage.setItem("password")=
+              history.push("/Dashboard")
+
+
+       });
+   };
 
       return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -179,7 +214,7 @@ function UserDetails(props) {
 
                                  <CCol md={10}>
                                      <h6> User Email:</h6>
-                                     <p> {location.state.username}</p>
+                                     <p> {email}</p>
 
                                 </CCol>
 
@@ -200,12 +235,46 @@ function UserDetails(props) {
                                    <p> {lname}</p>
 
                                 </CCol>
+                                <CCol md={10}>
+                                  <h6> Vaccination status: </h6>
+                                  <p> {vaccination}</p>
+
+                             </CCol>
 
                                 <CCol md={10}>
                                     <h6> Role: </h6>
                                     <p> {role}</p>
 
                                </CCol>
+
+                                 <form className="form-signin" onSubmit={handleFormSubmit.bind(this)} >
+
+
+
+                                     <CCol md={10}>
+                                      <h4>Update Vaccination Status</h4>
+                                     <CInputGroup className="mb-4" >
+                                      <CRow>
+                                        <div   onChange={event => setVaccinationStatus(event.target.value)}>
+                                              <input type="radio" value="true" name="vax" /> Vaccinated  &nbsp;
+                                              <input type="radio" value="false" name="vax" /> Unvaccinated
+
+                                       </div>
+                                     </CRow>
+
+                                     </CInputGroup>
+                                      <CRow>
+                                     <CCol xs={4}>
+                                        <CButton color="primary" className="px-4 btn btn-sm btn-primary btn-block" type="submit" >
+                                          Submit
+                                        </CButton>
+                                      </CCol>
+                                      </CRow>
+                                      <CRow></CRow>
+
+                                    </CCol>
+
+                                    </form>
 
                                     <CTable>
                                        <CTableHead color="dark">
@@ -229,26 +298,27 @@ function UserDetails(props) {
 
 
 
+
                                        <CTable>
                                         <CTableHead color="dark">
                                           <CTableRow>
                                             <CTableHeaderCell scope="col" onClick={() => formSorting("fid")}> Form ID </CTableHeaderCell>
-                                            <CTableHeaderCell scope="col" onClick={() => formSorting("dateTime")}>Date</CTableHeaderCell>
+                                             <CTableHeaderCell scope="col" onClick={() => formSorting("temperature")}>Temperature</CTableHeaderCell>
                                              <CTableHeaderCell scope="col" onClick={() => formSorting("symptoms")}> Symptoms</CTableHeaderCell>
-
+                                              <CTableHeaderCell scope="col" onClick={() => formSorting("dateTime")}>Date</CTableHeaderCell>
                                           </CTableRow>
                                         </CTableHead>
                                         <CTableBody>
                                           {formRecords.map((formRecord) => (
                                             <CTableRow key={formRecord.bid}>
                                               <CTableHeaderCell scope="row">{formRecord.fid}</CTableHeaderCell>
-                                              <CTableDataCell>{formRecord.dateTime}</CTableDataCell>
-                                              <CTableDataCell>{formRecord.symptoms}</CTableDataCell>
+                                               <CTableDataCell>{formRecord.temperature}</CTableDataCell>
+                                              <CTableDataCell>{formRecord.symptoms.toString()}</CTableDataCell>
+                                                <CTableDataCell>{formRecord.dateExactTime}</CTableDataCell>
                                             </CTableRow>
                                           ))}
                                         </CTableBody>
                                       </CTable>
-
 
                     </CCardBody>
                   </CCard>
