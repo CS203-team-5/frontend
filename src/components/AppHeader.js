@@ -66,12 +66,33 @@ const AppHeader = () => {
             <CNavLink href="/bookings">Bookings</CNavLink>
           </CNavItem>
           <CNavItem>
-          <NavDropdown title="Admin" id="nav-dropdown">
-            <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
-            <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
-            <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
-          </NavDropdown>
 
+              {role==="HR"?
+                  <NavDropdown title="Admin" id="nav-dropdown">
+                    <NavDropdown.Item href="/UserManagement"> User Management </NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/news">News Management</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/regulation">Regulation Management</NavDropdown.Item>
+                  </NavDropdown>
+               :
+
+                <p></p>}
+          </CNavItem>
+        </CHeaderNav>
+        <CHeaderNav>
+          <CNavItem>
+            <CNavLink href="#">
+              <CIcon icon={cilBell} size="lg" />
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">
+              <CIcon icon={cilList} size="lg" />
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">
+              <CIcon icon={cilEnvelopeOpen} size="lg" />
+            </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-3">

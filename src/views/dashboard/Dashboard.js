@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy } from 'react';
 import {useHistory} from 'react-router-dom';
-import Axios from 'axios';
+import axios from 'axios';
 import {
   CAvatar,
   CButton,
@@ -71,6 +71,13 @@ const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 const Dashboard = () => {
   const [quota, setQuota] = useState(1);
   const history=useHistory();
+  const [weeklyUsers,setWeeklyUser]= useState([])
+  const[weeklyLimits, setWeeklyLimit]=useState([])
+  const [fname, setFirstName] = useState();
+  const[cid,setCid]= useState();
+     const [lname, setLastName] = useState();
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -79,11 +86,30 @@ const Dashboard = () => {
       history.push("/CheckIn");
   }
 
+
+
+
+
   useEffect(() => {
       const getQuota = async () => {
         const tasksFromServer = await fetchQuota()
         setQuota(tasksFromServer)
       }
+      axios.get("http://localhost:8080/api/dailyForm/date/users/week/"+ yyyy + "-"+ mm+ "-"+ dd, yourConfig).then(res =>{
+
+            setWeeklyUser(res.data);
+
+        });
+
+
+
+
+       axios.get("http://localhost:8080/api/regulationLimit/emp/num/"+ localStorage.getItem("username"), yourConfig).then(res =>{
+
+           setWeeklyLimit(res.data);
+
+       });
+
       getQuota()
     }, [])
 
@@ -95,10 +121,20 @@ const Dashboard = () => {
    }
 
     const fetchQuota = async () => {
+
       var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/" ,yourConfig)
+
+      var res = axios.get("http://localhost:8080/api/bookings/emp/getAll/{email}/",
+        {
+          params: {
+            email: localStorage.getItem("username")
+          }
+        }, yourConfig)
+
       const data = await res
       return (10 - data.data) < 0 ? 0 : 10 - data.data
     }
+
 
     //vax
     const[vax, setVax] = useState("Not Vaccinated");
@@ -156,6 +192,24 @@ const Dashboard = () => {
       return data
     }
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+
+    const first=weeklyUsers[0];
+     const second=weeklyUsers[1];
+      const third=weeklyUsers[2];
+       const fourth=weeklyUsers[3];
+       const fifth=weeklyUsers[4];
+        const sixth=weeklyUsers[5];
+         const seven=weeklyUsers[6];
+
+  const Limit= weeklyLimits;
+
+
+
     //carousel
     const slides = [
       'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1607923e7e2%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1607923e7e2%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9296875%22%20y%3D%22217.75625%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
@@ -182,6 +236,7 @@ const Dashboard = () => {
         items: 1
       }
     };
+
 
   return (
     <>
@@ -231,6 +286,10 @@ const Dashboard = () => {
         </CCardHeader>
         <CCardBody>
           <CRow>
+
+
+          </CRow>
+
             <Carousel
               swipeable={false}
               draggable={false}
@@ -247,190 +306,160 @@ const Dashboard = () => {
               itemClass="carousel-item-padding-40-px"
               >
               <div>
-                <CCarousel>
-                  <CCarouselItem>
-                    <img className="d-block w-100" src={slides[0]} alt="slide 1" />
-                    <CCarouselCaption className="d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </CCarouselCaption>
-                  </CCarouselItem>
-                </CCarousel>
+                    <CCarousel>
+                      <CCarouselItem>
+                        <img className="d-block w-100" src={slides[0]} alt="slide 1" />
+                        <CCarouselCaption className="d-none d-md-block">
+                          <h5>First slide label</h5>
+                          <p>Some representative placeholder content for the first slide.</p>
+                        </CCarouselCaption>
+                      </CCarouselItem>
+                    </CCarousel>
               </div>
               <div>
-                <CCarousel>
-                  <CCarouselItem>
-                    <img className="d-block w-100" src={slides[2]} alt="slide 1" />
-                    <CCarouselCaption className="d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </CCarouselCaption>
-                  </CCarouselItem>
-                </CCarousel>
+                    <CCarousel>
+                      <CCarouselItem>
+                        <img className="d-block w-100" src={slides[2]} alt="slide 1" />
+                        <CCarouselCaption className="d-none d-md-block">
+                          <h5>First slide label</h5>
+                          <p>Some representative placeholder content for the first slide.</p>
+                        </CCarouselCaption>
+                      </CCarouselItem>
+                    </CCarousel>
               </div>
               <div>
-                <CCarousel>
-                  <CCarouselItem>
-                    <img className="d-block w-100" src={slides[0]} alt="slide 1" />
-                    <CCarouselCaption className="d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </CCarouselCaption>
-                  </CCarouselItem>
-                </CCarousel>
+                      <CCarousel>
+                        <CCarouselItem>
+                          <img className="d-block w-100" src={slides[0]} alt="slide 1" />
+                          <CCarouselCaption className="d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      </CCarousel>
               </div>
               <div>
-                <CCarousel>
-                  <CCarouselItem>
-                    <img className="d-block w-100" src={slides[1]} alt="slide 1" />
-                    <CCarouselCaption className="d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </CCarouselCaption>
-                  </CCarouselItem>
-                </CCarousel>
+                      <CCarousel>
+                        <CCarouselItem>
+                          <img className="d-block w-100" src={slides[1]} alt="slide 1" />
+                          <CCarouselCaption className="d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      </CCarousel>
               </div>
               <div>
-                <CCarousel>
-                  <CCarouselItem>
-                    <img className="d-block w-100" src={slides[2]} alt="slide 1" />
-                    <CCarouselCaption className="d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </CCarouselCaption>
-                  </CCarouselItem>
-                </CCarousel>
+                      <CCarousel>
+                        <CCarouselItem>
+                          <img className="d-block w-100" src={slides[2]} alt="slide 1" />
+                          <CCarouselCaption className="d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      </CCarousel>
               </div>
             </Carousel>;
-          </CRow>
+
+
         </CCardBody>
       </CCard>
+
+
       <CCard className="mb-4">
+
         <CCardBody>
+
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
-                Traffic
+                Live Daily Report
               </h4>
-              <div className="small text-medium-emphasis">January - July 2021</div>
+              <div className="small text-medium-emphasis">past 7 days</div>
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
-              <CButton color="primary" className="float-end">
-                <CIcon icon={cilCloudDownload} />
-              </CButton>
-              <CButtonGroup className="float-end me-3">
-                {['Day', 'Month', 'Year'].map((value) => (
-                  <CButton
-                    color="outline-secondary"
-                    key={value}
-                    className="mx-0"
-                    active={value === 'Month'}
-                  >
-                    {value}
-                  </CButton>
-                ))}
-              </CButtonGroup>
+
+
             </CCol>
           </CRow>
-          <CChartLine
-            style={{ height: '300px', marginTop: '40px' }}
-            data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-              datasets: [
-                {
-                  label: 'My First dataset',
-                  backgroundColor: hexToRgba(getStyle('--cui-info'), 10),
-                  borderColor: getStyle('--cui-info'),
-                  pointHoverBackgroundColor: getStyle('--cui-info'),
-                  borderWidth: 2,
-                  data: [
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                  ],
-                  fill: true,
-                },
-                {
-                  label: 'My Second dataset',
-                  backgroundColor: 'transparent',
-                  borderColor: getStyle('--cui-success'),
-                  pointHoverBackgroundColor: getStyle('--cui-success'),
-                  borderWidth: 2,
-                  data: [
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                  ],
-                },
-                {
-                  label: 'My Third dataset',
-                  backgroundColor: 'transparent',
-                  borderColor: getStyle('--cui-danger'),
-                  pointHoverBackgroundColor: getStyle('--cui-danger'),
-                  borderWidth: 1,
-                  borderDash: [8, 5],
-                  data: [65, 65, 65, 65, 65, 65, 65],
-                },
-              ],
-            }}
-            options={{
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-              scales: {
-                x: {
-                  grid: {
-                    drawOnChartArea: false,
-                  },
-                },
-                y: {
-                  ticks: {
-                    beginAtZero: true,
-                    maxTicksLimit: 5,
-                    stepSize: Math.ceil(250 / 5),
-                    max: 250,
-                  },
-                },
-              },
-              elements: {
-                line: {
-                  tension: 0.4,
-                },
-                point: {
-                  radius: 0,
-                  hitRadius: 10,
-                  hoverRadius: 4,
-                  hoverBorderWidth: 3,
-                },
-              },
-            }}
-          />
+
         </CCardBody>
         <CCardFooter>
           <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
             <CCol className="mb-sm-6 mb-6">
-              <div className="text-medium-emphasis">Daily Limits</div>
-              <strong>29.703 Users (40%)</strong>
-              <CProgress thin className="mt-2" precision={1} color="danger" value={40} />
+              <div className="text-medium-emphasis">Daily Visits</div>
+              <strong>{weeklyLimits} Users </strong>
+              <CProgress thin className="mt-2" precision={1} color="danger" value={seven} />
             </CCol>
             <CCol className="mb-sm-6 mb-6">
-              <div className="text-medium-emphasis">Daily Visits</div>
+              <div className="text-medium-emphasis">To Be Done</div>
               <strong>24.093 Users (20%)</strong>
               <CProgress thin className="mt-2" precision={1} color="success" value={40} />
             </CCol>
           </CRow>
         </CCardFooter>
+         <CChartLine
+                    style={{ height: '300px', marginTop: '40px' }}
+                    data={{
+                      labels: [1 ,2 , 3, 4, 5 , "yesterday" , date ],
+                      datasets: [
+
+                        {
+                          label: 'Number of people checked in',
+                          backgroundColor: 'transparent',
+                          borderColor: getStyle('--cui-success'),
+                          pointHoverBackgroundColor: getStyle('--cui-success'),
+                          borderWidth: 2,
+                           borderDash: [8, 5],
+                          data: [first,second, third, fourth, fifth, sixth, seven],
+                        },
+                        {
+                          label: 'Daily Limit',
+                          backgroundColor: 'transparent',
+                          borderColor: getStyle('--cui-danger'),
+                          pointHoverBackgroundColor: getStyle('--cui-danger'),
+                          borderWidth: 1,
+                          borderDash: [8, 5],
+                          data: [Limit, Limit,Limit, Limit, Limit, Limit, Limit]
+                        },
+                      ],
+                    }}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false,
+                        },
+                      },
+                      scales: {
+                        x: {
+                          grid: {
+                            drawOnChartArea: false,
+                          },
+                        },
+                        y: {
+                          ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            stepSize: Math.ceil(250 / 5),
+                            max: 250,
+                          },
+                        },
+                      },
+                      elements: {
+                        line: {
+                          tension: 0.4,
+                        },
+                        point: {
+                          radius: 0,
+                          hitRadius: 10,
+                          hoverRadius: 4,
+                          hoverBorderWidth: 3,
+                        },
+                      },
+                    }}
+                  />
       </CCard>
     </>
   )

@@ -31,6 +31,15 @@ function Profile(props) {
    const [lname, setLastName] = useState();
    const[role,setRole]= useState();
 
+    //for email
+   const [email, setEmail] = useState();
+   const [oldEmail, setOldEmail] = useState();
+
+  //for password
+   const[oldPassword, setOldPassword]=useState();
+   const [firstPassword, setFirstPassword] = useState();
+   const [secondPassword, setSecondPassword] = useState();
+
     const userEmail=localStorage.getItem("username");
 
      const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
@@ -49,54 +58,46 @@ function Profile(props) {
 
     });
 
-    //for email
-   const [email, setEmail] = useState();
-   const [oldEmail, setOldEmail] = useState();
-
-  //for password
-   const[oldPassword, setOldPassword]=useState();
-   const [firstPassword, setFirstPassword] = useState();
-   const [secondPassword, setSecondPassword] = useState();
 
   // for email
-  const handleEmailFormSubmit = event => {
-        event.preventDefault();
-        const form = event.currentTarget
-
-        const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
-        const yourConfig = {
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("authorization")
-            }
-         }
-          axios.get(getUser, yourConfig).then(res => {
-              var json= res.data;
-             setOldEmail(json["email"])
-         });
-        const user_object = {
-            email: localStorage.getItem("username"),
-            password: localStorage.getItem("authorization"),
-        };
-
-         if(oldEmail!=email){
-                axios.put("http://localhost:8080/api/user/new/email/"+ email,
-               user_object,
-                yourConfig).then(res => { });
-         }
-         history.push("/dashboard");
-
-     };
+//  const handleEmailFormSubmit = event => {
+//        event.preventDefault();
+//        const form = event.currentTarget
+//
+//        const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
+//        const yourConfig = {
+//            headers: {
+//               Authorization: "Bearer " + localStorage.getItem("authorization")
+//            }
+//         }
+//          axios.get(getUser, yourConfig).then(res => {
+//              var json= res.data;
+//             setOldEmail(json["email"])
+//         });
+//        const user_object = {
+//            email: localStorage.getItem("username"),
+//            password: localStorage.getItem("authorization"),
+//        };
+//
+//         if(oldEmail!=email){
+//               axios.put("http://localhost:8080/api/user/new/email/"+ email,
+//               user_object,
+//               yourConfig).then(res => { });
+//         }
+//         history.push("/dashboard");
+//
+//     };
 
       const handlePasswordFormSubmit = event => {
             event.preventDefault();
             const form = event.currentTarget
            if(oldPassword!=localStorage.getItem("password")){
                alert("Wrong password");
-               history.push("/UpdatePassword");
+               history.push("/Profile");
            }
            if(firstPassword!=secondPassword){
                alert("New password does not match");
-               history.push("/UpdatePassword");
+               history.push("/Profile");
            }
           const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
            const yourConfig = {
@@ -145,31 +146,11 @@ function Profile(props) {
                            <CFormLabel className="col-sm-2 col-form-label">Last  Name :</CFormLabel>
                            <CFormLabel className="col-sm-3 col-form-label">{lname}</CFormLabel>
                        </CRow>
-                       <hr className="mt-0" />
-                       <h4>Email Settings</h4>
-                       <CRow className="mb-3">
-                          <CForm onSubmit={handleEmailFormSubmit}>
-                            <CRow>
-                              <CCol className="col-sm-2">
-                                <CFormLabel className="col-form-label" >Email</CFormLabel>
-                              </CCol>
-                              <CCol className="col-sm-3">
-                                <CFormInput type="email" placeholder="Email"
-                                  onChange={event => setEmail(event.target.value)} required/>
-                              </CCol>
-                              <CCol className="col-sm-2">
-                              </CCol>
-                              <CCol className="col-sm-2">
-                              </CCol>
-                              <CCol className="col-sm-3">
-                                <CButton type="submit" className="mb-3">Update Email</CButton>
-                              </CCol>
-                            </CRow>
-                          </CForm>
-                      </CRow>
+
                       <hr className="mt-0" />
                       <h4>Password Settings</h4>
                       <CRow className="mb-3">
+
                           <CForm onSubmit={handlePasswordFormSubmit}>
                             <CRow className="mb-3">
                               <CCol className="col-sm-2">
@@ -205,6 +186,7 @@ function Profile(props) {
                               </CCol>
                             </CRow>
                           </CForm>
+
                       </CRow>
                    </CCardBody>
                  </CCard>

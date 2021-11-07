@@ -77,6 +77,10 @@ const Records = (props) => {
       });
   }
 
+    function onDelete() {
+      alert("deleting user");
+
+   };
   return (
     <CRow>
       <CCol xs={12}>
@@ -130,6 +134,7 @@ const Records = (props) => {
                      <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
                       <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
                 <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                <CTableHeaderCell scope="col" ></CTableHeaderCell>
 
                   </CTableRow>
               </CTableHead>
@@ -169,6 +174,19 @@ const Records = (props) => {
 
                                  </CCol>
                             </CTableDataCell>
+
+                             <CTableDataCell>
+                             <CCol xs={6}>
+                                <button className="btn btn-sm btn-danger btn-block"
+                               onClick="onDelete()"
+
+                                >
+                                Delete User
+                                </button>
+
+
+                             </CCol>
+                        </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
