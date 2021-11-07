@@ -51,6 +51,7 @@ const News = (props) => {
 
     // Fetch Tasks
     const fetchNews = async () => {
+
         res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
         console.log(res)
         const data = await res.json()
@@ -66,15 +67,14 @@ const News = (props) => {
             title: title,
             content: content,
             url : url
-
         },yourConfig)
-
 
         .then(res => {
             window.location.reload(false);
           })
 
     }
+
 
     return (
         <CRow>

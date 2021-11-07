@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
-import '../components/calendar/Calendar.css';
+import '../../assets/css/Calendar.css';
 import Axios from 'axios';
 
 import {
