@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component,useState } from "react";
+import axios from "axios";
 import {
   CAvatar,
   CBadge,
@@ -22,21 +23,39 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
 
 const AppHeaderDropdown = () => {
+   const [fname, setFirstName] = useState();
+   const [lname, setLastName] = useState();
+
+  const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+
+   const yourConfig = {
+      headers: {
+         Authorization: "Bearer " + localStorage.getItem("authorization")
+      }
+   }
+
+  axios.get(getUser,yourConfig).then(res => {
+     var json= res.data;
+     setFirstName(json["fname"])
+     setLastName(json["lname"])
+  });
 
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
-
+        {fname}&nbsp;{lname}
       </CDropdownToggle>
        <CDropdownMenu className="pt-0" placement="bottom-end">
               <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
               <CDropdownItem href="/profile">
                 <CIcon icon={cilBell} className="me-2" />
                 Profile
+              </CDropdownItem>
+              <CDropdownItem href="#">
+                <CIcon icon={cilLockLocked} className="me-2" />
+                Log Out
               </CDropdownItem>
        </CDropdownMenu>
 
