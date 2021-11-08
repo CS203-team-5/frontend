@@ -146,7 +146,10 @@ const Records = (props) => {
                   <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                  {resultType === "upcoming" ?
+                    <CTableHeaderCell scope="col">Actions</CTableHeaderCell> :
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                  }
                 </CTableRow>
               </CTableHead>
               <CTableBody>
