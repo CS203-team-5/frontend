@@ -1,6 +1,6 @@
 import React, { lazy, useState, useEffect } from 'react'
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 import { useLocation } from "react-router-dom";
 
@@ -26,8 +26,8 @@ const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
-  const history=useHistory();
-  const[name,setName]=useState()
+  const history = useHistory();
+  const [name, setName] = useState()
 
 
   //sort function
@@ -51,36 +51,36 @@ const Records = (props) => {
   //fetch data when resultType updates
   useEffect(() => {
     const getRecords = async () => {
+      console.log("Hello")
       const tasksFromServer = await fetchRecords()
-//      setRecords(tasksFromServer)
+      console.log(tasksFromServer)
+      // setRecords(tasksFromServer)
     }
     getRecords()
   }, [resultType])
-
   // Fetch Tasks
   const fetchRecords = async () => {
-
-
-     const getUser="http://localhost:8080/api/user/hr";
+    console.log("Hello2");
+    const getUser = "http://localhost:8080/api/user/hr/";
 
     const yourConfig = {
-        headers: {
-           Authorization: "Bearer " + localStorage.getItem("authorization")
-        }
-     }
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("authorization")
+      }
+    }
 
-      axios.get(getUser,yourConfig).then(res => {
+    axios.get(getUser, yourConfig).then(res => {
+      console.log("Hello3");
+      var json = res.data;
+      setRecords(json);
 
-         var json= res.data;
-         setRecords(json);
-
-      });
+    });
   }
 
-    function onDelete() {
-      alert("deleting user");
+  function onDelete() {
+    alert("deleting user");
 
-   };
+  };
   return (
     <CRow>
       <CCol xs={12}>
@@ -118,75 +118,75 @@ const Records = (props) => {
               />
             </CButtonGroup>
             <CButton style={{ float: "right" }}
-                     color="light"
-                     onClick={(event) => {history.push("/CreateUser")}}>
+              color="light"
+              onClick={(event) => { history.push("/CreateUser")}}>
               Create New User
             </CButton>
           </CCardHeader>
           <CCardBody>
             <CTable>
               <CTableHead color="dark">
-                  <CTableRow>
-                    <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
+                <CTableRow>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
 
                     User Email </CTableHeaderCell>
-                    <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
-                     <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
-                      <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
-                <CTableHeaderCell scope="col" ></CTableHeaderCell>
-                <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" ></CTableHeaderCell>
 
-                  </CTableRow>
+                </CTableRow>
               </CTableHead>
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
                   <CTableRow key={bookingRecord.bid}>
                     <CTableHeaderCell scope="row"
-                    onClick={(event) => {
-                                          const email= bookingRecord.email
-                                             history.push({
-                                             pathname:"/UserDetails",
-                                             search: '?query=abc',
-                                             state: {username: email}
-                                             })
-                                            }
-                                      }>{bookingRecord.email}
-                                      </CTableHeaderCell>
+                      onClick={(event) => {
+                        const email = bookingRecord.email
+                        history.push({
+                          pathname: "/UserDetails",
+                          search: '?query=abc',
+                          state: { username: email }
+                        })
+                      }
+                      }>{bookingRecord.email}
+                    </CTableHeaderCell>
                     <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
-                      <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
-                        <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
-                        <CTableDataCell>
-                                 <CCol xs={6}>
-                                 <button className="btn btn-sm btn-primary btn-block"
-                                   onClick={(event) => {
-                                    const email= bookingRecord.email
-                                       history.push({
-                                       pathname:"/UserDetails",
-                                       search: '?query=abc',
-                                       state: {username: email}
-                                       })
-                                      }
-                                    }
-                                    >
-                                    Edit
-                                 </button>
+                    <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
+                    <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
+                    <CTableDataCell>
+                      <CCol xs={6}>
+                        <button className="btn btn-sm btn-primary btn-block"
+                          onClick={(event) => {
+                            const email = bookingRecord.email
+                            history.push({
+                              pathname: "/UserDetails",
+                              search: '?query=abc',
+                              state: { username: email }
+                            })
+                          }
+                          }
+                        >
+                          Edit
+                        </button>
 
 
-                                 </CCol>
-                            </CTableDataCell>
+                      </CCol>
+                    </CTableDataCell>
 
-                             <CTableDataCell>
-                             <CCol xs={6}>
-                                <button className="btn btn-sm btn-danger btn-block"
-                               onClick="onDelete()"
+                    <CTableDataCell>
+                      <CCol xs={6}>
+                        <button className="btn btn-sm btn-danger btn-block"
+                          onClick="onDelete()"
 
-                                >
-                                Delete User
-                                </button>
+                        >
+                          Delete User
+                        </button>
 
 
-                             </CCol>
-                        </CTableDataCell>
+                      </CCol>
+                    </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
