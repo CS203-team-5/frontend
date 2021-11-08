@@ -33,7 +33,7 @@ const Regulation = (props) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [percentage, setPercentage] = useState()
-  const [visible, setVisible, validated, setValidated] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [order, setOrder] = useState("ASC");
 
   useEffect(() => {

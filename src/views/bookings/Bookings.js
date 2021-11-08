@@ -47,7 +47,7 @@ function Bookings(props) {
   const fetchQuota = async () => {
     console.log("yourConfig is ", yourConfig)
     console.log("yourPassword is ", localStorage)
-    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/" ,yourConfig)
+    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
     console.log("Username is ", localStorage.getItem("username"))
     const data = await res
     console.log("Data ", data)
