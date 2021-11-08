@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {useHistory} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 import { Link } from 'react-router-dom'
+import image from './background.jpg';
 import {
   CButton,
   CCard,
@@ -66,6 +67,13 @@ const history=useHistory();
       });
    };
 
+   var sectionStyle = {
+     width: "100%",
+     height: "400px",
+     backgroundImage: { image }
+   };
+
+
 
 
 //     if(localStorage.getItem("UserRole")!=null){
@@ -78,7 +86,7 @@ const history=useHistory();
 //     }
 
      return (
-       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+       <div styles={{backgroundImage: '({image})'}}>
          <CContainer>
            <CRow className="justify-content-center">
              <CCol md={6}>

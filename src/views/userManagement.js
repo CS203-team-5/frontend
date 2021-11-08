@@ -157,6 +157,7 @@ const Records = (props) => {
                         <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
                         <CTableDataCell>
                                  <CCol xs={6}>
+
                                  <button className="btn btn-sm btn-primary btn-block"
                                    onClick={(event) => {
                                     const email= bookingRecord.email
@@ -177,7 +178,7 @@ const Records = (props) => {
 
                              <CTableDataCell>
                              <CCol xs={6}>
-                                <button className="btn btn-sm btn-danger btn-block"
+                                <button className="btn-sm btn-danger btn-block"
                                onClick="onDelete()"
 
                                 >

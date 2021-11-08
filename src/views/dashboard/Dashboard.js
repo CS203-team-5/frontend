@@ -95,13 +95,11 @@ const Dashboard = () => {
         const tasksFromServer = await fetchQuota()
         setQuota(tasksFromServer)
       }
-      Axios.get("http://localhost:8080/api/dailyForm/date/users/week/"+ yyyy + "-"+ mm+ "-"+ dd, yourConfig).then(res =>{
+      Axios.get("http://localhost:8080/api/dailyForm/emp/date/users/week/"+ yyyy + "-"+ mm+ "-"+ dd, yourConfig).then(res =>{
 
             setWeeklyUser(res.data);
 
         });
-
-
 
 
         Axios.get("http://localhost:8080/api/regulationLimit/emp/num/"+ localStorage.getItem("username"), yourConfig).then(res =>{
@@ -150,9 +148,10 @@ const Dashboard = () => {
     // Fetch Tasks
     const fetchVax = async () => {
       var res = ""
+
       res = await fetch("http://localhost:8080/api/user/emailVax/"+localStorage.getItem("username") + "/",yourConfig)
-      const data = await res.json()
-      return data
+
+      return res
     }
 
 
@@ -179,7 +178,7 @@ const Dashboard = () => {
     // Fetch Tasks
     const fetchChecked = async () => {
       var res = ""
-      res = await fetch("http://localhost:8080/api/dailyForm/userToday/"+localStorage.getItem("username") + "/",yourConfig)
+      res = await fetch("http://localhost:8080/api/dailyForm/emp/userToday/"+localStorage.getItem("username") + "/",yourConfig)
       const data = await res.json()
       return data
     }

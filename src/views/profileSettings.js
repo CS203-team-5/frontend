@@ -60,7 +60,7 @@ const [validated, setValidated] = useState(false)
        setValidated(true)
 
 
-      const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
+      const getUser="http://localhost:8080/api/user/emp/email/"+ localStorage.getItem("username");
       const yourConfig = {
           headers: {
              Authorization: "Bearer " + localStorage.getItem("authorization")
@@ -83,20 +83,20 @@ const [validated, setValidated] = useState(false)
 
        if(oldFirstName!=firstName){
 
-             axios.put("http://localhost:8080/api/user/fname/"+ firstName,
+             axios.put("http://localhost:8080/api/user/emp/fname/"+ firstName,
              user_object,
               yourConfig).then(res => { });
 
        }
        if(oldLastName!=lastName){
-             axios.put("http://localhost:8080/api/user/lname/"+ lastName,
+             axios.put("http://localhost:8080/api/user/emp/lname/"+ lastName,
              user_object,
               yourConfig).then(res => { });
 
        }
 
        if(oldEmail!=email){
-              axios.put("http://localhost:8080/api/user/new/email/"+ email,
+              axios.put("http://localhost:8080/api/user/emp/new/email/"+ email,
              user_object,
               yourConfig).then(res => { });
        }
