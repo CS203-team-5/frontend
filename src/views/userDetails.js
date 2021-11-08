@@ -126,9 +126,6 @@ function UserDetails(props) {
 
    const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
 
-
-
-
     axios.get(getUser,yourConfig).then(res => {
        var json= res.data;
 
