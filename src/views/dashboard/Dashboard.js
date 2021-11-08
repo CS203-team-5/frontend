@@ -54,6 +54,7 @@ import {
   cilArrowRight,
   cilCalendarCheck,
   cilShieldAlt,
+
 } from '@coreui/icons'
 
 import avatar1 from './../../assets/images/avatars/1.jpg'
@@ -77,6 +78,7 @@ const Dashboard = () => {
   const [cid, setCid] = useState();
   const [lname, setLastName] = useState();
   const current = new Date();
+  const [percentage, setPercentage]=useState();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -95,7 +97,7 @@ const Dashboard = () => {
       const tasksFromServer = await fetchQuota()
       setQuota(tasksFromServer)
     }
-    Axios.get("http://localhost:8080/api/dailyForm/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
+    Axios.get("http://localhost:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
 
       setWeeklyUser(res.data);
 
@@ -108,7 +110,13 @@ const Dashboard = () => {
 
       setWeeklyLimit(res.data);
 
+
     });
+
+
+    let num= weeklyUsers[6]*100
+
+    setPercentage(num)
 
     getQuota()
   }, [])
@@ -150,7 +158,7 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchVax = async () => {
     var res = ""
-    res = await fetch("http://localhost:8080/api/user/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
+    res = await fetch("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
   }
@@ -179,7 +187,7 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchChecked = async () => {
     var res = ""
-    res = await fetch("http://localhost:8080/api/dailyForm/userToday/" + localStorage.getItem("username") + "/", yourConfig)
+    res = await fetch("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
   }
@@ -365,9 +373,9 @@ const Dashboard = () => {
 
           <CRow>
             <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-0">
+              <h2 id="traffic" className="card-title mb-0">
                 Live Daily Report
-              </h4>
+              </h2>
               <div className="small text-medium-emphasis">past 7 days</div>
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
@@ -377,19 +385,25 @@ const Dashboard = () => {
           </CRow>
 
         </CCardBody>
+         <CRow></CRow>
         <CCardFooter>
+
           <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
-            <CCol className="mb-sm-6 mb-6">
-              <div className="text-medium-emphasis">Daily Visits</div>
-              <strong>{weeklyLimits} Users </strong>
-              <CProgress thin className="mt-2" precision={1} color="danger" value={seven} />
+            <CCol className="mb-lg-6 mb-6">
+
             </CCol>
-            <CCol className="mb-sm-6 mb-6">
-              <div className="text-medium-emphasis">To Be Done</div>
-              <strong>24.093 Users (20%)</strong>
-              <CProgress thin className="mt-2" precision={1} color="success" value={40} />
-            </CCol>
+
           </CRow>
+          <CRow>
+          <CCol xs={{cols:6}}  className="text-center">
+                <h4> Current Capacity</h4>
+
+                        <strong>Limit: {weeklyLimits}  Users </strong>
+                        <CProgress className="mt-2" precision={1} color="warning" variant="striped" value={Limit} />
+          </CCol>
+
+          </CRow>
+
         </CCardFooter>
         <CChartLine
           style={{ height: '300px', marginTop: '40px' }}

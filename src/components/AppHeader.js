@@ -23,7 +23,7 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
      const [role, setRole] = useState();
-     const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
 
 
         const yourConfig = {
