@@ -24,8 +24,11 @@ import {
   CCarouselCaption,
   CCarouselItem,
   CImage,
+
 } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
+
+
+import { CChart, CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 import {
@@ -238,6 +241,30 @@ const Dashboard = () => {
   };
 
 
+
+const doughnut = {
+  labels: [
+    'Red',
+    'Green',
+    'Yellow',
+  ],
+  datasets: [
+    {
+      data: [Limit, seven-Limit],
+      backgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56',
+      ],
+      hoverBackgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56',
+      ],
+    }],
+  };
+
+
   return (
     <>
       <CRow>
@@ -365,7 +392,21 @@ const Dashboard = () => {
 
         </CCardBody>
       </CCard>
+      <div className="col-md-6">
+            <h4>Doughnut</h4>
+              <div className="chart-wrapper">
+                <CChart type="doughnut" datasets={doughnut.datasets} labels={doughnut.labels}
 
+                options={{
+                              maintainAspectRatio: true,
+                              tooltips: {
+                                enabled: true
+                              }
+                            }}
+                            />
+              </div>
+
+      </div>
 
       <CCard className="mb-4">
 
@@ -405,6 +446,7 @@ const Dashboard = () => {
           </CRow>
 
         </CCardFooter>
+
         <CChartLine
           style={{ height: '300px', marginTop: '40px' }}
           data={{

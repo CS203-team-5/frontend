@@ -83,20 +83,20 @@ const [validated, setValidated] = useState(false)
 
        if(oldFirstName!=firstName){
 
-             axios.put("http://localhost:8080/api/emp/user/fname/"+ firstName,
+             axios.put("http://localhost:8080/api/user/fname/"+ firstName,
              user_object,
               yourConfig).then(res => { });
 
        }
        if(oldLastName!=lastName){
-             axios.put("http://localhost:8080/api/emp/user/lname/"+ lastName,
+             axios.put("http://localhost:8080/api/user/lname/"+ lastName,
              user_object,
               yourConfig).then(res => { });
 
        }
 
        if(oldEmail!=email){
-              axios.put("http://localhost:8080/api/emp/user/new/email/"+ email,
+              axios.put("http://localhost:8080/api/user/new/email/"+ email,
              user_object,
               yourConfig).then(res => { });
        }
