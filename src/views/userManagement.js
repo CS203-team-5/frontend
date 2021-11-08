@@ -77,6 +77,10 @@ const Records = (props) => {
       });
   }
 
+    function onDelete() {
+      alert("deleting user");
+
+   };
   return (
     <CRow>
       <CCol xs={12}>
@@ -130,40 +134,59 @@ const Records = (props) => {
                      <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
                       <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
                 <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                <CTableHeaderCell scope="col" ></CTableHeaderCell>
 
                   </CTableRow>
               </CTableHead>
               <CTableBody>
                 {bookingRecords.map((bookingRecord) => (
                   <CTableRow key={bookingRecord.bid}>
-                    <CTableHeaderCell scope="row">{bookingRecord.email}</CTableHeaderCell>
+                    <CTableHeaderCell scope="row"
+                    onClick={(event) => {
+                                          const email= bookingRecord.email
+                                             history.push({
+                                             pathname:"/UserDetails",
+                                             search: '?query=abc',
+                                             state: {username: email}
+                                             })
+                                            }
+                                      }>{bookingRecord.email}
+                                      </CTableHeaderCell>
                     <CTableDataCell>{bookingRecord.fname}</CTableDataCell>
                       <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
                         <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
                         <CTableDataCell>
                                  <CCol xs={6}>
-                                    <button className="btn btn-sm btn-primary btn-block"
+                                 <button className="btn btn-sm btn-primary btn-block"
                                    onClick={(event) => {
                                     const email= bookingRecord.email
                                        history.push({
-
                                        pathname:"/UserDetails",
                                        search: '?query=abc',
-                                       state: {
-                                       username: email
-
-                                       }
-
+                                       state: {username: email}
                                        })
                                       }
                                     }
                                     >
-                                    UserDetails
-                                    </button>
+                                    Edit
+                                 </button>
 
 
                                  </CCol>
                             </CTableDataCell>
+
+                             <CTableDataCell>
+                             <CCol xs={6}>
+                                <button className="btn btn-sm btn-danger btn-block"
+                               onClick="onDelete()"
+
+                                >
+                                Delete User
+                                </button>
+
+
+                             </CCol>
+                        </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>

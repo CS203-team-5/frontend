@@ -52,7 +52,7 @@ const history= useHistory();
        event.preventDefault();
 
 //       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
-       const dailyForm = "http://localhost:8080/api/DailyForm/create/";
+       const dailyForm = "http://localhost:8080/api/dailyForm/new";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
            headers: {
@@ -72,15 +72,13 @@ const history= useHistory();
 
       axios.post(dailyForm,DailyForm_Object,yourConfig).then(res =>{
 
-         handleDashboard();
+          history.push("/dashboard");
 
       });
 
    };
 
-   const handleDashboard = () => {
-      history.push("/dashboard");
-   };
+
 
    return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
-import '../components/calendar/Calendar.css';
+import '../../assets/css/Calendar.css';
 import Axios from 'axios';
 
 import {
@@ -44,13 +44,10 @@ function Bookings(props) {
     getQuota()
   }, [])
 
-
-  //      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/", yourConfig)
-
   const fetchQuota = async () => {
     console.log("yourConfig is ", yourConfig)
     console.log("yourPassword is ", localStorage)
-    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
+    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/" ,yourConfig)
     console.log("Username is ", localStorage.getItem("username"))
     const data = await res
     console.log("Data ", data)
