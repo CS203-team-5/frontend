@@ -170,11 +170,8 @@ const Records = (props) => {
                         >
                           Edit
                         </button>
-
-
                       </CCol>
                     </CTableDataCell>
-
                     <CTableDataCell>
                       <CCol xs={6}>
                         <button className="btn btn-sm btn-danger btn-block"
