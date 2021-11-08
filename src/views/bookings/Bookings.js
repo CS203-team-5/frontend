@@ -31,10 +31,10 @@ function Bookings(props) {
   };
 
   const yourConfig = {
-       headers: {
-          Authorization: "Bearer " + localStorage.getItem("authorization")
-       }
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("authorization")
     }
+  }
 
   useEffect(() => {
     const getQuota = async () => {
@@ -45,14 +45,12 @@ function Bookings(props) {
   }, [])
 
 
+  //      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/", yourConfig)
 
   const fetchQuota = async () => {
-    var res = Axios.get("http://localhost:8080/api/bookings/UserBookings/{email}",
-      {
-        params: {
-          email: localStorage.getItem("username")
-        }
-      },yourConfig)
+    console.log("yourConfig is ", yourConfig)
+    console.log("yourPassword is ", localStorage)
+    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
     console.log("Username is ", localStorage.getItem("username"))
     const data = await res
     console.log("Data ", data)
@@ -73,8 +71,10 @@ function Bookings(props) {
       user: {
         "email": localStorage.getItem("username")
       }
-    },yourConfig).then(() => {
+    }, yourConfig).then((res) => {
       window.location.reload(false);
+    }).catch((res) => {
+      alert(res.response.data.message)
     })
   }
   return (
@@ -114,9 +114,9 @@ function Bookings(props) {
                     <CCol sm={8}>
                       <CFormInput type="string" id="b_date"
 
-                      // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
-                      value={date.toLocaleString(locale, options)}
-                      // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
+                        // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
+                        value={date.toLocaleString(locale, options)}
+                        // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
 
                         onChange={setDate} placeholder="b_date" disabled="disabled" />
                     </CCol>

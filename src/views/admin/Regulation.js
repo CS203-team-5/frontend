@@ -32,8 +32,10 @@ const Regulation = (props) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [percentage, setPercentage] = useState()
-  const [visible, setVisible, validated, setValidated] = useState(false)
-
+  const [visible, setVisible] = useState(false)
+  const [validated, setValidated] =useState(true)
+  console.log("Visible is ", visible);
+  console.log("Validated is ", validated);
   const [order, setOrder] = useState("ASC");
 
   useEffect(() => {
@@ -68,12 +70,12 @@ const Regulation = (props) => {
       percentage: percentage
     }, yourConfig)
       .then(res => {
-        window.location.reload(false);
+        // window.location.reload(false);
       })
   }
 
   //sort function
-  const sorting =(col)=> {
+  const sorting = (col) => {
     if (order === "ASC") {
       const sorted = [...regulationRecords].sort((a, b) =>
         a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
@@ -132,8 +134,8 @@ const Regulation = (props) => {
             <CTable align="middle" responsive>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell align="middle" scope="col" onClick={()=>sorting("startDate")}>Start Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
-                  <CTableHeaderCell align="middle" scope="col" onClick={()=>sorting("endDate")}>End Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("startDate")}>Start Date</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("endDate")}>End Date</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Percentage (%)</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Daily Limit No.</CTableHeaderCell>
                 </CTableRow>

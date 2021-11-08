@@ -1,4 +1,6 @@
-import React, { lazy, useState, useEffect } from 'react'
+import React, { lazy, useState, useEffect } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Axios from 'axios';
 import {
   CButton,
@@ -20,25 +22,26 @@ import {
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
 
+
+
 const Records = (props) => {
   const [bookingRecords, setRecords] = useState([])
   const [order, setOrder] = useState("ASC");
   const [resultType, setResultType] = useState()
 
   const yourConfig = {
-       headers: {
-          Authorization: "Bearer " + localStorage.getItem("authorization")
-       }
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("authorization")
     }
-
+  }
   const del = async (bid) => {
-    console.log("Delete function: ", bid);
+    console.log("Delete function: ", bid, " 12 ", yourConfig);
     var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
       {
         params: {
           id: bid
         }
-      },yourConfig).then(() => {
+      }, yourConfig).then(() => {
         window.location.reload(false);
       })
     console.log((await res).status)
@@ -60,7 +63,21 @@ const Records = (props) => {
       setOrder("ASC");
     }
   }
-
+  const optionsFunction = (bookingBID) => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => del(bookingBID)
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
+  }
   //fetch data when resultType updates
   useEffect(() => {
     const getRecords = async () => {
@@ -74,11 +91,11 @@ const Records = (props) => {
   const fetchRecords = async () => {
     var res = ""
     if (resultType === "past") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/",yourConfig)
+      res = await fetch("http://localhost:8080/api/bookings/emp/past/" + localStorage.getItem("username") + "/", yourConfig)
     } else if (resultType === "upcoming") {
-      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/",yourConfig)
+      res = await fetch("http://localhost:8080/api/bookings/emp/upcoming/" + localStorage.getItem("username") + "/", yourConfig)
     } else {
-      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/",yourConfig)
+      res = await fetch("http://localhost:8080/api/bookings/emp/allEmp/" + localStorage.getItem("username") + "/", yourConfig)
     }
     const data = await res.json()
     console.log(data)
@@ -126,9 +143,9 @@ const Records = (props) => {
             <CTable>
               <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("status")}>Status &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
@@ -141,7 +158,7 @@ const Records = (props) => {
                     <CTableDataCell>
                       {resultType === "upcoming" ?
                         <CButton color="dark" variant="ghost"
-                          onClick={() => del(bookingRecord.bid)}>Cancel</CButton> :
+                          onClick={() => optionsFunction(bookingRecord.bid)}>Cancel</CButton> :
                         <p></p>
                       }
                     </CTableDataCell>
