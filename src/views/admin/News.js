@@ -23,7 +23,7 @@ import {
     CFormText,
     CFormLabel,
     CFormInput,
-    CImage
+    CImage,
 } from '@coreui/react'
 
 const News = (props) => {
@@ -52,13 +52,15 @@ const News = (props) => {
     // Fetch Tasks
     const fetchNews = async () => {
 
-        res = await fetch('http://localhost:8080/api/news/hr/',yourConfig)
+        res = await fetch('http://localhost:8080/api/news/emp/',yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
+    
     const url2 = "http://localhost:8080/api/news/hr"
+
 
     function submit(e) {
         e.preventDefault();
@@ -75,6 +77,12 @@ const News = (props) => {
 
     }
 
+    function deleteNews(nid){
+        Axios.delete(`http://localhost:8080/api/news/hr/${nid}`,yourConfig)
+        .then(res => {
+            window.location.reload(false);
+          })
+    }
 
     return (
         <CRow>
@@ -129,6 +137,7 @@ const News = (props) => {
                                     <CTableHeaderCell scope="col">Title</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Content</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Image URL</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col"></CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                             <CTableBody>
@@ -139,46 +148,17 @@ const News = (props) => {
                                         <CTableDataCell>{newsRecord.title}</CTableDataCell>
                                         <CTableDataCell>{newsRecord.content}</CTableDataCell>
                                         <CTableDataCell><img src={newsRecord.url} style = {{height: 50, resizeMode : 'fit', margin: 5 }}/></CTableDataCell>
+                                        <CTableDataCell>
+                                        <CCol xs={6}>
+                                            <button className="btn btn-sm btn-danger btn-block"
+                                            onClick={() => deleteNews(newsRecord.nid)}>
+                                            Delete News
+                                            </button>
+                                        </CCol>
+                                        </CTableDataCell>
+                                        
                                     </CTableRow>
                                 ))}
-                            </CTableBody>
-                        </CTable>
-                    </CCardBody>
-                </CCard>
-            </CCol>
-            <CCol xs={12}>
-                <CCard className="mb-4">
-                    <CCardHeader>
-                        <strong>React Table</strong> <small>Control Setup</small>
-                    </CCardHeader>
-                    <CCardBody>
-                        <CTable>
-                            <CTableHead color="dark">
-                                <CTableRow>
-                                    <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                                    <CTableHeaderCell scope="col">Date</CTableHeaderCell>
-                                    <CTableHeaderCell scope="col">Location</CTableHeaderCell>
-                                    <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-                                </CTableRow>
-                            </CTableHead>
-                            <CTableBody>
-                                <CTableRow>
-                                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                                    <CTableDataCell>Mark</CTableDataCell>
-                                    <CTableDataCell>Otto</CTableDataCell>
-                                    <CTableDataCell>@mdo</CTableDataCell>
-                                </CTableRow>
-                                <CTableRow>
-                                    <CTableHeaderCell scope="row">2</CTableHeaderCell>
-                                    <CTableDataCell>Jacob</CTableDataCell>
-                                    <CTableDataCell>Thornton</CTableDataCell>
-                                    <CTableDataCell>@fat</CTableDataCell>
-                                </CTableRow>
-                                <CTableRow>
-                                    <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                                    <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
-                                    <CTableDataCell>@twitter</CTableDataCell>
-                                </CTableRow>
                             </CTableBody>
                         </CTable>
                     </CCardBody>

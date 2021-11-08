@@ -42,7 +42,7 @@ function Profile(props) {
 
     const userEmail=localStorage.getItem("username");
 
-     const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
 
      const yourConfig = {
         headers: {
@@ -59,34 +59,6 @@ function Profile(props) {
     });
 
 
-  // for email
-//  const handleEmailFormSubmit = event => {
-//        event.preventDefault();
-//        const form = event.currentTarget
-//
-//        const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
-//        const yourConfig = {
-//            headers: {
-//               Authorization: "Bearer " + localStorage.getItem("authorization")
-//            }
-//         }
-//          axios.get(getUser, yourConfig).then(res => {
-//              var json= res.data;
-//             setOldEmail(json["email"])
-//         });
-//        const user_object = {
-//            email: localStorage.getItem("username"),
-//            password: localStorage.getItem("authorization"),
-//        };
-//
-//         if(oldEmail!=email){
-//               axios.put("http://localhost:8080/api/user/new/email/"+ email,
-//               user_object,
-//               yourConfig).then(res => { });
-//         }
-//         history.push("/dashboard");
-//
-//     };
 
       const handlePasswordFormSubmit = event => {
             event.preventDefault();
@@ -99,13 +71,13 @@ function Profile(props) {
                alert("New password does not match");
                history.push("/Profile");
            }
-          const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+          const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
            const yourConfig = {
               headers: {
                  Authorization: "Bearer " + localStorage.getItem("authorization")
               }
            }
-          const endpoint = "http://localhost:8080/api/user/new/Password/"+ firstPassword;
+          const endpoint = "http://localhost:8080/api/user/emp/new/Password/"+ firstPassword;
            const user_object = {
               email: localStorage.getItem("username"),
               fname: fname,

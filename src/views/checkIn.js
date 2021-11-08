@@ -52,7 +52,7 @@ const history= useHistory();
        event.preventDefault();
 
 //       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
-       const dailyForm = "http://localhost:8080/api/dailyForm/new";
+       const dailyForm = "http://localhost:8080/api/dailyForm/emp/new";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
            headers: {

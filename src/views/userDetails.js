@@ -65,6 +65,7 @@ function UserDetails(props) {
 
 
 
+
        //sort function
  const sorting = (col) => {
    if (order === "ASC") {
@@ -124,7 +125,7 @@ function UserDetails(props) {
 //    return data
 
 
-   const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
+   const getUser="http://localhost:8080/api/user/emp/email/"+ location.state.username;
 
     axios.get(getUser,yourConfig).then(res => {
        var json= res.data;
@@ -153,7 +154,7 @@ function UserDetails(props) {
 
   const fetchFormRecords = async () => {
       var res = ""
-      const getUserForm='http://localhost:8080/api/dailyForm/user/'+ location.state.username;
+      const getUserForm='http://localhost:8080/api/dailyForm/hr/user/'+ location.state.username;
   //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
   //    const data = await res.json()
   //    console.log(data)
@@ -171,7 +172,7 @@ function UserDetails(props) {
 
  const handleFormSubmit = event => {
 
-         const endpoint = "http://localhost:8080/api/user/new/vaccination/"+ vaccination;
+         const endpoint = "http://localhost:8080/api/user/hr/new/vaccination/"+ vaccination;
 
 
 
@@ -213,11 +214,11 @@ function UserDetails(props) {
                       </CRow>
                       <CRow className="mb-3">
                          <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
-                         <CFormLabel className="col-sm-3 col-form-label">{location.state.username}</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username")}</CFormLabel>
                          <CFormLabel className="col-sm-1 col-form-label">Role :</CFormLabel>
                          <CFormLabel className="col-sm-1 col-form-label">{role}</CFormLabel>
                          <CFormLabel className="col-sm-3 col-form-label">Vaccination Status :</CFormLabel>
-                         <CFormLabel className="col-sm-2 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">{vaccination}</CFormLabel>
                       </CRow>
                       <hr className="mt-0" />
                        <CRow className="mb-3">
@@ -247,7 +248,7 @@ function UserDetails(props) {
                                 </CInputGroup>
                               </CCol>
                               <CCol className="col-sm-2">
-                                <CButton type="submit" class="btn btn-secondary">Update Status</CButton>
+                                <CButton type="submit" class="btn btn-primary">Update Status</CButton>
                               </CCol>
                             </CRow>
                           </CForm>
@@ -273,6 +274,28 @@ function UserDetails(props) {
                            ))}
                          </CTableBody>
                        </CTable>
+
+                        <hr className="mt-0" />
+                       <CTable>
+                          <CTableHead color="dark">
+                            <CTableRow>
+                              <CTableHeaderCell scope="col" onClick={() => sorting("fid")}> Form ID <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                              <CTableHeaderCell scope="col" onClick={() => sorting("dateExactTime")}>Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                               <CTableHeaderCell scope="col" onClick={() => sorting("symptoms")}> Symtpoms<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                                <CTableHeaderCell scope="col" onClick={() => sorting("temperature")}> Temperature <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                            </CTableRow>
+                          </CTableHead>
+                          <CTableBody>
+                            {formRecords.map((formRecord) => (
+                              <CTableRow key={formRecord.fid}>
+                               <CTableHeaderCell scope="row">{formRecord.fid}</CTableHeaderCell>
+                                <CTableHeaderCell scope="row">{formRecord.dateExactTime}</CTableHeaderCell>
+                                <CTableDataCell>{formRecord.symptoms.toString()}</CTableDataCell>
+                                <CTableDataCell>{formRecord.temperature}</CTableDataCell>
+                              </CTableRow>
+                            ))}
+                          </CTableBody>
+                        </CTable>
 
                     </CCardBody>
                   </CCard>

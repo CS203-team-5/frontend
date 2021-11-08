@@ -60,7 +60,7 @@ const [validated, setValidated] = useState(false)
        setValidated(true)
 
 
-      const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
+      const getUser="http://localhost:8080/api/emp/user/email/"+ localStorage.getItem("username");
       const yourConfig = {
           headers: {
              Authorization: "Bearer " + localStorage.getItem("authorization")
