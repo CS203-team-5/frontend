@@ -24,13 +24,15 @@ import {
   CCarouselCaption,
   CCarouselItem,
   CImage,
+  CContainer
 
 } from '@coreui/react'
 
-
-import { CChart, CChartLine } from '@coreui/react-chartjs'
+import image from "./background.jpg"
+import { CChart, CChartLine , CChartDoughnut} from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
+
 import {
   cilCalendar,
   cibCcAmex,
@@ -81,7 +83,7 @@ const Dashboard = () => {
   const [cid, setCid] = useState();
   const [lname, setLastName] = useState();
   const current = new Date();
-  const [percentage, setPercentage]=useState();
+  const [available, setAvailable]=useState();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -117,9 +119,7 @@ const Dashboard = () => {
     });
 
 
-    let num= weeklyUsers[6]*100
 
-    setPercentage(num)
 
     getQuota()
   }, [])
@@ -213,6 +213,8 @@ const Dashboard = () => {
 
 
 
+
+
   //carousel
   const slides = [
     'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1607923e7e2%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1607923e7e2%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9296875%22%20y%3D%22217.75625%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
@@ -250,7 +252,7 @@ const doughnut = {
   ],
   datasets: [
     {
-      data: [Limit, seven-Limit],
+      data: [Limit, Limit, Limit],
       backgroundColor: [
         '#FF6384',
         '#36A2EB',
@@ -266,7 +268,13 @@ const doughnut = {
 
 
   return (
-    <>
+
+  <div >
+
+      <CContainer>
+      <CCol>
+
+      </CCol>
       <CRow>
         <CCol xs={4}>
           <CWidgetStatsF
@@ -308,9 +316,13 @@ const doughnut = {
       </CRow>
 
       <CCard className="mb-4">
-        <CCardHeader>
-          <strong sm={6} md={8}>News</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </CCardHeader>
+
+          <CCol sm={5}>
+                       <h2 id="traffic" className="card-title mb-0">
+                       News
+                       </h2>
+                       <div className="small text-medium-emphasis"> Latest news updates</div>
+                     </CCol>
         <CCardBody>
           <CRow>
 
@@ -392,21 +404,7 @@ const doughnut = {
 
         </CCardBody>
       </CCard>
-      <div className="col-md-6">
-            <h4>Doughnut</h4>
-              <div className="chart-wrapper">
-                <CChart type="doughnut" datasets={doughnut.datasets} labels={doughnut.labels}
 
-                options={{
-                              maintainAspectRatio: true,
-                              tooltips: {
-                                enabled: true
-                              }
-                            }}
-                            />
-              </div>
-
-      </div>
 
       <CCard className="mb-4">
 
@@ -427,25 +425,31 @@ const doughnut = {
 
         </CCardBody>
          <CRow></CRow>
-        <CCardFooter>
+         <CRow>
 
-          <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
-            <CCol className="mb-lg-6 mb-6">
+          <CCol xs={4}>
 
-            </CCol>
 
-          </CRow>
-          <CRow>
-          <CCol xs={{cols:6}}  className="text-center">
-                <h4> Current Capacity</h4>
+                           <CCardBody>
+                             <CChartDoughnut
+                               data={{
+                                 labels: ["Filled","Current Capacity"],
+                                 datasets: [
+                                   {
+                                     backgroundColor: [ '#DD1B16', '#00D8FF'],
+                                     data: [seven,Limit],
+                                   },
+                                 ],
+                               }}
+                             />
+                             <p>Available: {seven}</p>
+                           </CCardBody>
 
-                        <strong>Limit: {weeklyLimits}  Users </strong>
-                        <CProgress className="mt-2" precision={1} color="warning" variant="striped" value={Limit} />
-          </CCol>
+                </CCol>
 
-          </CRow>
 
-        </CCardFooter>
+          <CCol xs={8}>
+
 
         <CChartLine
           style={{ height: '300px', marginTop: '40px' }}
@@ -508,8 +512,14 @@ const doughnut = {
             },
           }}
         />
+          </CCol>
+          </CRow>
       </CCard>
-    </>
+      </CContainer>
+
+    </div>
+
+
   )
 }
 

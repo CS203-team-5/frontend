@@ -125,7 +125,7 @@ const Records = (props) => {
           </CCardHeader>
           <CCardBody>
             <CTable>
-              <CTableHead color="dark">
+              <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
 
