@@ -27,7 +27,7 @@ import {
 
 const News = (props) => {
 
-    const [newsRecords, showNews] = useState([])
+    const [newsRecords, setNews] = useState([])
     const [title, setTitle] = useState()
     const [date, setDate] = useState()
     const [content, setContent] = useState()
@@ -42,7 +42,7 @@ const News = (props) => {
     useEffect(() => {
         const getNews = async () => {
             const tasksFromServer = await fetchNews()
-            showNews(tasksFromServer)
+            setNews(tasksFromServer)
         }
         getNews()
     }, [])

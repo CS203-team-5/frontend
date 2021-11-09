@@ -55,11 +55,12 @@ function Profile(props) {
        setFirstName(json["fname"])
        setLastName(json["lname"])
        setRole(json["userRole"])
+       if(json["vaccinated"]) setVax("Vaccinated")
+       else setVax("Not Vaccinated")
 
     });
 
-
-
+    //update password
       const handlePasswordFormSubmit = event => {
             event.preventDefault();
             const form = event.currentTarget
@@ -92,11 +93,12 @@ function Profile(props) {
                  history.push("/Dashboard")
           });
   };
-
+  //vax
+  const [vax, setVax] = useState("Not Vaccinated");
 
 
      return (
-       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+       <div className="bg-white min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
              <CCol md={8}>
@@ -105,11 +107,12 @@ function Profile(props) {
                    <CCardBody>
                        <h1> Profile </h1>
                        <CRow className="mb-3">
-                           <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
-                           <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username") }</CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label"></CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label">Role :</CFormLabel>
-                           <CFormLabel className="col-sm-3 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username")}</CFormLabel>
+                         <CFormLabel className="col-sm-1 col-form-label">Role :</CFormLabel>
+                         <CFormLabel className="col-sm-1 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">Vaccination Status :</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">{vax}</CFormLabel>
                        </CRow>
                        <CRow className="mb-3">
                            <CFormLabel className="col-sm-2 col-form-label">First Name :</CFormLabel>
