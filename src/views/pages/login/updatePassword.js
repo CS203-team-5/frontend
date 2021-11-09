@@ -33,32 +33,20 @@ import image from  './background.jpg'
 
 function UpdatePassword(props) {
 const history=useHistory();
-   const [fname, setFirstName] = useState();
-   const [lname, setLastName] = useState();
-    const[role,setRole]= useState();
-   const[oldPassword, setOldPassword]=useState();
+
+
    const [firstPassword, setFirstPassword] = useState();
    const [secondPassword, setSecondPassword] = useState();
      const [username, setUsername] = useState();
 
-//     const getCurrentUser = async function () {
-//        const currentUser = await Parse.User.current();
-//        // Update state variable holding current user
-//        setCurrentUser(currentUser);
-//        return currentUser;
-//      };
 const [validated, setValidated] = useState(false)
 
    const handleFormSubmit = event => {
        event.preventDefault();
        const form = event.currentTarget
 
-      if(oldPassword!=localStorage.getItem("password")){
-          alert("Wrong password");
-          history.push("/UpdatePassword");
-      }
       if(firstPassword!=secondPassword){
-          alert("New password does not match");
+          alert("password does not match");
           history.push("/UpdatePassword");
       }
 
@@ -69,6 +57,11 @@ const [validated, setValidated] = useState(false)
        setValidated(true)
 
 
+ const yourConfig = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("authorization")
+    }
+  }
 
 
 
@@ -76,37 +69,15 @@ const [validated, setValidated] = useState(false)
        // const password = state.password;
 
 
-         const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
 
 
-          const yourConfig = {
-             headers: {
-                Authorization: "Bearer " + localStorage.getItem("authorization")
-             }
-          }
-
-
-           axios.get(getUser,yourConfig).then(res => {
-              var json= res.data;
-              setFirstName(json["fname"])
-              setLastName(json["lname"])
-              setRole(json["userRole"])
-
-           });
-
-
-         const endpoint = "http://localhost:8080/api/user/new/Password/"+ firstPassword;
+         const endpoint = "http://localhost:8080/api/authenticate/forget/new/"+ firstPassword;
 
 
 
         const user_object = {
-           email: localStorage.getItem("username"),
-           fname: fname,
-           lname:lname,
-           password: localStorage.getItem("authorization"),
-           userRole:role,
+          email: username
        };
-
 
 
        axios.put(endpoint,
@@ -139,7 +110,8 @@ return (
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" className="form-control" onChange={event => setUsername(event.target.value)} />
+                      <CFormInput placeholder="Username" autoComplete="username" className="form-control" o
+                      nChange={event => setUsername(event.target.value)} />
                     </CInputGroup>
 
                     <CInputGroup className="mb-4">
@@ -164,7 +136,7 @@ return (
                           event=> setSecondPassword(event.target.value)
                          }/>
 
-                         <CFormFeedback invalid>Please check email entered </CFormFeedback>
+
 
                       </CInputGroup>
 

@@ -46,7 +46,7 @@ function ForgetPassword(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-         const forgetPassword="http://localhost:8080/api/user/emp/forget/" + localStorage.getItem("username")
+         const forgetPassword="http://localhost:8080/authenticate/forget/" + username
 
 
            axios.post(forgetPassword).then(res => {

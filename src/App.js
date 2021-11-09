@@ -20,11 +20,22 @@ const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const CheckIn=React.lazy(() => import('./views/checkIn'))
 
 class App extends Component {
-  render() {
+    render(){
     return (
       <BrowserRouter>
+
         <React.Suspense fallback={loading}>
+
           <Switch>
+          {localStorage.getItem("authenticated") &&
+          <>
+
+            <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
+
+          </>
+
+
+          }
             <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
             <Route
               exact
@@ -36,12 +47,14 @@ class App extends Component {
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
             <Route exact path="/CheckIn" name="CheckIn" render={(props) => <CheckIn{...props} />} />
 
-            <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
+             <Route exact path="/ForgetPassword" name="ForgetPassword" render={(props) => <ForgetPassword{...props} />} />
+              <Route exact path="/UpdatePassword" name="UpdatePassword" render={(props) => <UpdatePassword{...props} />} />
+              <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
           </Switch>
         </React.Suspense>
       </BrowserRouter>
     )
-  }
+}
 }
 
 export default App
