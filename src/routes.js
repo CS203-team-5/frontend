@@ -67,8 +67,8 @@ const Regulation = React.lazy(() => import('./views/admin/Regulation'))
 const Profile =React.lazy(() => import('./views/profile'))
 const ProfileSettings =React.lazy(() => import('./views/profileSettings'))
 const UserDetails =React.lazy(() => import('./views/userDetails'))
-const UpdatePassword=React.lazy(() => import('./views/updatePassword'))
-
+const UpdatePassword=React.lazy(() => import('./views/pages/login/updatePassword'))
+const ForgetPassword=React.lazy(() => import('./views/pages/login/forgetPassword'))
 
 
 const routes = [
@@ -131,6 +131,7 @@ const routes = [
    { path: '/UserDetails', name: 'UserDetails', component: UserDetails, exact: true },
    { path: '/UpdatePassword', name: 'UpdatePassword', component: UpdatePassword, exact: true },
   { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
+  { path: '/ForgetPassword', name: 'ForgetPassword', component: ForgetPassword, exact: true },
 
 
 ]

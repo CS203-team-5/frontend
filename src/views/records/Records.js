@@ -141,7 +141,7 @@ const Records = (props) => {
           </CCardHeader>
           <CCardBody>
             <CTable>
-              <CTableHead color="dark">
+              <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell scope="col" onClick={() => sorting("bid")}>Booking ID &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("bdate")}>Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>

@@ -41,7 +41,9 @@ const AppHeaderDropdown = () => {
      setFirstName(json["fname"])
      setLastName(json["lname"])
   });
+
   function onDelete(){
+  alert("logging out")
       localStorage.clear();
   }
 
@@ -56,8 +58,8 @@ const AppHeaderDropdown = () => {
                 <CIcon icon={cilBell} className="me-2" />
                 Profile
               </CDropdownItem>
-              <CDropdownItem href="/Login">
-                <CIcon icon={cilLockLocked} lassName="me-2" />
+              <CDropdownItem onClick={onDelete}  href="/Login">
+                <CIcon icon={cilLockLocked} className="me-2"  />
                 Log Out
               </CDropdownItem>
        </CDropdownMenu>
