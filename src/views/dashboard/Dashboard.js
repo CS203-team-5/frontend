@@ -189,12 +189,12 @@ const Dashboard = () => {
   }, [vax])
 
   // Fetch Tasks
-  const fetchVax = async () => {
+   const fetchVax = async () => {
     var res = ""
 
-    Axios.get("http://13.250.7.222:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
-      return res
-    });
+    res = await fetch("http://13.250.7.222:8080/api/user/emp/emailVax/"+localStorage.getItem("username") + "/",yourConfig)
+    const data = await res.json()
+    return data
 
   }
 
@@ -213,22 +213,18 @@ const Dashboard = () => {
         setCheck("Not Checked In Yet");
         setCheckColor("danger");
       }
-
     }
     getChecked()
   }, [checked])
 
   // Fetch Tasks
-  const fetchChecked = async () => {
-    var res = ""
 
-
-    Axios.get("http://13.250.7.222/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
-      return res
-    });
-
-
-  }
+   const fetchChecked = async () => {
+      var res = ""
+      res = await fetch("http://13.250.7.222:8080/api/dailyForm/emp/userToday/"+localStorage.getItem("username") + "/",yourConfig)
+      const data = await res.json()
+      return data
+   }
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -265,6 +261,28 @@ const Dashboard = () => {
       items: 1
     }
   };
+
+  //internal company news
+  const [newsRecords, setNews] = useState([])
+
+  useEffect(() => {
+      const getNews = async () => {
+          const tasksFromServer = await fetchNews()
+          setNews(tasksFromServer)
+      }
+      getNews()
+  }, [])
+  var res;
+
+  // Fetch Tasks
+  const fetchNews = async () => {
+
+      res = await fetch('http://localhost:8080/api/news/emp/', yourConfig)
+      console.log(res)
+      const data = await res.json()
+      console.log(data)
+      return data
+  }
 
   return (
 
@@ -311,8 +329,10 @@ const Dashboard = () => {
                       value={checked}/>
                   </CCol>
                 </CRow>
-
+                <CRow>
+                <CCol xs={8}>
                 <CCard className="mb-4">
+
                   <CCardHeader>
                     <strong sm={6} md={8}>News Top Stories</strong>
                     <strong sm={6} md={8}
@@ -358,27 +378,43 @@ const Dashboard = () => {
                       ))}
                     </Carousel>
                   </CCardBody>
-</CCard>
+                  </CCard>
+                </CCol>
+                <CCol xs={4}>
+                  <CCard>
+                  <CCardHeader>
+                    <strong sm={6} md={8}> Company News</strong>
+                  </CCardHeader>
+                  <div className="list-group" >
+                  {newsRecords.map((newsRecord, i) => (
+                    <a className="list-group-item list-group-item-action flex-column align-items-start" key={i}>
+                      <div className="d-flex w-100 justify-content-between">
+                        <h5 className="mb-1">{newsRecord.title}</h5>
+                        <small>{newsRecord.date}</small>
+                      </div>
+                      <p className="mb-1">{newsRecord.content}</p>
+                    </a>
+                  ))}
+                  </div>
+
+                  </CCard>
+                </CCol>
+               </CRow>
 
 
               <CCardBody>
                 <CRow>
                   <CCol sm={5}>
                     <h1 id="traffic" className="card-title mb-0">
-                      Live Daily Report
+                        Live Daily Report
                     </h1>
                   </CCol>
                   <CCol sm={7} className="d-none d-md-block">
                   </CCol>
                 </CRow>
               </CCardBody>
-
-
           <CRow className="text-center">
-
             <CRow>
-
-
                   <CCol xs={4}>
                     <CCard className="mb-4">
                       <CCardBody>
