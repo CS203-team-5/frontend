@@ -23,7 +23,6 @@ import {
     CFormText,
     CFormLabel,
     CFormInput,
-    CImage,
 } from '@coreui/react'
 
 const News = (props) => {
@@ -32,14 +31,14 @@ const News = (props) => {
     const [title, setTitle] = useState()
     const [date, setDate] = useState()
     const [content, setContent] = useState()
-    const [url, setURL] = useState()
-    const [visible, setVisible, validated, setValidated] = useState(false)
+    const [newsId, setNewsId] = useState(null)
+    const [visible, setVisible, validated] = useState(false)
 
     const yourConfig = {
-         headers: {
+        headers: {
             Authorization: "Bearer " + localStorage.getItem("authorization")
-         }
-      }
+        }
+    }
     useEffect(() => {
         const getNews = async () => {
             const tasksFromServer = await fetchNews()
@@ -52,13 +51,13 @@ const News = (props) => {
     // Fetch Tasks
     const fetchNews = async () => {
 
-        res = await fetch('http://localhost:8080/api/news/emp/',yourConfig)
+        res = await fetch('http://localhost:8080/api/news/emp/', yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
-    
+
     const url2 = "http://localhost:8080/api/news/hr"
 
 
@@ -68,20 +67,49 @@ const News = (props) => {
             date: date,
             title: title,
             content: content,
-            url : url
-        },yourConfig)
-
-        .then(res => {
-            window.location.reload(false);
-          })
-
+        }, yourConfig)
+            .then(res => {
+                window.location.reload(false);
+            })
+            .catch((res) => {
+                alert(res.response.data.message)
+            })
     }
 
-    function deleteNews(nid){
-        Axios.delete(`http://localhost:8080/api/news/hr/${nid}`,yourConfig)
-        .then(res => {
-            window.location.reload(false);
-          })
+    function deleteNews(nid) {
+        Axios.delete(`http://localhost:8080/api/news/hr/${nid}`, yourConfig)
+            .then(res => {
+                window.location.reload(false);
+            })
+            .catch((res) => {
+                alert(res.response.data.message)
+            })
+    }
+
+    function selectNews(indexNumber) {
+        let newsRecord = newsRecords[indexNumber];
+        setDate(newsRecord.date)
+        setTitle(newsRecord.title)
+        setContent(newsRecord.content)
+        setNewsId(newsRecord.nid)
+    }
+
+    const url3 = "http://localhost:8080/api/news/hr/";
+    function updateNews() {
+        console.log(date);
+        console.log(title);
+        console.log(content);
+        Axios.put(url3 + newsId, {
+            date: date,
+            title: title,
+            content: content,
+        }, yourConfig)
+            .then(res => {
+                window.location.reload(false);
+            })
+            .catch((res) => {
+                alert(res.response.data.message)
+            })
     }
 
     return (
@@ -91,9 +119,9 @@ const News = (props) => {
                     <CCardHeader>
                         <strong>News Records</strong>
                         <CButton onClick={() => setVisible(!visible)} style={{ float: "right" }} color="light">
-                        Add News
+                            Add News
                         </CButton>
-                        <CModal className = "modal-news" visible={visible}>
+                        <CModal className="modal-news" visible={visible}>
                             <CModalHeader>
                                 <CModalTitle>News Description</CModalTitle>
                             </CModalHeader>
@@ -111,10 +139,6 @@ const News = (props) => {
                                     <div className="mb-3">
                                         <CFormLabel htmlFor="exampleContent">Content</CFormLabel>
                                         <CFormInput type="content" id="exampleContent" onChange={event => setContent(event.target.value)} />
-                                    </div>
-                                    <div className="mb-3">
-                                        <CFormLabel htmlFor="exampleContent">URL</CFormLabel>
-                                        <CFormInput type="content" id="exampleContent" onChange={event => setURL(event.target.value)} />
                                     </div>
                                     <CButton onClick={() => setVisible(false)} type="submit" color="primary">
                                         Submit
@@ -136,31 +160,43 @@ const News = (props) => {
                                     <CTableHeaderCell scope="col">Date</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Title</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Content</CTableHeaderCell>
-                                    <CTableHeaderCell scope="col">Image URL</CTableHeaderCell>
+                                    <CTableHeaderCell scope="col"></CTableHeaderCell>
                                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                             <CTableBody>
-                                {newsRecords.map((newsRecord) => (
-                                    <CTableRow key={newsRecord.nid}>
+                                {newsRecords.map((newsRecord, i) => (
+                                    <CTableRow key={i}>
                                         <CTableHeaderCell scope="row">{newsRecord.nid}</CTableHeaderCell>
                                         <CTableDataCell>{newsRecord.date}</CTableDataCell>
                                         <CTableDataCell>{newsRecord.title}</CTableDataCell>
                                         <CTableDataCell>{newsRecord.content}</CTableDataCell>
-                                        <CTableDataCell><img src={newsRecord.url} style = {{height: 50, resizeMode : 'fit', margin: 5 }}/></CTableDataCell>
                                         <CTableDataCell>
-                                        <CCol xs={6}>
-                                            <button className="btn btn-sm btn-danger btn-block"
-                                            onClick={() => deleteNews(newsRecord.nid)}>
-                                            Delete News
-                                            </button>
-                                        </CCol>
+                                            <CCol xs={6}>
+                                                <button className="btn btn-sm btn-danger btn-block"
+                                                    onClick={() => deleteNews(newsRecord.nid)}>
+                                                    Delete News
+                                                </button>
+                                            </CCol>
                                         </CTableDataCell>
-                                        
+                                        <CTableDataCell>
+                                            <CCol xs={6}>
+                                                <button className="btn btn-sm btn-primary btn-block"
+                                                    onClick={() => selectNews(i)}>
+                                                    Edit News
+                                                </button>
+                                            </CCol>
+                                        </CTableDataCell>
                                     </CTableRow>
                                 ))}
                             </CTableBody>
                         </CTable>
+                        <div>
+                            <CFormInput type="text" value={date} onChange={(e) => { setDate(e.target.value) }} /> <br /><br />
+                            <CFormInput type="text" value={title} onChange={(e) => { setTitle(e.target.value) }} /> <br /><br />
+                            <CFormInput type="text" value={content} onChange={(e) => { setContent(e.target.value) }} /> <br /><br />
+                            <button onClick={updateNews} >Update News</button>
+                        </div>
                     </CCardBody>
                 </CCard>
             </CCol>
