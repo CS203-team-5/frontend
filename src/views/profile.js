@@ -42,7 +42,7 @@ function Profile(props) {
 
     const userEmail=localStorage.getItem("username");
 
-     const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
 
      const yourConfig = {
         headers: {
@@ -55,39 +55,12 @@ function Profile(props) {
        setFirstName(json["fname"])
        setLastName(json["lname"])
        setRole(json["userRole"])
+       if(json["vaccinated"]) setVax("Vaccinated")
+       else setVax("Not Vaccinated")
 
     });
 
-
-  // for email
-//  const handleEmailFormSubmit = event => {
-//        event.preventDefault();
-//        const form = event.currentTarget
-//
-//        const getUser="http://localhost:8080/api/user/email/"+ localStorage.getItem("username");
-//        const yourConfig = {
-//            headers: {
-//               Authorization: "Bearer " + localStorage.getItem("authorization")
-//            }
-//         }
-//          axios.get(getUser, yourConfig).then(res => {
-//              var json= res.data;
-//             setOldEmail(json["email"])
-//         });
-//        const user_object = {
-//            email: localStorage.getItem("username"),
-//            password: localStorage.getItem("authorization"),
-//        };
-//
-//         if(oldEmail!=email){
-//               axios.put("http://localhost:8080/api/user/new/email/"+ email,
-//               user_object,
-//               yourConfig).then(res => { });
-//         }
-//         history.push("/dashboard");
-//
-//     };
-
+    //update password
       const handlePasswordFormSubmit = event => {
             event.preventDefault();
             const form = event.currentTarget
@@ -99,13 +72,13 @@ function Profile(props) {
                alert("New password does not match");
                history.push("/Profile");
            }
-          const getUser="http://localhost:8080/api/user/email/" + localStorage.getItem("username")
+          const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
            const yourConfig = {
               headers: {
                  Authorization: "Bearer " + localStorage.getItem("authorization")
               }
            }
-          const endpoint = "http://localhost:8080/api/user/new/Password/"+ firstPassword;
+          const endpoint = "http://localhost:8080/api/user/emp/new/Password/"+ firstPassword;
            const user_object = {
               email: localStorage.getItem("username"),
               fname: fname,
@@ -120,11 +93,12 @@ function Profile(props) {
                  history.push("/Dashboard")
           });
   };
-
+  //vax
+  const [vax, setVax] = useState("Not Vaccinated");
 
 
      return (
-       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+       <div className="bg-white min-vh-100 d-flex flex-row align-items-center">
          <CContainer>
            <CRow className="justify-content-center">
              <CCol md={8}>
@@ -133,11 +107,12 @@ function Profile(props) {
                    <CCardBody>
                        <h1> Profile </h1>
                        <CRow className="mb-3">
-                           <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
-                           <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username") }</CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label"></CFormLabel>
-                           <CFormLabel className="col-sm-2 col-form-label">Role :</CFormLabel>
-                           <CFormLabel className="col-sm-3 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">Registered Email :</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">{localStorage.getItem("username")}</CFormLabel>
+                         <CFormLabel className="col-sm-1 col-form-label">Role :</CFormLabel>
+                         <CFormLabel className="col-sm-1 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-3 col-form-label">Vaccination Status :</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">{vax}</CFormLabel>
                        </CRow>
                        <CRow className="mb-3">
                            <CFormLabel className="col-sm-2 col-form-label">First Name :</CFormLabel>

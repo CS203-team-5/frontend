@@ -39,20 +39,9 @@ const history= useHistory();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
 
-
-
-//     const getCurrentUser = async function () {
-//        const currentUser = await Parse.User.current();
-//        // Update state variable holding current user
-//        setCurrentUser(currentUser);
-//        return currentUser;
-//      };
-
    const handleFormSubmit = event => {
        event.preventDefault();
-
-//       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
-       const dailyForm = "http://localhost:8080/api/dailyForm/new";
+       const dailyForm = "http://localhost:8080/api/dailyForm/emp/new";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
            headers: {
@@ -81,7 +70,7 @@ const history= useHistory();
 
 
    return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-white min-vh-100 d-flex flex-row align-items-center">
      <CContainer>
        <CRow className="justify-content-center">
          <CCol md={6}>

@@ -1,4 +1,6 @@
 import React, { Component,useState } from "react";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { lazy,useEffect } from 'react'
 import axios from "axios";
 import { withRouter } from 'react-router'
@@ -43,7 +45,6 @@ function UserDetails(props) {
    const [lname, setLastName] = useState();
    const[role,setRole]= useState();
    const[fullName, setFullName]= useState();
-   const[vaccination, setVaccinationStatus]= useState();
    const [bookingRecords, setRecords] = useState([])
   const [formRecords, setFormRecords] = useState([])
    const [order, setOrder] = useState("ASC");
@@ -63,8 +64,6 @@ function UserDetails(props) {
    }
 
 
-
-
        //sort function
  const sorting = (col) => {
    if (order === "ASC") {
@@ -82,7 +81,6 @@ function UserDetails(props) {
      setOrder("ASC");
    }
  }
-
 
  //sort function
         const formSorting = (col) => {
@@ -107,8 +105,6 @@ function UserDetails(props) {
     const getRecords = async () => {
       const tasksFromServer = await fetchRecords()
       const tasksFromServer2 = await fetchFormRecords()
-
-//      setRecords(tasksFromServer)
     }
     getRecords()
 
@@ -117,52 +113,29 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+ location.state.username;
-//  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
-//    const data = await res.json()
-//    console.log(data)
-//    return data
-
-
-   const getUser="http://localhost:8080/api/user/email/"+ location.state.username;
-
-
-
+    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+ localStorage.getItem("username")
+    const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
 
     axios.get(getUser,yourConfig).then(res => {
        var json= res.data;
-
        setFirstName(json["fname"])
        setLastName(json["lname"])
        setFullName(fname+ " "+ lname)
        setRole(json["userRole"])
        setEmail(json["email"])
-        if(json["vaccinated"]!=null){
-           localStorage.setItem("vaccination",setVaccinationStatus(json["vaccinated"].toString()))
-
-        }
-
-
-
-
+       if(json["vaccinated"]) setVax("Vaccinated")
+       else setVax("Not Vaccinated")
     });
-        axios.get(getUserBookings,yourConfig).then(res => {
 
-           var json= res.data;
-           setRecords(json);
-
-        });
+    axios.get(getUserBookings,yourConfig).then(res => {
+       var json= res.data;
+       setRecords(json);
+    });
   }
 
   const fetchFormRecords = async () => {
       var res = ""
       const getUserForm='http://localhost:8080/api/dailyForm/user/'+ location.state.username;
-  //  res = await fetch('http://localhost:8080/api/bookings/hr/getAll')
-  //    const data = await res.json()
-  //    console.log(data)
-  //    return data
-
-
           axios.get(getUserForm,yourConfig).then(res => {
 
              var json= res.data;
@@ -171,46 +144,80 @@ function UserDetails(props) {
           });
     }
 
+  //vax
+  const [vax, setVax] = useState("Not Vaccinated");
+  const [curVax, setCurVax] = useState();
 
- const handleFormSubmit = event => {
+  //update vax
+  const handleVaxFormSubmit = event => {
+    event.preventDefault();
+    const form = event.currentTarget
 
-         const endpoint = "http://localhost:8080/api/user/new/vaccination/"+ vaccination;
+    const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+    const yourConfig = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
+    const endpoint = "http://localhost:8080/api/user/hr/new/vaccination/"+ curVax;
+    var currVax =false;
+    (curVax==="false") ? currVax = true : currVax = false;
+     if(vax===currVax){
+          alert('No Changes Made')};
+     const user_object = {
+        email: localStorage.getItem("username"),
+        fname: fname,
+        lname:lname,
+        vaccinated: currVax,
+        password: localStorage.getItem("authorization"),
+        userRole:role,
+    };
+    axios.put(endpoint,user_object,yourConfig).then(res => {history.push("/Dashboard")});
+    };
 
+    //del user
 
+    const delConfig = {
+       method: 'DELETE',
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
+     const del = async (userEmail) => {
+        console.log(userEmail)
+        var res = await fetch("http://localhost:8080/api/user/hr/email/"+userEmail+"/",delConfig).then(res=>{history.push("/UserManagement")})
+     }
 
-        const user_object = {
-           email: location.state.username,
-           fname: fname,
-           lname:lname,
-           userRole:role,
-       };
-
-
-
-       axios.put(endpoint,
-       user_object,
-        yourConfig).then(res => {
-
-//              localStorage.setItem("password")=
-              history.push("/Dashboard")
-
-
-       });
-   };
+     // del confirmation
+      const optionsFunction = (email) => {
+         confirmAlert({
+           title: 'Confirm to delete user',
+           message: 'Are you sure to do this.',
+           buttons: [
+             {
+               label: 'Yes',
+               onClick: () => del(email)
+             },
+             {
+               label: 'No'
+             }
+           ]
+         });
+       }
 
       return (
-        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+        <div className="bg-white min-vh-100 d-flex flex-row align-items-center">
           <CContainer>
             <CRow className="justify-content-center">
               <CCol md={8}>
                 <CCardGroup>
                   <CCard className="p-4">
                     <CCardBody>
-
                       <CRow className="mb-3">
                         <h1 className="col-sm-4"> {fname} {lname} </h1>
                         <CFormLabel className="col-sm-6 col-form-label"></CFormLabel>
-                        <CButton className="col-sm-2" color="danger">
+                        <CButton className="col-sm-2" color="danger"
+                          onClick={() => optionsFunction(location.state.username)}>
                           Delete
                         </CButton>
                       </CRow>
@@ -220,11 +227,11 @@ function UserDetails(props) {
                          <CFormLabel className="col-sm-1 col-form-label">Role :</CFormLabel>
                          <CFormLabel className="col-sm-1 col-form-label">{role}</CFormLabel>
                          <CFormLabel className="col-sm-3 col-form-label">Vaccination Status :</CFormLabel>
-                         <CFormLabel className="col-sm-2 col-form-label">{role}</CFormLabel>
+                         <CFormLabel className="col-sm-2 col-form-label">{vax}</CFormLabel>
                       </CRow>
                       <hr className="mt-0" />
                        <CRow className="mb-3">
-                          <CForm>
+                          <CForm onSubmit={handleVaxFormSubmit}>
                             <CRow>
                               <CCol className="col-sm-3">
                                 <CFormLabel className="col-form-label" >Update Vaccination Status</CFormLabel>
@@ -235,17 +242,18 @@ function UserDetails(props) {
                                      type="radio"
                                      name="flexRadioDefault"
                                      id="flexRadioDefault1"
-                                     value="Not Vaccinated"
+                                     value= "false"
                                      label="Not Vaccinated"
-                                     defaultChecked
+                                     onChange={event => setCurVax(event.target.value)}
                                    />
                                    <CCol xs={2}></CCol>
                                    <CFormCheck
                                      type="radio"
                                      name="flexRadioDefault"
                                      id="flexRadioDefault1"
-                                     value="Vaccinated"
+                                     value= "true"
                                      label="Vaccinated"
+                                     onChange={event => setCurVax(event.target.value)}
                                    />
                                 </CInputGroup>
                               </CCol>

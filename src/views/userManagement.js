@@ -86,37 +86,7 @@ const Records = (props) => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong sm={6} md={8}>User Records</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <CButtonGroup role="group" aria-label="Basic checkbox toggle button group">
-              <CFormCheck
-                onClick={() => setResultType('all')}
-                type="radio"
-                button={{ color: 'secondary', variant: 'outline' }}
-                name="btnradio"
-                id="btnradio1"
-                autoComplete="off"
-                label="All"
-                defaultChecked
-              />
-              <CFormCheck
-                onClick={() => setResultType('past')}
-                type="radio"
-                button={{ color: 'secondary', variant: 'outline' }}
-                name="btnradio"
-                id="btnradio2"
-                autoComplete="off"
-                label="Past"
-              />
-              <CFormCheck
-                onClick={() => setResultType('upcoming')}
-                type="radio"
-                button={{ color: 'secondary', variant: 'outline' }}
-                name="btnradio"
-                id="btnradio3"
-                autoComplete="off"
-                label="Upcoming"
-              />
-            </CButtonGroup>
+            <strong sm={6} md={8}>User Records</strong>&nbsp;&nbsp;Click on the user emails to view their booking records.
             <CButton style={{ float: "right" }}
               color="light"
               onClick={(event) => { history.push("/CreateUser")}}>
@@ -124,17 +94,15 @@ const Records = (props) => {
             </CButton>
           </CCardHeader>
           <CCardBody>
-            <CTable>
-              <CTableHead color="dark">
-                <CTableRow>
-                  <CTableHeaderCell scope="col" onClick={() => sorting("email")}>
 
-                    User Email </CTableHeaderCell>
+            <CTable>
+              <CTableHead color="light">
+                <CTableRow>
+                  <CTableHeaderCell scope="col" onClick={() => sorting("email")}>User Email </CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("fname")}>First name</CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("lname")}> Last Name </CTableHeaderCell>
                   <CTableHeaderCell scope="col" onClick={() => sorting("userRole")}> Role </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" ></CTableHeaderCell>
-                  <CTableHeaderCell scope="col" ></CTableHeaderCell>
+                  <CTableHeaderCell scope="col" >Action</CTableHeaderCell>
 
                 </CTableRow>
               </CTableHead>
@@ -156,7 +124,7 @@ const Records = (props) => {
                     <CTableDataCell>{bookingRecord.lname}</CTableDataCell>
                     <CTableDataCell>{bookingRecord.userRole}</CTableDataCell>
                     <CTableDataCell>
-                      <CCol xs={6}>
+                      <CCol>
                         <button className="btn btn-sm btn-primary btn-block"
                           onClick={(event) => {
                             const email = bookingRecord.email
@@ -170,21 +138,6 @@ const Records = (props) => {
                         >
                           Edit
                         </button>
-
-
-                      </CCol>
-                    </CTableDataCell>
-
-                    <CTableDataCell>
-                      <CCol xs={6}>
-                        <button className="btn btn-sm btn-danger btn-block"
-                          onClick="onDelete()"
-
-                        >
-                          Delete User
-                        </button>
-
-
                       </CCol>
                     </CTableDataCell>
                   </CTableRow>
