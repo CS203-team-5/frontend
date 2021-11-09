@@ -1,6 +1,8 @@
 import React, { useState, useEffect, lazy } from 'react';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
+
+
 import {
   CAvatar,
   CButton,
@@ -162,9 +164,11 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchVax = async () => {
     var res = ""
-    res = await fetch("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
-    const data = await res.json()
-    return data
+
+   Axios.get("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
+    return res
+    });
+
   }
 
 
@@ -191,9 +195,13 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchChecked = async () => {
     var res = ""
-    res = await fetch("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
-    const data = await res.json()
-    return data
+
+
+    Axios.get("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
+        return res
+        });
+
+
   }
 
   var today = new Date();

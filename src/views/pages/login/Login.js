@@ -33,6 +33,7 @@ function Login(props) {
   const history = useHistory();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [authenticated, setAuthenticated]=useState(false);
   //   const[user, setUser]= useState();
 
 
@@ -64,6 +65,8 @@ function Login(props) {
       localStorage.setItem("authorization", res.data.token);
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
+
+      localStorage.setItem("authenticated",true);
 
       history.push("/dashboard");
     })
