@@ -71,7 +71,7 @@ const [validated, setValidated] = useState(false)
 
 
 
-         const endpoint = "http://localhost:8080/api/authenticate/forget/new/"+ firstPassword;
+         const endpoint = "http://13.250.95.101:8080/api/authenticate/forget/new/"+ firstPassword;
 
 
 

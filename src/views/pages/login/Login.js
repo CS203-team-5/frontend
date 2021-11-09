@@ -28,7 +28,15 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 //const history=createBrowserHistory({forceRefresh:true});
 //const background= require('/assets/images/background.jpg')
 
+const express = require('express');
+const request = require('request');
 
+const app = express();
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 function Login(props) {
   const history = useHistory();
   const [username, setUsername] = useState();
@@ -39,7 +47,7 @@ function Login(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "https://13.250.95.101:8080/authenticate";
+    const endpoint = "http://13.250.95.101:8080/authenticate";
 
     // const username = state.username;
     // const password = state.password;
