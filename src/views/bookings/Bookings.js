@@ -78,10 +78,20 @@ function Bookings(props) {
     <CRow>
       <CCol xs>
         <CCard className="mb-4">
-          <CCardHeader component="h5"><img src={pict} /> Booking Form </CCardHeader>
+
+
+                      <CCardHeader>
+                                  <strong sm={6} md={8}>Bookings</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                      </CCardHeader>
+
+                       <div className="small text-medium-emphasis"> </div>
+
+
+
           <CCardBody>
-            <CRow>
-              <CCol xs={12} md={6} xl={6}>
+
+              <CCol>
                 <div className="react-calendar">
                   <Calendar
                     onChange={setDate}
@@ -91,12 +101,17 @@ function Bookings(props) {
                   />
                 </div>
               </CCol>
-
-              <CCol xs={12} md={6} xl={6}>
+    <CRow>
+              <CCol >
+               <CCardBody>
                 <CForm onSubmit={(e) => submit(e)}>
-                  <CRow className="mb-3">
-                    <CFormLabel className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
-                    <CFormInput value={quota} disabled="disabled" />
+
+                   <CRow className="mb-3">
+                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
+                    <CCol sm={8}>
+                      <CFormInput value={quota} disabled="disabled" />
+
+                    </CCol>
                   </CRow>
                   <CRow className="mb-3">
                     <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
@@ -120,8 +135,10 @@ function Bookings(props) {
                   </CRow>
                   <CButton type="submit"> Submit </CButton>
                 </CForm>
+                </CCardBody>
               </CCol>
-            </CRow>
+              </CRow>
+
 
             <br />
 

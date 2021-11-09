@@ -61,6 +61,7 @@ import {
   cilShieldAlt,
 
 } from '@coreui/icons'
+import './dashboard.css'
 
 import avatar1 from './../../assets/images/avatars/1.jpg'
 import avatar2 from './../../assets/images/avatars/2.jpg'
@@ -254,12 +255,12 @@ const doughnut = {
     {
       data: [Limit, Limit, Limit],
       backgroundColor: [
-        '#FF6384',
+        '#8ED1FC',
         '#36A2EB',
         '#FFCE56',
       ],
       hoverBackgroundColor: [
-        '#FF6384',
+        '#0693E3',
         '#36A2EB',
         '#FFCE56',
       ],
@@ -269,7 +270,7 @@ const doughnut = {
 
   return (
 
-  <div >
+  <div className="dashboard">
 
       <CContainer>
       <CCol>
@@ -315,19 +316,23 @@ const doughnut = {
         </CCol>
       </CRow>
 
-      <CCard className="mb-4">
+      <CCardBody>
 
           <CCol sm={5}>
                        <h2 id="traffic" className="card-title mb-0">
                        News
                        </h2>
+
+
                        <div className="small text-medium-emphasis"> Latest news updates</div>
                      </CCol>
-        <CCardBody>
+
           <CRow>
 
 
           </CRow>
+
+           <CRow></CRow>
 
           <Carousel
             swipeable={false}
@@ -403,19 +408,19 @@ const doughnut = {
 
 
         </CCardBody>
-      </CCard>
 
 
-      <CCard className="mb-4">
+
+
 
         <CCardBody>
 
           <CRow>
             <CCol sm={5}>
-              <h2 id="traffic" className="card-title mb-0">
+              <h1 id="traffic" className="card-title mb-0">
                 Live Daily Report
-              </h2>
-              <div className="small text-medium-emphasis">past 7 days</div>
+              </h1>
+
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
 
@@ -429,26 +434,38 @@ const doughnut = {
 
           <CCol xs={4}>
 
+          <CCard className="mb-4">
+               <CCardBody>
+               <h2> Remaining Capacity : </h2>
 
-                           <CCardBody>
-                             <CChartDoughnut
-                               data={{
-                                 labels: ["Filled","Current Capacity"],
-                                 datasets: [
-                                   {
-                                     backgroundColor: [ '#DD1B16', '#00D8FF'],
-                                     data: [seven,Limit],
-                                   },
-                                 ],
-                               }}
-                             />
-                             <p>Available: {seven}</p>
-                           </CCardBody>
+                <div className="small text-medium-emphasis">Currently, limit of {Limit} with total check-in of {seven}</div>
+                <CRow>
+                </CRow>
 
-                </CCol>
+
+                 <CChartDoughnut
+                   data={{
+                     labels: ["Filled","Current Capacity"],
+                     datasets: [
+                       {
+                         backgroundColor: ['#E66F66', '#8ED1FC'],
+                         data: [seven,Limit],
+                       },
+                     ],
+                   }}
+                 />
+
+               </CCardBody>
+              </CCard>
+            </CCol>
 
 
           <CCol xs={8}>
+
+          <CCard className="mb-4">
+           <CCardBody>
+          <h2> Check In Tracker </h2>
+           <div className="small text-medium-emphasis">Daily Limit And Check-in Data For Past 7 Days</div>
 
 
         <CChartLine
@@ -460,19 +477,19 @@ const doughnut = {
               {
                 label: 'Number of people checked in',
                 backgroundColor: 'transparent',
-                borderColor: getStyle('--cui-success'),
+                borderColor: "#FCB900",
                 pointHoverBackgroundColor: getStyle('--cui-success'),
-                borderWidth: 2,
-                borderDash: [8, 5],
+                borderWidth: 2.5,
+
                 data: [first, second, third, fourth, fifth, sixth, seven],
               },
               {
                 label: 'Daily Limit',
                 backgroundColor: 'transparent',
-                borderColor: getStyle('--cui-danger'),
+                borderColor: "#FF6900",
                 pointHoverBackgroundColor: getStyle('--cui-danger'),
-                borderWidth: 1,
-                borderDash: [8, 5],
+                borderWidth: 2.5,
+
                 data: [Limit, Limit, Limit, Limit, Limit, Limit, Limit]
               },
             ],
@@ -494,7 +511,7 @@ const doughnut = {
                 ticks: {
                   beginAtZero: true,
                   maxTicksLimit: 5,
-                  stepSize: Math.ceil(250 / 5),
+                  stepSize: Math.ceil(10),
                   max: 250,
                 },
               },
@@ -512,9 +529,14 @@ const doughnut = {
             },
           }}
         />
+         </CCardBody>
+
+        </CCard>
+
           </CCol>
+
           </CRow>
-      </CCard>
+
       </CContainer>
 
     </div>

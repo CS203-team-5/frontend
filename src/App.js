@@ -12,6 +12,8 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 // Pages
 const Login = React.lazy(() => import('./views/pages/login/Login'))
+const ForgetPassword= React.lazy(() => import('./views/pages/login/forgetPassword'))
+const UpdatePassword = React.lazy(() => import('./views/pages/login/updatePassword'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))

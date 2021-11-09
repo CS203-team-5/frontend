@@ -29,7 +29,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 //const background= require('/assets/images/background.jpg')
 
 
-function Login(props) {
+function ForgetPassword(props) {
   const history = useHistory();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -46,31 +46,17 @@ function Login(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "http://localhost:8080/authenticate";
+         const forgetPassword="http://localhost:8080/api/user/emp/forget/" + localStorage.getItem("username")
 
-    // const username = state.username;
-    // const password = state.password;
 
-    const user_object = {
-      username: username,
-      password: password
-    };
+           axios.post(forgetPassword).then(res => {
+              alert("Email sent for the update of password")
 
-    axios.post(endpoint, user_object).then(res => {
-      if(res.status==401){
-      alert("Wrong password or username")
-      }
+           });
 
-      localStorage.setItem("authorization", res.data.token);
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
 
-      history.push("/dashboard");
-    })
 
-    ;
   };
-
 
 
   return (
@@ -82,47 +68,22 @@ function Login(props) {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm className="form-signin" onSubmit={handleFormSubmit}>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">Please Enter Username And Password</p>
+                    <h1>Forget Password</h1>
+                    <p className="text-medium-emphasis">An email will be sent requesting for an update of password</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput placeholder="Username" autoComplete="username" className="form-control" onChange={event => setUsername(event.target.value)} />
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        onChange={event => setPassword(event.target.value)}
-                      />
-                    </CInputGroup>
+
                     <CRow>
                       <CCol xs={6}>
                         <CButton color="primary" className="px-4 btn btn-lg btn-primary btn-block" type="submit">
-                          Login
+                          Submit
                         </CButton>
                       </CCol>
-                      <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0"
-                        onClick={(event) => {
 
-                              history.push({
-                                pathname: "/ForgetPassword",
-
-                              })
-                            }
-                            }
-
-
-                        >
-                          Forgot password?
-                        </CButton>
-                      </CCol>
                     </CRow>
                   </CForm>
                 </CCardBody>
@@ -137,4 +98,4 @@ function Login(props) {
 }
 
 
-export default withRouter(Login);
+export default ForgetPassword;
