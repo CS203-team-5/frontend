@@ -34,6 +34,7 @@ function CreateUser(props) {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [password, setPassword] = useState();
+  const [cid, setCid] = useState();
   const [email, setEmail] = useState();
   const [secondEmail, setSecondEmail] = useState();
   const [role, setRole] = useState("HR");
@@ -77,6 +78,9 @@ function CreateUser(props) {
       email: email,
       userRole: role,
       lname: lastName,
+      company: {
+        cid: cid
+      }
 
     };
     console.log(user_object)
@@ -145,6 +149,18 @@ function CreateUser(props) {
                           className="form-control"
                           placeholder="Last Name"
                           onChange={event => setLastName(event.target.value)}
+                          required />
+                      </CCol>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <CCol className="col-sm-3">
+                        <CFormLabel className="col-form-label" >User&#39;s Company ID</CFormLabel>
+                      </CCol>
+                      <CCol className="col-sm-9">
+                        <input type="Company ID"
+                          className="form-control"
+                          placeholder="Company ID"
+                          onChange={event => setCid(event.target.value)}
                           required />
                       </CCol>
                     </CRow>

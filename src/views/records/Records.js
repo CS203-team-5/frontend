@@ -36,14 +36,9 @@ const Records = (props) => {
   }
   const del = async (bid) => {
     console.log("Delete function: ", bid, " 12 ", yourConfig);
-    var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/{id}",
-      {
-        params: {
-          id: bid
-        }
-      }, yourConfig).then(() => {
-        window.location.reload(false);
-      })
+    var res = Axios.delete("http://localhost:8080/api/bookings/hr/del/" + bid, yourConfig).then(() => {
+      window.location.reload(false);
+    })
     console.log((await res).status)
   }
   //sort function

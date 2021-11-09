@@ -47,7 +47,7 @@ function Login(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "http://13.250.7.222:8080/authenticate";
+    const endpoint = "http://localhost:8080/authenticate";
 
     // const username = state.username;
     // const password = state.password;

@@ -1,5 +1,5 @@
-import React, {useState, useEffect, lazy} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { useState, useEffect, lazy } from 'react';
+import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 
 
@@ -31,8 +31,8 @@ import {
 } from '@coreui/react'
 
 import image from "./background.jpg"
-import {CChart, CChartLine, CChartDoughnut} from '@coreui/react-chartjs'
-import {getStyle, hexToRgba} from '@coreui/utils'
+import { CChart, CChartLine, CChartDoughnut } from '@coreui/react-chartjs'
+import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 
 import {
@@ -66,7 +66,7 @@ import {
 import './dashboard.css'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import {color} from "chart.js/helpers";
+import { color } from "chart.js/helpers";
 
 const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
@@ -85,8 +85,8 @@ const Dashboard = () => {
   const [available, setAvailable] = useState();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
-  function minusDays(days){
-    return `${current.getDate()-days}/${current.getMonth() + 1}/${current.getFullYear()}`;
+  function minusDays(days) {
+    return `${current.getDate() - days}/${current.getMonth() + 1}/${current.getFullYear()}`;
   }
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -102,13 +102,13 @@ const Dashboard = () => {
       const tasksFromServer = await fetchQuota()
       setQuota(tasksFromServer)
     }
-    Axios.get("http://13.250.7.222:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
+    Axios.get("http://localhost:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
 
       setWeeklyUser(res.data);
 
     });
 
-    Axios.get("http://13.250.7.222:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
+    Axios.get("http://localhost:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
 
       setWeeklyLimit(res.data);
 
@@ -128,7 +128,7 @@ const Dashboard = () => {
 
   const fetchQuota = async () => {
 
-    var res = Axios.get("http://13.250.7.222:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
+    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res
     return (10 - data.data) < 0 ? 0 : 10 - data.data
   }
@@ -145,7 +145,7 @@ const Dashboard = () => {
 
 
   const fetchCnaNewsRecord = async () => {
-    const url = "http://13.250.7.222:8080/api/news/emp/cna/"
+    const url = "http://localhost:8080/api/news/emp/cna/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -165,7 +165,7 @@ const Dashboard = () => {
 
 
   const fetchCovidCasesRecord = async () => {
-    const url = "http://l13.250.7.222:8080/api/news/emp/covidcases/"
+    const url = "http://localhost:8080/api/news/emp/covidcases/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -193,10 +193,9 @@ const Dashboard = () => {
   }, [vax])
 
   // Fetch Tasks
-   const fetchVax = async () => {
+  const fetchVax = async () => {
     var res = ""
-
-    res = await fetch("http://13.250.7.222:8080/api/user/emp/emailVax/"+localStorage.getItem("username") + "/",yourConfig)
+    res = await fetch("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
 
@@ -223,12 +222,12 @@ const Dashboard = () => {
 
   // Fetch Tasks
 
-   const fetchChecked = async () => {
-      var res = ""
-      res = await fetch("http://13.250.7.222:8080/api/dailyForm/emp/userToday/"+localStorage.getItem("username") + "/",yourConfig)
-      const data = await res.json()
-      return data
-   }
+  const fetchChecked = async () => {
+    var res = ""
+    res = await fetch("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
+    const data = await res.json()
+    return data
+  }
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -249,19 +248,19 @@ const Dashboard = () => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
-      breakpoint: {max: 4000, min: 3000},
+      breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
     desktop: {
-      breakpoint: {max: 3000, min: 1024},
+      breakpoint: { max: 3000, min: 1024 },
       items: 2
     },
     tablet: {
-      breakpoint: {max: 1024, min: 464},
+      breakpoint: { max: 1024, min: 464 },
       items: 2
     },
     mobile: {
-      breakpoint: {max: 464, min: 0},
+      breakpoint: { max: 464, min: 0 },
       items: 1
     }
   };
@@ -270,22 +269,22 @@ const Dashboard = () => {
   const [newsRecords, setNews] = useState([])
 
   useEffect(() => {
-      const getNews = async () => {
-          const tasksFromServer = await fetchNews()
-          setNews(tasksFromServer)
-      }
-      getNews()
+    const getNews = async () => {
+      const tasksFromServer = await fetchNews()
+      setNews(tasksFromServer)
+    }
+    getNews()
   }, [])
   var res;
 
   // Fetch Tasks
   const fetchNews = async () => {
 
-      res = await fetch('http://localhost:8080/api/news/emp/', yourConfig)
-      console.log(res)
-      const data = await res.json()
-      console.log(data)
-      return data
+    res = await fetch('http://localhost:8080/api/news/emp/', yourConfig)
+    console.log(res)
+    const data = await res.json()
+    console.log(data)
+    return data
   }
 
   return (
@@ -294,226 +293,227 @@ const Dashboard = () => {
 
       <CContainer>
 
-                <CRow>
-                  <CCol xs={4}>
-                    <CWidgetStatsF
-                      className="mb-3"
-                      color="primary"
-                      icon={<CIcon icon={cilCalendar} height={24}/>}
-                      padding={false}
-                      title="Quota Left This Month"
-                      value={quota}/>
-                  </CCol>
-                  <CCol xs={4}>
-                    <CWidgetStatsF
-                      className="mb-3"
-                      color={vaxColor}
-                      icon={<CIcon icon={cilShieldAlt} height={24}/>}
-                      padding={false}
-                      title="vaccination status"
-                      value={vax}/>
-                  </CCol>
-                  <CCol xs={4}>
-                    <CWidgetStatsF
-                      className="mb-3"
-                      color={checkedColor}
-                      icon={<CIcon icon={cilCalendarCheck} height={24}/>}
-                      padding={false}
-                      footer={
-                        <CLink
-                          className="font-weight-bold font-xs text-medium-emphasis"
-                          href="/checkin"
-                          target="_blank"
-                        >
-                          Check In Here
-                          <CIcon icon={cilArrowRight} className="float-end" width={16}/>
-                        </CLink>
-                      }
-                      title="Work From Office "
-                      value={checked}/>
-                  </CCol>
-                </CRow>
-                <CRow>
-                <CCol xs={8}>
-                <CCard className="mb-4">
+        <CRow>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color="primary"
+              icon={<CIcon icon={cilCalendar} height={24} />}
+              padding={false}
+              title="Quota Left This Month"
+              value={quota} />
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color={vaxColor}
+              icon={<CIcon icon={cilShieldAlt} height={24} />}
+              padding={false}
+              title="vaccination status"
+              value={vax} />
+          </CCol>
+          <CCol xs={4}>
+            <CWidgetStatsF
+              className="mb-3"
+              color={checkedColor}
+              icon={<CIcon icon={cilCalendarCheck} height={24} />}
+              padding={false}
+              footer={
+                <CLink
+                  className="font-weight-bold font-xs text-medium-emphasis"
+                  href="/checkin"
+                  target="_blank"
+                >
+                  Check In Here
+                  <CIcon icon={cilArrowRight} className="float-end" width={16} />
+                </CLink>
+              }
+              title="Work From Office "
+              value={checked} />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={8}>
+            <CCard className="mb-4">
 
-                  <CCardHeader>
-                    <strong sm={6} md={8}>News Top Stories</strong>
-                    <strong sm={6} md={8}
-                            onClick={() => window.open("https://www.channelnewsasia.com/coronavirus-covid-19")}> (more
-                      news)</strong>
+              <CCardHeader>
+                <strong sm={6} md={8}>News Top Stories</strong>
+                <strong sm={6} md={8}
+                  onClick={() => window.open("https://www.channelnewsasia.com/coronavirus-covid-19")}> (more
+                  news)</strong>
 
-                    <div style={{float: 'right', paddingLeft: '5px'}}>
-                      <strong sm={6} md={8}> {covidCasesRecords.cases} </strong>
-                      <strong sm={6} md={8} style={{color: '#696969'}}> {covidCasesRecords.caseno} </strong>
-                      <strong sm={6} md={8}> {covidCasesRecords.deaths} </strong>
-                      <strong sm={6} md={8} style={{color: '#ff6370'}}> {covidCasesRecords.deathno} </strong>
-                      <strong sm={6} md={8}> {covidCasesRecords.recovered} </strong>
-                      <strong sm={6} md={8} style={{color: '#8ACA2B'}}> {covidCasesRecords.recoveredno} </strong>
-                    </div>
-                  </CCardHeader>
-                  <CCardBody>
-                    <Carousel
-                      swipeable={false}
-                      draggable={false}
-                      showDots={true}
-                      responsive={responsive}
-                      ssr={true} // means to render carousel on server-side.
-                      infinite={true}
-                      autoPlaySpeed={1000}
-                      keyBoardControl={true}
-                      customTransition="all .5"
-                      transitionDuration={500}
-                      containerClass="carousel-container"
-                      dotListClass="custom-dot-list-style"
-                      itemClass="carousel-item-padding-40-px"
-                    >
-                      {cnaNewsRecords.map((cnaNewsRecord, index) => (
-                        <div key={index}>
-                          <CCarousel>
-                            <CCarouselItem>
-                              <img className="d-block w-100" src={cnaNewsRecord.src}/>
-                              <CCarouselCaption className="d-none d-md-block">
-                                <h2 onClick={() => window.open(cnaNewsRecord.href)}>{cnaNewsRecord.title}</h2>
-                              </CCarouselCaption>
-                            </CCarouselItem>
-                          </CCarousel>
-                        </div>
-                      ))}
-                    </Carousel>
-                  </CCardBody>
-                  </CCard>
-                </CCol>
-                <CCol xs={4}>
-                  <CCard>
-                  <CCardHeader>
-                    <strong sm={6} md={8}> Company News</strong>
-                  </CCardHeader>
-                  <div className="list-group" >
-                  {newsRecords.map((newsRecord, i) => (
-                    <a className="list-group-item list-group-item-action flex-column align-items-start" key={i}>
-                      <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">{newsRecord.title}</h5>
-                        <small>{newsRecord.date}</small>
-                      </div>
-                      <p className="mb-1">{newsRecord.content}</p>
-                    </a>
-                  ))}
-                  </div>
-
-                  </CCard>
-                </CCol>
-               </CRow>
-
-
+                <div style={{ float: 'right', paddingLeft: '5px' }}>
+                  <strong sm={6} md={8}> {covidCasesRecords.cases} </strong>
+                  <strong sm={6} md={8} style={{ color: '#696969' }}> {covidCasesRecords.caseno} </strong>
+                  <strong sm={6} md={8}> {covidCasesRecords.deaths} </strong>
+                  <strong sm={6} md={8} style={{ color: '#ff6370' }}> {covidCasesRecords.deathno} </strong>
+                  <strong sm={6} md={8}> {covidCasesRecords.recovered} </strong>
+                  <strong sm={6} md={8} style={{ color: '#8ACA2B' }}> {covidCasesRecords.recoveredno} </strong>
+                </div>
+              </CCardHeader>
               <CCardBody>
-                <CRow>
-                  <CCol sm={5}>
-                    <h1 id="traffic" className="card-title mb-0">
-                        Live Daily Report
-                    </h1>
-                  </CCol>
-                  <CCol sm={7} className="d-none d-md-block">
-                  </CCol>
-                </CRow>
+                <Carousel
+                  swipeable={false}
+                  draggable={false}
+                  showDots={true}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlaySpeed={1000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+                >
+                  {cnaNewsRecords.map((cnaNewsRecord, index) => (
+                    <div key={index}>
+                      <CCarousel>
+                        <CCarouselItem>
+                          <img className="d-block w-100" src={cnaNewsRecord.src} />
+                          <CCarouselCaption className="d-none d-md-block">
+                            <h2 onClick={() => window.open(cnaNewsRecord.href)}>{cnaNewsRecord.title}</h2>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      </CCarousel>
+                    </div>
+                  ))}
+                </Carousel>
               </CCardBody>
-          <CRow className="text-center">
-            <CRow>
-                  <CCol xs={4}>
-                    <CCard className="mb-4">
-                      <CCardBody>
-                        <h2> Remaining Capacity : </h2>
-                        <div className="small text-medium-emphasis">Currently, limit of {Limit} with total check-in
-                          of {seven}</div>
-                        <CRow>
-                        </CRow>
-                        <CChartDoughnut
-                          data={{
-                            labels: ["Filled", "Current Capacity"],
-                            datasets: [{
-                                backgroundColor: ['#E66F66', '#8ED1FC'],
-                                data: [seven, Limit],
-                              },],}}
-                        />
-                      </CCardBody>
-                    </CCard>
-                  </CCol>
+            </CCard>
+          </CCol>
+          <CCol xs={4}>
+            <CCard>
+              <CCardHeader>
+                <strong sm={6} md={8}> Company News</strong>
+              </CCardHeader>
+              <div className="list-group" >
+                {newsRecords.map((newsRecord, i) => (
+                  <a className="list-group-item list-group-item-action flex-column align-items-start" key={i}>
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">{newsRecord.title}</h5>
+                      <small>{newsRecord.date}</small>
+                    </div>
+                    <p className="mb-1">{newsRecord.content}</p>
+                  </a>
+                ))}
+              </div>
+
+            </CCard>
+          </CCol>
+        </CRow>
+
+
+        <CCardBody>
+          <CRow>
+            <CCol sm={5}>
+              <h1 id="traffic" className="card-title mb-0">
+                Live Daily Report
+              </h1>
+            </CCol>
+            <CCol sm={7} className="d-none d-md-block">
+            </CCol>
+          </CRow>
+        </CCardBody>
+        <CRow className="text-center">
+          <CRow>
+            <CCol xs={4}>
+              <CCard className="mb-4">
+                <CCardBody>
+                  <h2> Remaining Capacity : </h2>
+                  <div className="small text-medium-emphasis">Currently, limit of {Limit} with total check-in
+                    of {seven}</div>
+                  <CRow>
+                  </CRow>
+                  <CChartDoughnut
+                    data={{
+                      labels: ["Filled", "Current Capacity"],
+                      datasets: [{
+                        backgroundColor: ['#E66F66', '#8ED1FC'],
+                        data: [seven, Limit],
+                      },],
+                    }}
+                  />
+                </CCardBody>
+              </CCard>
+            </CCol>
 
 
 
-                  <CCol xs={8}>
-                    <CCard className="mb-4">
-                      <CCardBody>
-                        <h2> Check In Tracker </h2>
-                        <div className="small text-medium-emphasis">Daily Limit And Check-in Data For Past 7 Days</div>
-                        <CChartLine
-                          style={{height: '300px', marginTop: '40px'}}
-                          data={{
-                            labels: [minusDays(6), minusDays(5), minusDays(4), minusDays(3), minusDays(2), minusDays(1), date],
-                            datasets: [
+            <CCol xs={8}>
+              <CCard className="mb-4">
+                <CCardBody>
+                  <h2> Check In Tracker </h2>
+                  <div className="small text-medium-emphasis">Daily Limit And Check-in Data For Past 7 Days</div>
+                  <CChartLine
+                    style={{ height: '300px', marginTop: '40px' }}
+                    data={{
+                      labels: [minusDays(6), minusDays(5), minusDays(4), minusDays(3), minusDays(2), minusDays(1), date],
+                      datasets: [
 
-                              {
-                                label: 'Number of people checked in',
-                                backgroundColor: 'transparent',
-                                borderColor: "#FCB900",
-                                pointHoverBackgroundColor: getStyle('--cui-success'),
-                                borderWidth: 2.5,
+                        {
+                          label: 'Number of people checked in',
+                          backgroundColor: 'transparent',
+                          borderColor: "#FCB900",
+                          pointHoverBackgroundColor: getStyle('--cui-success'),
+                          borderWidth: 2.5,
 
-                                data: [first, second, third, fourth, fifth, sixth, seven],
-                              },
-                              {
-                                label: 'Daily Limit',
-                                backgroundColor: 'transparent',
-                                borderColor: "#FF6900",
-                                pointHoverBackgroundColor: getStyle('--cui-danger'),
-                                borderWidth: 2.5,
+                          data: [first, second, third, fourth, fifth, sixth, seven],
+                        },
+                        {
+                          label: 'Daily Limit',
+                          backgroundColor: 'transparent',
+                          borderColor: "#FF6900",
+                          pointHoverBackgroundColor: getStyle('--cui-danger'),
+                          borderWidth: 2.5,
 
-                                data: [Limit, Limit, Limit, Limit, Limit, Limit, Limit]
-                              },
-                            ],
-                          }}
-                          options={{
-                            maintainAspectRatio: false,
-                            plugins: {
-                              legend: {
-                                display: false,
-                              },
-                            },
-                            scales: {
-                              x: {
-                                grid: {
-                                  drawOnChartArea: false,
-                                },
-                              },
-                              y: {
-                                ticks: {
-                                  beginAtZero: true,
-                                  maxTicksLimit: 5,
-                                  stepSize: Math.ceil(10),
-                                  max: 250,
-                                },
-                              },
-                            },
-                            elements: {
-                              line: {
-                                tension: 0.4,
-                              },
-                              point: {
-                                radius: 0,
-                                hitRadius: 10,
-                                hoverRadius: 4,
-                                hoverBorderWidth: 3,
-                              },
-                            },
-                          }}
-                        />
-                      </CCardBody>
-                    </CCard>
-                  </CCol>
-
-            </CRow>
+                          data: [Limit, Limit, Limit, Limit, Limit, Limit, Limit]
+                        },
+                      ],
+                    }}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false,
+                        },
+                      },
+                      scales: {
+                        x: {
+                          grid: {
+                            drawOnChartArea: false,
+                          },
+                        },
+                        y: {
+                          ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            stepSize: Math.ceil(10),
+                            max: 250,
+                          },
+                        },
+                      },
+                      elements: {
+                        line: {
+                          tension: 0.4,
+                        },
+                        point: {
+                          radius: 0,
+                          hitRadius: 10,
+                          hoverRadius: 4,
+                          hoverBorderWidth: 3,
+                        },
+                      },
+                    }}
+                  />
+                </CCardBody>
+              </CCard>
+            </CCol>
 
           </CRow>
+
+        </CRow>
 
 
 
@@ -521,7 +521,7 @@ const Dashboard = () => {
       </CContainer>
     </div>
 
-)
+  )
 }
 
 export default Dashboard
