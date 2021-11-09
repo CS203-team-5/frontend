@@ -103,6 +103,6 @@
     "npm": ">=6"
   },
   "proxy": "http://localhost:8080/",
-  "now-build": "react-scripts build && mv build dist"
+
 
 }
