@@ -28,15 +28,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 //const history=createBrowserHistory({forceRefresh:true});
 //const background= require('/assets/images/background.jpg')
 
-const express = require('express');
-const request = require('request');
 
-const app = express();
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 function Login(props) {
   const history = useHistory();
   const [username, setUsername] = useState();
