@@ -128,10 +128,8 @@ function UserDetails(props) {
     });
 
     axios.get(getUserBookings,yourConfig).then(res => {
-
        var json= res.data;
        setRecords(json);
-
     });
   }
 
@@ -145,18 +143,6 @@ function UserDetails(props) {
 
           });
     }
-
-
- const handleFormSubmit = event => {
-
-        const user_object = {
-           email: location.state.username,
-           fname: fname,
-           lname:lname,
-           userRole:role,
-       };
-   };
-
 
   //vax
   const [vax, setVax] = useState("Not Vaccinated");
@@ -220,7 +206,7 @@ function UserDetails(props) {
        }
 
       return (
-        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+        <div className="bg-white min-vh-100 d-flex flex-row align-items-center">
           <CContainer>
             <CRow className="justify-content-center">
               <CCol md={8}>
