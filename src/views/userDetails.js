@@ -1,5 +1,6 @@
 import React, { Component,useState } from "react";
 import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { lazy,useEffect } from 'react'
 import axios from "axios";
 import { withRouter } from 'react-router'
@@ -167,11 +168,11 @@ function UserDetails(props) {
     const form = event.currentTarget
 
     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
-     const yourConfig = {
-        headers: {
-           Authorization: "Bearer " + localStorage.getItem("authorization")
-        }
-     }
+    const yourConfig = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
     const endpoint = "http://localhost:8080/api/user/hr/new/vaccination/"+ curVax;
     var currVax =false;
     (curVax==="false") ? currVax = true : currVax = false;
@@ -189,16 +190,16 @@ function UserDetails(props) {
     };
 
     //del user
+
+    const delConfig = {
+       method: 'DELETE',
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("authorization")
+       }
+    }
      const del = async (userEmail) => {
-        var res = axios.delete("http://localhost:8080/api/bookings//hr/email/{email}",
-          {
-            params: {
-              email: userEmail
-            }
-          }, yourConfig).then(() => {
-            window.location.reload(false);
-          })
-        console.log((await res).status)
+        console.log(userEmail)
+        var res = await fetch("http://localhost:8080/api/user/hr/email/"+userEmail+"/",delConfig).then(res=>{history.push("/UserManagement")})
      }
 
      // del confirmation
@@ -230,7 +231,7 @@ function UserDetails(props) {
                         <h1 className="col-sm-4"> {fname} {lname} </h1>
                         <CFormLabel className="col-sm-6 col-form-label"></CFormLabel>
                         <CButton className="col-sm-2" color="danger"
-                          onClick={() => del(location.state.username)}>
+                          onClick={() => optionsFunction(location.state.username)}>
                           Delete
                         </CButton>
                       </CRow>
