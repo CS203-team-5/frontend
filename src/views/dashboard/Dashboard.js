@@ -102,21 +102,13 @@ const Dashboard = () => {
       const tasksFromServer = await fetchQuota()
       setQuota(tasksFromServer)
     }
-<<<<<<< HEAD
     Axios.get("http://localhost:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
-=======
-    Axios.get("https://13.250.95.101:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
 
       setWeeklyUser(res.data);
 
     });
 
-<<<<<<< HEAD
     Axios.get("http://localhost:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
-=======
-    Axios.get("https://13.250.95.101:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
 
       setWeeklyLimit(res.data);
 
@@ -136,11 +128,7 @@ const Dashboard = () => {
 
   const fetchQuota = async () => {
 
-<<<<<<< HEAD
     var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
-=======
-    var res = Axios.get("https://13.250.95.101:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
     const data = await res
     return (10 - data.data) < 0 ? 0 : 10 - data.data
   }
@@ -157,11 +145,7 @@ const Dashboard = () => {
 
 
   const fetchCnaNewsRecord = async () => {
-<<<<<<< HEAD
     const url = "http://localhost:8080/api/news/emp/cna/"
-=======
-    const url = "https://13.250.95.101:8080/api/news/emp/cna/"
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -181,11 +165,7 @@ const Dashboard = () => {
 
 
   const fetchCovidCasesRecord = async () => {
-<<<<<<< HEAD
     const url = "http://localhost:8080/api/news/emp/covidcases/"
-=======
-    const url = "https://13.250.95.101:8080/api/news/emp/covidcases/"
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -215,12 +195,7 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchVax = async () => {
     var res = ""
-<<<<<<< HEAD
     res = await fetch("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
-=======
-
-    res = await fetch("https://13.250.95.101:8080/api/user/emp/emailVax/"+localStorage.getItem("username") + "/",yourConfig)
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
     const data = await res.json()
     return data
 
@@ -247,21 +222,12 @@ const Dashboard = () => {
 
   // Fetch Tasks
 
-<<<<<<< HEAD
   const fetchChecked = async () => {
     var res = ""
     res = await fetch("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
   }
-=======
-   const fetchChecked = async () => {
-      var res = ""
-      res = await fetch("https://13.250.95.101:8080/api/dailyForm/emp/userToday/"+localStorage.getItem("username") + "/",yourConfig)
-      const data = await res.json()
-      return data
-   }
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -314,19 +280,11 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchNews = async () => {
 
-<<<<<<< HEAD
     res = await fetch('http://localhost:8080/api/news/emp/', yourConfig)
     console.log(res)
     const data = await res.json()
     console.log(data)
     return data
-=======
-      res = await fetch('http://13.250.95.101:8080/api/news/emp/', yourConfig)
-      console.log(res)
-      const data = await res.json()
-      console.log(data)
-      return data
->>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
   }
 
   return (
