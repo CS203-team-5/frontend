@@ -98,13 +98,13 @@ const Dashboard = () => {
       const tasksFromServer = await fetchQuota()
       setQuota(tasksFromServer)
     }
-    Axios.get("http://localhost:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
+    Axios.get("http://13.250.7.222:8080/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
 
       setWeeklyUser(res.data);
 
     });
 
-    Axios.get("http://localhost:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
+    Axios.get("http://13.250.7.222:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
 
       setWeeklyLimit(res.data);
 
@@ -124,7 +124,7 @@ const Dashboard = () => {
 
   const fetchQuota = async () => {
 
-    var res = Axios.get("http://localhost:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
+    var res = Axios.get("http://13.250.7.222:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res
     return (10 - data.data) < 0 ? 0 : 10 - data.data
   }
@@ -141,7 +141,7 @@ const Dashboard = () => {
 
 
   const fetchCnaNewsRecord = async () => {
-    const url = "http://localhost:8080/api/news/emp/cna/"
+    const url = "http://13.250.7.222:8080/api/news/emp/cna/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -161,7 +161,7 @@ const Dashboard = () => {
 
 
   const fetchCovidCasesRecord = async () => {
-    const url = "http://localhost:8080/api/news/emp/covidcases/"
+    const url = "http://l13.250.7.222:8080/api/news/emp/covidcases/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -192,7 +192,7 @@ const Dashboard = () => {
   const fetchVax = async () => {
     var res = ""
 
-    Axios.get("http://localhost:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
+    Axios.get("http://13.250.7.222:8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
       return res
     });
 
@@ -223,7 +223,7 @@ const Dashboard = () => {
     var res = ""
 
 
-    Axios.get("http://localhost:8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
+    Axios.get("http://13.250.7.222/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig).then(res => {
       return res
     });
 
