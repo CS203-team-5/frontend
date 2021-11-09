@@ -63,10 +63,10 @@
     "react-slick": "^0.28.1",
     "react-table": "^7.7.0",
     "redux": "4.1.1",
-
     "rollup-plugin-babel": "^4.4.0",
     "simplebar-react": "^2.3.5",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "node-sass": "^6.0.1"
   },
   "devDependencies": {
     "auto-changelog": "~2.3.0",
@@ -74,8 +74,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
     "prettier": "2.3.2",
-    "react-scripts": "^4.0.3",
-    "sass": "^1.38.0"
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -104,5 +103,4 @@
   },
   "proxy": "http://localhost:8080/",
   "now-build": "react-scripts build && mv build dist"
-
 }
