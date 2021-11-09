@@ -39,19 +39,8 @@ const history= useHistory();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
 
-
-
-//     const getCurrentUser = async function () {
-//        const currentUser = await Parse.User.current();
-//        // Update state variable holding current user
-//        setCurrentUser(currentUser);
-//        return currentUser;
-//      };
-
    const handleFormSubmit = event => {
        event.preventDefault();
-
-//       const getUser="http://localhost:8080/api/user/get/" + localStorage.getItem("username")
        const dailyForm = "http://localhost:8080/api/dailyForm/emp/new";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
