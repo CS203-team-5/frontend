@@ -26,31 +26,20 @@ class App extends Component {
 
         <React.Suspense fallback={loading}>
 
-          <Switch>
-          {localStorage.getItem("authenticated") &&
-          <>
-
-            <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
-
-          </>
+          <switch>
 
 
-          }
-            <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
-            <Route
-              exact
-              path="/register"
-              name="Register Page"
-              render={(props) => <Register {...props} />}
-            />
+            <Route exact path="/Login" name="Login Page" render={(props) => <Login {...props} />} />
+
             <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
             <Route exact path="/CheckIn" name="CheckIn" render={(props) => <CheckIn{...props} />} />
 
              <Route exact path="/ForgetPassword" name="ForgetPassword" render={(props) => <ForgetPassword{...props} />} />
               <Route exact path="/UpdatePassword" name="UpdatePassword" render={(props) => <UpdatePassword{...props} />} />
-              <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
-          </Switch>
+          <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
+
+          </switch>
         </React.Suspense>
       </BrowserRouter>
     )

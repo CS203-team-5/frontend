@@ -113,8 +113,8 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+ localStorage.getItem("username")
-    const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+  location.state.username
+    const getUser="http://localhost:8080/api/user/emp/email/" +  location.state.username
 
     axios.get(getUser,yourConfig).then(res => {
        var json= res.data;
@@ -135,7 +135,7 @@ function UserDetails(props) {
 
   const fetchFormRecords = async () => {
       var res = ""
-      const getUserForm='http://localhost:8080/api/dailyForm/user/'+ location.state.username;
+      const getUserForm='http://localhost:8080/api/dailyForm/hr/user/'+ location.state.username;
           axios.get(getUserForm,yourConfig).then(res => {
 
              var json= res.data;
@@ -153,7 +153,7 @@ function UserDetails(props) {
     event.preventDefault();
     const form = event.currentTarget
 
-    const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+    const getUser="http://localhost:8080/api/user/emp/email/" + location.state.username
     const yourConfig = {
        headers: {
           Authorization: "Bearer " + localStorage.getItem("authorization")
@@ -185,7 +185,7 @@ function UserDetails(props) {
     }
      const del = async (userEmail) => {
         console.log(userEmail)
-        var res = await fetch("http://localhost:8080/api/user/hr/email/"+userEmail+"/",delConfig).then(res=>{history.push("/UserManagement")})
+        var res = await fetch("http://localhost:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
      }
 
      // del confirmation
@@ -284,6 +284,27 @@ function UserDetails(props) {
                            ))}
                          </CTableBody>
                        </CTable>
+                        <CTable>
+                                                 <CTableHead color="dark">
+                                                   <CTableRow>
+                                                     <CTableHeaderCell scope="col" onClick={() => sorting("fid")}> Form ID <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                                                     <CTableHeaderCell scope="col" onClick={() => sorting("dateExactTime")}>Date<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                                                      <CTableHeaderCell scope="col" onClick={() => sorting("symptoms")}> Symtpoms<CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                                                       <CTableHeaderCell scope="col" onClick={() => sorting("temperature")}> Temperature <CIcon icon={icon.cilSwapVertical} size="xxxl"/></CTableHeaderCell>
+                                                   </CTableRow>
+                                                 </CTableHead>
+                                                 <CTableBody>
+                                                   {formRecords.map((formRecord) => (
+                                                     <CTableRow key={formRecord.fid}>
+                                                      <CTableHeaderCell scope="row">{formRecord.fid}</CTableHeaderCell>
+                                                       <CTableHeaderCell scope="row">{formRecord.dateExactTime}</CTableHeaderCell>
+                                                       <CTableDataCell>{formRecord.symptoms.toString()}</CTableDataCell>
+                                                       <CTableDataCell>{formRecord.temperature}</CTableDataCell>
+                                                     </CTableRow>
+                                                   ))}
+                                                 </CTableBody>
+                                               </CTable>
+
 
                     </CCardBody>
                   </CCard>

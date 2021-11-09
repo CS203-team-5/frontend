@@ -69,7 +69,7 @@ const ProfileSettings =React.lazy(() => import('./views/profileSettings'))
 const UserDetails =React.lazy(() => import('./views/userDetails'))
 const UpdatePassword=React.lazy(() => import('./views/pages/login/updatePassword'))
 const ForgetPassword=React.lazy(() => import('./views/pages/login/forgetPassword'))
-
+const Login=React.lazy(() => import('./views/pages/login/Login'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -133,7 +133,7 @@ const routes = [
   { path: '/admin/regulation', name: 'Regulation', component: Regulation, exact: true },
   { path: '/ForgetPassword', name: 'ForgetPassword', component: ForgetPassword, exact: true },
 
-
+  { path: '/Login', name: 'Login', component: Login, exact: true },
 ]
 
 export default routes
