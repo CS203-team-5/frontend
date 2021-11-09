@@ -29,7 +29,7 @@ import * as icon from '@coreui/icons';
 
 const Regulation = (props) => {
 
-  const [regulationRecords, showRegulation] = useState([])
+  const [regulationRecords, setRegulation] = useState([])
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [percentage, setPercentage] = useState()
@@ -40,7 +40,7 @@ const Regulation = (props) => {
     const getRegulation = async () => {
       const tasksFromServer = await fetchRegulation()
       console.log(tasksFromServer)
-      showRegulation(tasksFromServer)
+      setRegulation(tasksFromServer)
     }
     getRegulation()
   }, [])
@@ -72,8 +72,10 @@ const Regulation = (props) => {
       percentage: percentage
     }, yourConfig)
       .then(res => {
-        // window.location.reload(false);
-      })
+        window.location.reload(false);
+      }).catch((res) => {
+      alert(res.response.data.message)
+    })
   }
 
   //sort function
@@ -82,14 +84,14 @@ const Regulation = (props) => {
       const sorted = [...regulationRecords].sort((a, b) =>
         a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
       );
-      showRegulation(sorted);
+      setRegulation(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...regulationRecords].sort((a, b) =>
         a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
       );
-      showRegulation(sorted);
+      setRegulation(sorted);
       setOrder("ASC");
     }
   }

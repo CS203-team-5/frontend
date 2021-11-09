@@ -1,5 +1,5 @@
-import React, { useState, useEffect, lazy } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useState, useEffect, lazy} from 'react';
+import {useHistory} from 'react-router-dom';
 import Axios from 'axios';
 import {
   CAvatar,
@@ -25,8 +25,8 @@ import {
   CCarouselItem,
   CImage,
 } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle, hexToRgba } from '@coreui/utils'
+import {CChartLine} from '@coreui/react-chartjs'
+import {getStyle, hexToRgba} from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 import {
   cilCalendar,
@@ -64,12 +64,15 @@ import avatar5 from './../../assets/images/avatars/5.jpg'
 import avatar6 from './../../assets/images/avatars/6.jpg'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import {color} from "chart.js/helpers";
 
 const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
   const [quota, setQuota] = useState(1);
+  const [cnaNewsRecords, setCnaNewsRecords] = useState([])
+  const [covidCasesRecords, setCovidCasesRecords] = useState([])
   const history = useHistory();
   const [weeklyUsers, setWeeklyUser] = useState([])
   const [weeklyLimits, setWeeklyLimit] = useState([])
@@ -87,9 +90,6 @@ const Dashboard = () => {
   }
 
 
-
-
-
   useEffect(() => {
     const getQuota = async () => {
       const tasksFromServer = await fetchQuota()
@@ -100,9 +100,6 @@ const Dashboard = () => {
       setWeeklyUser(res.data);
 
     });
-
-
-
 
     Axios.get("http://localhost:8080/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
 
@@ -127,6 +124,46 @@ const Dashboard = () => {
     return (10 - data.data) < 0 ? 0 : 10 - data.data
   }
 
+  //Fetch CNA News
+  useEffect(() => {
+    const getCnaNewsRecord = async () => {
+      const tasksFromServer = await fetchCnaNewsRecord()
+      // console.log(tasksFromServer)
+      setCnaNewsRecords(tasksFromServer)
+    }
+    getCnaNewsRecord()
+  }, [])
+
+
+  const fetchCnaNewsRecord = async () => {
+    const url = "http://localhost:8080/api/news/emp/cna/"
+    const res = await fetch(url, yourConfig)
+    // console.log(res)
+    const data = await res.json()
+    // console.log(data)
+    return data
+  }
+
+  //Fetch Covid Cases
+  useEffect(() => {
+    const getCovidCasesRecord = async () => {
+      const tasksFromServer = await fetchCovidCasesRecord()
+      // console.log(tasksFromServer)
+      setCovidCasesRecords(tasksFromServer)
+    }
+    getCovidCasesRecord()
+  }, [])
+
+
+  const fetchCovidCasesRecord = async () => {
+    const url = "http://localhost:8080/api/news/emp/covidcases/"
+    const res = await fetch(url, yourConfig)
+    // console.log(res)
+    const data = await res.json()
+    // console.log(data)
+    return data
+  }
+
 
   //vax
   const [vax, setVax] = useState("Not Vaccinated");
@@ -138,8 +175,7 @@ const Dashboard = () => {
       if (vaxStatus) {
         setVax("Vaccinated");
         setVaxColor("success");
-      }
-      else {
+      } else {
         setVax("Not Vaccinated Yet");
         setVaxColor("danger");
       }
@@ -166,8 +202,7 @@ const Dashboard = () => {
       if (checkedStatus) {
         setCheck("Checked In");
         setCheckColor("success");
-      }
-      else {
+      } else {
         setCheck("Not Checked In Yet");
         setCheckColor("danger");
       }
@@ -200,31 +235,22 @@ const Dashboard = () => {
 
   const Limit = weeklyLimits;
 
-
-
-  //carousel
-  const slides = [
-    'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1607923e7e2%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1607923e7e2%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9296875%22%20y%3D%22217.75625%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-  ]
-
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
+      breakpoint: {max: 4000, min: 3000},
       items: 5
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: {max: 3000, min: 1024},
       items: 2
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: {max: 1024, min: 464},
       items: 2
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: {max: 464, min: 0},
       items: 1
     }
   };
@@ -237,25 +263,25 @@ const Dashboard = () => {
           <CWidgetStatsF
             className="mb-3"
             color="primary"
-            icon={<CIcon icon={cilCalendar} height={24} />}
+            icon={<CIcon icon={cilCalendar} height={24}/>}
             padding={false}
             title="Quota Left This Month"
-            value={quota} />
+            value={quota}/>
         </CCol>
         <CCol xs={4}>
           <CWidgetStatsF
             className="mb-3"
             color={vaxColor}
-            icon={<CIcon icon={cilShieldAlt} height={24} />}
+            icon={<CIcon icon={cilShieldAlt} height={24}/>}
             padding={false}
             title="vaccination status"
-            value={vax} />
+            value={vax}/>
         </CCol>
         <CCol xs={4}>
           <CWidgetStatsF
             className="mb-3"
             color={checkedColor}
-            icon={<CIcon icon={cilCalendarCheck} height={24} />}
+            icon={<CIcon icon={cilCalendarCheck} height={24}/>}
             padding={false}
             footer={
               <CLink
@@ -264,17 +290,27 @@ const Dashboard = () => {
                 target="_blank"
               >
                 Check In Here
-                <CIcon icon={cilArrowRight} className="float-end" width={16} />
+                <CIcon icon={cilArrowRight} className="float-end" width={16}/>
               </CLink>
             }
             title="Work From Office "
-            value={checked} />
+            value={checked}/>
         </CCol>
       </CRow>
 
       <CCard className="mb-4">
         <CCardHeader>
-          <strong sm={6} md={8}>News</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <strong sm={6} md={8}>News Top Stories</strong>
+          <strong sm={6} md={8} onClick={() => window.open("https://www.channelnewsasia.com/coronavirus-covid-19")}> (more news)</strong>
+
+          <div style={{float : 'right', paddingLeft : '5px'}}>
+          <strong sm={6} md={8}> {covidCasesRecords.cases} </strong>
+          <strong sm={6} md={8} style={{color:'#696969'}}> {covidCasesRecords.caseno} </strong>
+          <strong sm={6} md={8}> {covidCasesRecords.deaths} </strong>
+          <strong sm={6} md={8} style={{color:'#ff6370'}}> {covidCasesRecords.deathno} </strong>
+          <strong sm={6} md={8}> {covidCasesRecords.recovered} </strong>
+          <strong sm={6} md={8} style={{color:'#8ACA2B'}}> {covidCasesRecords.recoveredno} </strong>
+          </div>
         </CCardHeader>
         <CCardBody>
           <CRow>
@@ -297,62 +333,19 @@ const Dashboard = () => {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            <div>
-              <CCarousel>
-                <CCarouselItem>
-                  <img className="d-block w-100" src={slides[0]} alt="slide 1" />
-                  <CCarouselCaption className="d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                  </CCarouselCaption>
-                </CCarouselItem>
-              </CCarousel>
-            </div>
-            <div>
-              <CCarousel>
-                <CCarouselItem>
-                  <img className="d-block w-100" src={slides[2]} alt="slide 1" />
-                  <CCarouselCaption className="d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                  </CCarouselCaption>
-                </CCarouselItem>
-              </CCarousel>
-            </div>
-            <div>
-              <CCarousel>
-                <CCarouselItem>
-                  <img className="d-block w-100" src={slides[0]} alt="slide 1" />
-                  <CCarouselCaption className="d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                  </CCarouselCaption>
-                </CCarouselItem>
-              </CCarousel>
-            </div>
-            <div>
-              <CCarousel>
-                <CCarouselItem>
-                  <img className="d-block w-100" src={slides[1]} alt="slide 1" />
-                  <CCarouselCaption className="d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                  </CCarouselCaption>
-                </CCarouselItem>
-              </CCarousel>
-            </div>
-            <div>
-              <CCarousel>
-                <CCarouselItem>
-                  <img className="d-block w-100" src={slides[2]} alt="slide 1" />
-                  <CCarouselCaption className="d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                  </CCarouselCaption>
-                </CCarouselItem>
-              </CCarousel>
-            </div>
-          </Carousel>;
+            {cnaNewsRecords.map((cnaNewsRecord, index) => (
+              <div key={index}>
+                <CCarousel>
+                  <CCarouselItem>
+                    <img className="d-block w-100" src={cnaNewsRecord.src}/>
+                    <CCarouselCaption className="d-none d-md-block">
+                      <h2 onClick={() => window.open(cnaNewsRecord.href)}>{cnaNewsRecord.title}</h2>
+                    </CCarouselCaption>
+                  </CCarouselItem>
+                </CCarousel>
+              </div>
+            ))}
+          </Carousel>
 
 
         </CCardBody>
@@ -378,21 +371,21 @@ const Dashboard = () => {
 
         </CCardBody>
         <CCardFooter>
-          <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
+          <CRow xs={{cols: 1}} md={{cols: 5}} className="text-center">
             <CCol className="mb-sm-6 mb-6">
               <div className="text-medium-emphasis">Daily Visits</div>
               <strong>{weeklyLimits} Users </strong>
-              <CProgress thin className="mt-2" precision={1} color="danger" value={seven} />
+              <CProgress thin className="mt-2" precision={1} color="danger" value={seven}/>
             </CCol>
             <CCol className="mb-sm-6 mb-6">
               <div className="text-medium-emphasis">To Be Done</div>
               <strong>24.093 Users (20%)</strong>
-              <CProgress thin className="mt-2" precision={1} color="success" value={40} />
+              <CProgress thin className="mt-2" precision={1} color="success" value={40}/>
             </CCol>
           </CRow>
         </CCardFooter>
         <CChartLine
-          style={{ height: '300px', marginTop: '40px' }}
+          style={{height: '300px', marginTop: '40px'}}
           data={{
             labels: [1, 2, 3, 4, 5, "yesterday", date],
             datasets: [
