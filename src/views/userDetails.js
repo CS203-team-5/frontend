@@ -113,8 +113,8 @@ function UserDetails(props) {
   // Fetch Tasks
   const fetchRecords = async () => {
     var res = ""
-    const getUserBookings='http://localhost:8080/api/bookings/UserBookings/'+  location.state.username
-    const getUser="http://localhost:8080/api/user/emp/email/" +  location.state.username
+    const getUserBookings='https://13.250.95.101:8080/api/bookings/UserBookings/'+  location.state.username
+    const getUser="https://13.250.95.101:8080/api/user/emp/email/" +  location.state.username
 
     axios.get(getUser,yourConfig).then(res => {
        var json= res.data;
@@ -135,7 +135,7 @@ function UserDetails(props) {
 
   const fetchFormRecords = async () => {
       var res = ""
-      const getUserForm='http://localhost:8080/api/dailyForm/hr/user/'+ location.state.username;
+      const getUserForm='https://13.250.95.101:8080/api/dailyForm/hr/user/'+ location.state.username;
           axios.get(getUserForm,yourConfig).then(res => {
 
              var json= res.data;
@@ -153,13 +153,13 @@ function UserDetails(props) {
     event.preventDefault();
     const form = event.currentTarget
 
-    const getUser="http://localhost:8080/api/user/emp/email/" + location.state.username
+    const getUser="https://13.250.95.101:8080/api/user/emp/email/" + location.state.username
     const yourConfig = {
        headers: {
           Authorization: "Bearer " + localStorage.getItem("authorization")
        }
     }
-    const endpoint = "http://localhost:8080/api/user/hr/new/vaccination/"+ curVax;
+    const endpoint = "https://13.250.95.101:8080/api/user/hr/new/vaccination/"+ curVax;
     var currVax =false;
     (curVax==="false") ? currVax = true : currVax = false;
      if(vax===currVax){
@@ -185,7 +185,7 @@ function UserDetails(props) {
     }
      const del = async (userEmail) => {
         console.log(userEmail)
-        var res = await fetch("http://localhost:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
+        var res = await fetch("https://13.250.95.101:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
      }
 
      // del confirmation

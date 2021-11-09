@@ -61,7 +61,7 @@ const Records = (props) => {
   // Fetch Tasks
   const fetchRecords = async () => {
     console.log("Hello2");
-    const getUser = "http://localhost:8080/api/user/hr/";
+    const getUser = "https://13.250.95.101:8080/api/user/hr/";
 
     const yourConfig = {
       headers: {

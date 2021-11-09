@@ -34,20 +34,16 @@ function Login(props) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [authenticated, setAuthenticated]=useState(false);
-  //   const[user, setUser]= useState();
 
-
-  //     const getCurrentUser = async function () {
-  //        const currentUser = await Parse.User.current();
-  //        // Update state variable holding current user
-  //        setCurrentUser(currentUser);
-  //        return currentUser;
-  //      };
 
   const handleFormSubmit = event => {
     event.preventDefault();
 
+<<<<<<< HEAD
     const endpoint = "http://localhost:8080/authenticate";
+=======
+    const endpoint = "http://13.250.95.101:8080/authenticate";
+>>>>>>> 8d286bc80f86192957ec06835061d18adad2bbfa
 
     // const username = state.username;
     // const password = state.password;

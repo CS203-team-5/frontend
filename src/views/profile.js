@@ -42,7 +42,7 @@ function Profile(props) {
 
     const userEmail=localStorage.getItem("username");
 
-     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+     const getUser="https://13.250.95.101:8080/api/user/emp/email/" + localStorage.getItem("username")
 
      const yourConfig = {
         headers: {
@@ -72,13 +72,13 @@ function Profile(props) {
                alert("New password does not match");
                history.push("/Profile");
            }
-          const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+          const getUser="https://13.250.95.101:8080/api/user/emp/email/" + localStorage.getItem("username")
            const yourConfig = {
               headers: {
                  Authorization: "Bearer " + localStorage.getItem("authorization")
               }
            }
-          const endpoint = "http://localhost:8080/api/user/emp/new/Password/"+ firstPassword;
+          const endpoint = "https://13.250.95.101:8080/api/user/emp/new/Password/"+ firstPassword;
            const user_object = {
               email: localStorage.getItem("username"),
               fname: fname,

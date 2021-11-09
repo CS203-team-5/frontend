@@ -41,7 +41,7 @@ const history= useHistory();
 
    const handleFormSubmit = event => {
        event.preventDefault();
-       const dailyForm = "http://localhost:8080/api/dailyForm/emp/new";
+       const dailyForm = "https://13.250.95.101:8080/api/dailyForm/emp/new";
        const dateTime= new Date().toISOString().substring(0,10);
         const yourConfig = {
            headers: {
