@@ -84,6 +84,10 @@ const Dashboard = () => {
   const current = new Date();
   const [available, setAvailable] = useState();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+
+  function minusDays(days){
+    return `${current.getDate()-days}/${current.getMonth() + 1}/${current.getFullYear()}`;
+  }
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -442,7 +446,7 @@ const Dashboard = () => {
                         <CChartLine
                           style={{height: '300px', marginTop: '40px'}}
                           data={{
-                            labels: [1, 2, 3, 4, 5, "yesterday", date],
+                            labels: [minusDays(6), minusDays(5), minusDays(4), minusDays(3), minusDays(2), minusDays(1), date],
                             datasets: [
 
                               {
