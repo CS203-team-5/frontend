@@ -20,8 +20,11 @@ const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const CheckIn=React.lazy(() => import('./views/checkIn'))
 
 class App extends Component {
+
     render(){
+
     return (
+
       <BrowserRouter>
 
         <React.Suspense fallback={loading}>

@@ -185,7 +185,7 @@ function UserDetails(props) {
     }
      const del = async (userEmail) => {
         console.log(userEmail)
-        var res = await fetch("http://localhost:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
+        var res = await fetch("http://13.250.95.101:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
      }
 
      // del confirmation
