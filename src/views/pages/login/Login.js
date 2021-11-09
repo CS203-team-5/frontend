@@ -34,15 +34,7 @@ function Login(props) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [authenticated, setAuthenticated]=useState(false);
-  //   const[user, setUser]= useState();
 
-
-  //     const getCurrentUser = async function () {
-  //        const currentUser = await Parse.User.current();
-  //        // Update state variable holding current user
-  //        setCurrentUser(currentUser);
-  //        return currentUser;
-  //      };
 
   const handleFormSubmit = event => {
     event.preventDefault();
