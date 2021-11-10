@@ -39,7 +39,7 @@ function Login(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "ec2-18-140-56-69.ap-southeast-1.compute.amazonaws.com/authenticate";
+    const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/authenticate";
 
     // const username = state.username;
     // const password = state.password;

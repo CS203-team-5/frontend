@@ -102,13 +102,13 @@ const Dashboard = () => {
       const tasksFromServer = await fetchQuota()
       setQuota(tasksFromServer)
     }
-    Axios.get("ec2-18-140-56-69.ap-southeast-1.compute.amazonaws.com/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
+    Axios.get("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/dailyForm/emp/date/users/week/" + yyyy + "-" + mm + "-" + dd, yourConfig).then(res => {
 
       setWeeklyUser(res.data);
 
     });
 
-    Axios.get("ec2-18-140-56-69.ap-southeast-1.compute.amazonaws.com/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
+    Axios.get("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/regulationLimit/emp/num/" + localStorage.getItem("username"), yourConfig).then(res => {
 
       setWeeklyLimit(res.data);
 
