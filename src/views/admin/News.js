@@ -51,14 +51,14 @@ const News = (props) => {
     // Fetch Tasks
     const fetchNews = async () => {
 
-        res = await fetch('http://18.140.56.69:8080/api/news/emp/', yourConfig)
+        res = await fetch('https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/emp/', yourConfig)
         console.log(res)
         const data = await res.json()
         console.log(data)
         return data
     }
 
-    const url2 = "http://18.140.56.69:8080/api/news/hr"
+    const url2 = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/hr"
 
 
     function submit(e) {
@@ -77,7 +77,7 @@ const News = (props) => {
     }
 
     function deleteNews(nid) {
-        Axios.delete(`http://18.140.56.69:8080/api/news/hr/${nid}`, yourConfig)
+        Axios.delete('https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/hr/${nid}', yourConfig)
             .then(res => {
                 window.location.reload(false);
             })
@@ -94,7 +94,7 @@ const News = (props) => {
         setNewsId(newsRecord.nid)
     }
 
-    const url3 = "http://18.140.56.69:8080/api/news/hr/";
+    const url3 = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/hr/";
     function updateNews() {
         console.log(date);
         console.log(title);

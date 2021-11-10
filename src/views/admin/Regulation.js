@@ -53,7 +53,7 @@ const Regulation = (props) => {
 
   // Fetch Tasks
   const fetchRegulation = async () => {
-    const url = "http://18.140.56.69:8080/api/regulation/emp/limit/" + localStorage.getItem("username") + "/"
+    const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/regulation/emp/limit/" + localStorage.getItem("username") + "/"
     const res = await fetch(url, yourConfig)
     console.log(res)
     const data = await res.json()
@@ -61,7 +61,7 @@ const Regulation = (props) => {
     return data
   }
 
-  const url = "http://18.140.56.69:8080/api/regulation/hr"
+  const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/regulation/hr"
 
   //submit function for Regulations  table
   function submitRegulation(e) {

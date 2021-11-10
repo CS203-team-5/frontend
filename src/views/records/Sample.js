@@ -3,7 +3,7 @@
   ))}
 
 
-  
+
   const [bookingRecords, showRecods] = useState([
     {
       bid: 1,
@@ -35,7 +35,7 @@
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    const res = await fetch('http://18.140.56.69:8080/booking')
+    const res = await fetch('https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/8080/booking')
     const data = await res.json()
 
     return data
