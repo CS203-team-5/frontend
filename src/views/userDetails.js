@@ -165,7 +165,7 @@ function UserDetails(props) {
      if(vax===currVax){
           alert('No Changes Made')};
      const user_object = {
-        email: localStorage.getItem("username"),
+        email: location.state.username,
         fname: fname,
         lname:lname,
         vaccinated: currVax,
