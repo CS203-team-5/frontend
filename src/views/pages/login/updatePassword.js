@@ -71,7 +71,7 @@ const [validated, setValidated] = useState(false)
 
 
 
-         const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/authenticate/forget/new/"+ firstPassword;
+         const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/authenticate/forget/new/"+ firstPassword;
 
 
 
@@ -85,7 +85,7 @@ const [validated, setValidated] = useState(false)
         yourConfig).then(res => {
 
 //              localStorage.setItem("password")=
-              history.push("/Dashboard")
+              history.push("/Login")
 
 
        });
