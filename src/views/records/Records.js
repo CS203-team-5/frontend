@@ -36,7 +36,7 @@ const Records = (props) => {
   }
   const del = async (bid) => {
     console.log("Delete function: ", bid, " 12 ", yourConfig);
-    var res = Axios.delete("http://18.140.56.69:8080/api/bookings/hr/del/" + bid, yourConfig).then(() => {
+    var res = Axios.delete("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/bookings/hr/del/" + bid, yourConfig).then(() => {
       window.location.reload(false);
     })
     console.log((await res).status)

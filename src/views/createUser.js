@@ -67,7 +67,7 @@ function CreateUser(props) {
       }
     }
     history.push("/UserManagement");
-    const endpoint = "http://18.140.56.69:8080/api/user/hr/new";
+    const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/hr/new";
 
     // const username = state.username;
     // const password = state.password;

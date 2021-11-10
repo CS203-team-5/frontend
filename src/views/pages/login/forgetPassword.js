@@ -46,7 +46,7 @@ function ForgetPassword(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-         const forgetPassword="http://18.140.56.69:8080/authenticate/forget/" + username
+         const forgetPassword="https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/authenticate/forget/" + username
 
 
            axios.post(forgetPassword).then(res => {

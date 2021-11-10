@@ -47,7 +47,7 @@ function Bookings(props) {
   const fetchQuota = async () => {
     console.log("yourConfig is ", yourConfig)
     console.log("yourPassword is ", localStorage)
-    var res = Axios.get("http://18.140.56.69:8080/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
+    var res = Axios.get("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/bookings/emp/" + localStorage.getItem("username") + "/", yourConfig)
     console.log("Username is ", localStorage.getItem("username"))
     const data = await res
     console.log("Data ", data)
@@ -56,7 +56,7 @@ function Bookings(props) {
   }
 
 
-  const url = "http://18.140.56.69:8080/api/bookings/emp/"
+  const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/bookings/emp/"
   function submit(e) {
     e.preventDefault();
     setQuota(quota - 1 < 0 ? 0 : quota)

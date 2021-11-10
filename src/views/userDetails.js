@@ -159,7 +159,7 @@ function UserDetails(props) {
           Authorization: "Bearer " + localStorage.getItem("authorization")
        }
     }
-    const endpoint = "hhttps://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/hr/new/vaccination/"+ curVax;
+    const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/hr/new/vaccination/"+ curVax;
     var currVax =false;
     (curVax==="false") ? currVax = true : currVax = false;
      if(vax===currVax){
@@ -185,7 +185,7 @@ function UserDetails(props) {
     }
      const del = async (userEmail) => {
         console.log(userEmail)
-        var res = await fetch("http://18.140.56.69:8080/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
+        var res = await fetch("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/hr/email/"+ location.state.username+"/",delConfig).then(res=>{history.push("/UserManagement")})
      }
 
      // del confirmation
