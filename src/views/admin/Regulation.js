@@ -1,6 +1,7 @@
 import React, { lazy, useState, useEffect } from 'react'
 import Axios from 'axios';
 import '../../assets/css/Regulation.css'
+import '../../assets/css/News.css';
 import {
   CCard,
   CCardBody,
