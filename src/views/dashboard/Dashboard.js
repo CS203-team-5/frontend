@@ -70,7 +70,6 @@ import { color } from "chart.js/helpers";
 
 const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
-Axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const Dashboard = () => {
   const [quota, setQuota] = useState(1);

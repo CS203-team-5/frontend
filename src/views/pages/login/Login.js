@@ -1,6 +1,5 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
- axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom';
