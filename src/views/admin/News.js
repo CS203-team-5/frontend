@@ -154,7 +154,7 @@ const News = (props) => {
                     </CCardHeader>
                     <CCardBody>
                         <CTable>
-                            <CTableHead color="dark">
+                            <CTableHead color="light">
                                 <CTableRow>
                                     <CTableHeaderCell scope="col">News ID</CTableHeaderCell>
                                     <CTableHeaderCell scope="col">Date</CTableHeaderCell>

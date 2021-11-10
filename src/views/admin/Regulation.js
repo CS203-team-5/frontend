@@ -137,7 +137,7 @@ const Regulation = (props) => {
           </CCardHeader>
           <CCardBody>
             <CTable align="middle" responsive>
-              <CTableHead color="dark">
+              <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("startDate")}>Start Date</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("endDate")}>End Date</CTableHeaderCell>
