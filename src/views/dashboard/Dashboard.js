@@ -280,7 +280,7 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchNews = async () => {
 
-    res = await fetch('http://18.140.56.69:8080/api/news/emp/', yourConfig)
+    res = await fetch('https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/emp/', yourConfig)
     console.log(res)
     const data = await res.json()
     console.log(data)
