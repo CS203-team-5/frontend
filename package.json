@@ -17,7 +17,7 @@
       "url": "https://github.com/orgs/coreui/people"
     }
   ],
-  "homepage": "./login",
+  "homepage": "/",
   "copyright": "Copyright 2017-2021 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "private": true,
@@ -101,5 +101,6 @@
     "node": ">=10",
     "npm": ">=6"
   },
-  "now-build": "react-scripts build && mv build dist"
+  "now-build": "react-scripts build && mv build dist",
+  "proxy": "http://18.140.56.69:8080/"
 }
