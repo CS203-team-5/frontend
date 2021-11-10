@@ -60,7 +60,7 @@ const [validated, setValidated] = useState(false)
        setValidated(true)
 
 
-      const getUser="http://18.140.56.69:8080/api/emp/user/email/"+ localStorage.getItem("username");
+      const getUser="https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/emp/user/email/"+ localStorage.getItem("username");
       const yourConfig = {
           headers: {
              Authorization: "Bearer " + localStorage.getItem("authorization")
@@ -83,20 +83,20 @@ const [validated, setValidated] = useState(false)
 
        if(oldFirstName!=firstName){
 
-             axios.put("http://18.140.56.69:8080/api/user/fname/"+ firstName,
+             axios.put("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/fname/"+ firstName,
              user_object,
               yourConfig).then(res => { });
 
        }
        if(oldLastName!=lastName){
-             axios.put("http://18.140.56.69:8080/api/user/lname/"+ lastName,
+             axios.put("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/lname/"+ lastName,
              user_object,
               yourConfig).then(res => { });
 
        }
 
        if(oldEmail!=email){
-              axios.put("http://18.140.56.69:8080/api/user/new/email/"+ email,
+              axios.put("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/new/email/"+ email,
              user_object,
               yourConfig).then(res => { });
        }
