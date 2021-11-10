@@ -77,7 +77,7 @@ const News = (props) => {
     }
 
     function deleteNews(nid) {
-        Axios.delete('https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/hr/${nid}', yourConfig)
+        Axios.delete(`https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/hr/${nid}`, yourConfig)
             .then(res => {
                 window.location.reload(false);
             })
