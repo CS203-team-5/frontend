@@ -28,7 +28,7 @@ const AppHeaderDropdown = () => {
    const [fname, setFirstName] = useState();
    const [lname, setLastName] = useState();
 
-  const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
+  const getUser="http://18.140.56.69:8080/api/user/emp/email/" + localStorage.getItem("username")
 
    const yourConfig = {
       headers: {

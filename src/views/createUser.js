@@ -67,7 +67,7 @@ function CreateUser(props) {
       }
     }
     history.push("/UserManagement");
-    const endpoint = "https://13.250.95.101:8080/api/user/hr/new";
+    const endpoint = "http://18.140.56.69:8080/api/user/hr/new";
 
     // const username = state.username;
     // const password = state.password;
