@@ -145,7 +145,7 @@ const Dashboard = () => {
 
 
   const fetchCnaNewsRecord = async () => {
-    const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/8080/api/news/emp/cna/"
+    const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/emp/cna/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -165,7 +165,7 @@ const Dashboard = () => {
 
 
   const fetchCovidCasesRecord = async () => {
-    const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/8080/api/news/emp/covidcases/"
+    const url = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/news/emp/covidcases/"
     const res = await fetch(url, yourConfig)
     // console.log(res)
     const data = await res.json()
@@ -195,7 +195,7 @@ const Dashboard = () => {
   // Fetch Tasks
   const fetchVax = async () => {
     var res = ""
-    res = await fetch("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/8080/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
+    res = await fetch("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/emp/emailVax/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
 
@@ -224,7 +224,7 @@ const Dashboard = () => {
 
   const fetchChecked = async () => {
     var res = ""
-    res = await fetch("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/8080/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
+    res = await fetch("https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/dailyForm/emp/userToday/" + localStorage.getItem("username") + "/", yourConfig)
     const data = await res.json()
     return data
   }
