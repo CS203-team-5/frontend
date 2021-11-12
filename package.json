@@ -101,6 +101,5 @@
     "node": ">=10",
     "npm": ">=6"
   },
-  "now-build": "react-scripts build && mv build dist",
-  "proxy": "http://18.140.56.69:8080/"
+  "now-build": "react-scripts build && mv build dist"
 }

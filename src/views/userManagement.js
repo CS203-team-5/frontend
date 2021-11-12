@@ -61,7 +61,7 @@ const Records = (props) => {
   // Fetch Tasks
   const fetchRecords = async () => {
     console.log("Hello2");
-    const getUser = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/hr/";
+    const getUser = "http://localhost:8080/api/user/hr/";
 
     const yourConfig = {
       headers: {

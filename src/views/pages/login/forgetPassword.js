@@ -46,12 +46,14 @@ function ForgetPassword(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-         const forgetPassword="https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/authenticate/forget/" + username
+         const forgetPassword="http://localhost:8080/authenticate/forget/" + username
 
 
            axios.post(forgetPassword).then(res => {
               alert("Email sent for the update of password")
-
+           }).catch((err)=>{
+             console.log(err)
+             alert("Please ask your admin to register you!")
            });
 
 

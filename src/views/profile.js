@@ -42,7 +42,7 @@ function Profile(props) {
 
     const userEmail=localStorage.getItem("username");
 
-     const getUser="https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/emp/email/" + localStorage.getItem("username")
+     const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
 
      const yourConfig = {
         headers: {
@@ -72,13 +72,13 @@ function Profile(props) {
                alert("New password does not match");
                history.push("/Profile");
            }
-          const getUser="https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/emp/email/" + localStorage.getItem("username")
+          const getUser="http://localhost:8080/api/user/emp/email/" + localStorage.getItem("username")
            const yourConfig = {
               headers: {
                  Authorization: "Bearer " + localStorage.getItem("authorization")
               }
            }
-          const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/api/user/emp/new/Password/"+ firstPassword;
+          const endpoint = "http://localhost:8080/api/user/emp/new/Password/"+ firstPassword;
            const user_object = {
               email: localStorage.getItem("username"),
               fname: fname,

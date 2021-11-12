@@ -35,7 +35,7 @@
 
   // Fetch Tasks
   const fetchRecords = async () => {
-    const res = await fetch('http://18.140.56.69:8080/booking')
+    const res = await fetch('http://localhost:8080/booking')
     const data = await res.json()
 
     return data

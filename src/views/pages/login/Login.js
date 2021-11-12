@@ -39,7 +39,7 @@ function Login(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "https://hkm9n2b8s0.execute-api.ap-southeast-1.amazonaws.com/authenticate";
+    const endpoint = "http://localhost:8080/authenticate";
 
     // const username = state.username;
     // const password = state.password;
