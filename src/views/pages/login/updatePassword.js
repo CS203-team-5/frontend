@@ -85,7 +85,7 @@ const [validated, setValidated] = useState(false)
         yourConfig).then(res => {
 
 //              localStorage.setItem("password")=
-              history.push("/Dashboard")
+              history.push("/Login")
 
 
        });

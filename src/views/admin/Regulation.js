@@ -1,6 +1,7 @@
 import React, { lazy, useState, useEffect } from 'react'
 import Axios from 'axios';
 import '../../assets/css/Regulation.css'
+import '../../assets/css/News.css';
 import {
   CCard,
   CCardBody,
@@ -136,7 +137,7 @@ const Regulation = (props) => {
           </CCardHeader>
           <CCardBody>
             <CTable align="middle" responsive>
-              <CTableHead color="dark">
+              <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("startDate")}>Start Date</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("endDate")}>End Date</CTableHeaderCell>
