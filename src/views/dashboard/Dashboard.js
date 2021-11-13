@@ -335,13 +335,14 @@ const Dashboard = () => {
         <CRow>
           <CCol xs={8}>
             <CCard className="mb-4">
-
               <CCardHeader>
-                <strong sm={6} md={8}>News Top Stories</strong>
-                <strong sm={6} md={8}
-                  onClick={() => window.open("https://www.channelnewsasia.com/coronavirus-covid-19")}> (more
-                  news)</strong>
-
+                <strong sm={6} md={8}>News Top Stories </strong>
+                <CLink
+                  className="font-weight-bold font-xs text-medium-emphasis"
+                  href="https://www.channelnewsasia.com/coronavirus-covid-19"
+                  target="_blank"
+                >(More News)
+                </CLink>
                 <div style={{ float: 'right', paddingLeft: '5px' }}>
                   <strong sm={6} md={8}> {covidCasesRecords.cases} </strong>
                   <strong sm={6} md={8} style={{ color: '#696969' }}> {covidCasesRecords.caseno} </strong>

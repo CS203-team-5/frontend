@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Calendar from 'react-calendar';
 import pict from './../../assets/images/calender/calendar_icon.png'
 import '../../assets/css/Calendar.css';
@@ -57,6 +57,7 @@ function Bookings(props) {
 
 
   const url = "http://localhost:8080/api/bookings/emp/"
+
   function submit(e) {
     e.preventDefault();
     setQuota(quota - 1 < 0 ? 0 : quota)
@@ -75,74 +76,67 @@ function Bookings(props) {
       alert(res.response.data.message)
     })
   }
+
   return (
 
     <CRow>
       <CCol xs>
         <CCard className="mb-4">
-
-
-                      <CCardHeader>
-                                  <strong sm={6} md={8}>Bookings</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                      </CCardHeader>
-
-                       <div className="small text-medium-emphasis"> </div>
-
-
-
+          <CCardHeader>
+            <strong sm={6} md={8}>Bookings</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </CCardHeader>
+          <div className="small text-medium-emphasis"></div>
           <CCardBody>
-
+            <CCol>
+              <div className="react-calendar">
+                <Calendar
+                  onChange={setDate}
+                  showNeighboringMonth={false}
+                  minDate={new Date()}
+                  value={date}
+                />
+              </div>
+            </CCol>
+            <CRow>
               <CCol>
-                <div className="react-calendar">
-                  <Calendar
-                    onChange={setDate}
-                    showNeighboringMonth={false}
-                    minDate={new Date()}
-                    value={date}
-                  />
-                </div>
-              </CCol>
-    <CRow>
-              <CCol >
-               <CCardBody>
-                <CForm onSubmit={(e) => submit(e)}>
+                <CCardBody>
+                  <CForm onSubmit={(e) => submit(e)}>
 
-                   <CRow className="mb-3">
-                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
-                    <CCol sm={8}>
-                      <CFormInput value={quota} disabled="disabled" />
+                    <CRow className="mb-3">
+                      <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Quota Left </CFormLabel>
+                      <CCol sm={8}>
+                        <CFormInput value={quota} disabled="disabled"/>
 
-                    </CCol>
-                  </CRow>
-                  <CRow className="mb-3">
-                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
-                    <CCol sm={8}>
-                      <CFormInput type="email" id="b_email" value={localStorage.getItem("username")}/*onChange={event => setEmail(event.target.value)}*/
-                        placeholder="Enter your email" disabled="disabled" />
+                      </CCol>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Email </CFormLabel>
+                      <CCol sm={8}>
+                        <CFormInput type="email" id="b_email"
+                                    value={localStorage.getItem("username")}/*onChange={event => setEmail(event.target.value)}*/
+                                    placeholder="Enter your email" disabled="disabled"/>
+                      </CCol>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
+                      <CCol sm={8}>
+                        <CFormInput type="string" id="b_date"
 
-                    </CCol>
-                  </CRow>
-                  <CRow className="mb-3">
-                    <CFormLabel htmlFor="inputEmail3" className="col-sm-4 col-form-label"> Date Selected </CFormLabel>
-                    <CCol sm={8}>
-                      <CFormInput type="string" id="b_date"
+                          // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
+                                    value={date.toLocaleString(locale, options)}
+                          // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
 
-                        // value={date.getDate(locale, options) +"/"+ date.getMonth(locale, options)+"/"+date.getFullYear(locale, options)}
-                        value={date.toLocaleString(locale, options)}
-                        // value={date.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })}
-
-                        onChange={setDate} placeholder="b_date" disabled="disabled" />
-                    </CCol>
-                  </CRow>
-                  <CButton type="submit"> Submit </CButton>
-                </CForm>
+                                    onChange={setDate} placeholder="b_date" disabled="disabled"/>
+                      </CCol>
+                    </CRow>
+                    <CButton type="submit"> Submit </CButton>
+                  </CForm>
                 </CCardBody>
               </CCol>
-              </CRow>
+            </CRow>
 
 
-            <br />
+            <br/>
 
           </CCardBody>
         </CCard>

@@ -139,8 +139,8 @@ const Regulation = (props) => {
             <CTable align="middle" responsive>
               <CTableHead color="light">
                 <CTableRow>
-                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("startDate")}>Start Date</CTableHeaderCell>
-                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("endDate")}>End Date</CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("startDate")}>Start Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
+                  <CTableHeaderCell align="middle" scope="col" onClick={() => sorting("endDate")}>End Date &nbsp;&nbsp; <CIcon icon={icon.cilSwapVertical} size="xxxl" /></CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Percentage (%)</CTableHeaderCell>
                   <CTableHeaderCell align="middle" scope="col">Daily Limit No.</CTableHeaderCell>
                 </CTableRow>
